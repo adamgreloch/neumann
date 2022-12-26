@@ -1,0 +1,24 @@
+<%= bootstrap_form_with(model: game, layout: :horizontal) do |f| %>
+
+  <% if game.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+        <% game.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.text_field :title %>
+  <%= f.number_field :bgg_id %>
+  <%= f.text_area :description %>
+  <%= f.text_field :release_year %>
+  <%= f.text_field :bgg_rating %>
+  <%= f.text_field :bgg_rated_count %>
+  <%= f.text_field :bgg_ranking %>
+  <%= f.submit %>
+
+<% end %>

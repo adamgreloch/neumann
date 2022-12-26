@@ -75,3 +75,8 @@ group :test do
 end
 
 gem "foreman"
+
+gem "bootstrap_form", "~> 5.1"
+
+gem "devise"
+

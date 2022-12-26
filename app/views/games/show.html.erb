@@ -1,0 +1,20 @@
+<%= render @game %>
+
+<div>
+  <h1><%= @game.title %>
+  </h1>
+
+  <p>
+    <b>BGG:</b>
+    <a href="https://boardgamegeek.com/boardgame/<%= @game.bgg_id %>">
+      <%= @game.bgg_id %>
+    </a>
+  </p>
+
+  <p><%= @game.description %></p>
+
+  <%= link_to "Edit this game", edit_game_path(@game) %> |
+  <%= link_to "Back to games", games_path %>
+
+  <%= button_to "Destroy this game", @game, method: :delete %>
+</div>
