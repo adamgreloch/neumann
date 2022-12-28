@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>game_copies</h1>
+
+<div id="game_copies">
+  <% @game_copies.each do |game_copy| %>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <p><%= link_to game_copy.title, game_copy %></p>
+      </li>
+    </ul>
+  <% end %>
+</div>
+
+<%= link_to "New game_copy", new_game_copy_path %>

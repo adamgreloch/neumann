@@ -65,6 +65,6 @@ class RentalRequestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rental_request_params
-      params.fetch(:rental_request, {})
+      params.require(:rental_request).permit(:submitter_id, :rental_start, :rental_end, :games_to_rent => [])
     end
 end

@@ -1,17 +1,27 @@
 <%= render @game %>
 
+<!-- TODO add pagination (10.3.3)-->
+
 <div>
-  <h1><%= @game.title %>
-  </h1>
-
-  <p>
-    <b>BGG:</b>
-    <a href="https://boardgamegeek.com/boardgame/<%= @game.bgg_id %>">
-      <%= @game.bgg_id %>
-    </a>
-  </p>
-
-  <p><%= @game.description %></p>
+  <div class="container">
+  <div class="row">
+    <div class="col-4">
+      <%= image_tag(@game.boxart_url, class: "img-thumbnail") %>
+    </div>
+    <div class="col">
+      <h1><%= @game.title %></h1>
+      <span class="badge bg-secondary">BGG rating: <%= @game.bgg_rating %></span>
+      <span class="badge bg-dark">MIMUW rating: 4.2</span>
+      <p class="mt-2"><%= @game.description %></p>
+      <div class="btn-group" role="group">
+          <%= link_to "Request rental", new_rental_request_path, type: 'button', class: "btn btn-primary"%>
+          <%= link_to "Submit your copy", games_path, type: 'button', class: "btn btn-outline-primary"%>
+          <%= link_to "Review", games_path, type: 'button', class: "btn btn-outline-primary"%>
+          <%= link_to "Show on BGG", "https://boardgamegeek.com/boardgame/#{@game.bgg_id}", type: 'button', class: "btn btn-outline-primary"%>
+      </div>
+    </div>
+  </div>
+  </div>
 
   <%= link_to "Edit this game", edit_game_path(@game) %> |
   <%= link_to "Back to games", games_path %>

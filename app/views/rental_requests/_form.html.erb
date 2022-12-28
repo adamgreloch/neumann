@@ -1,0 +1,12 @@
+<%= bootstrap_form_with(model: rental_request, layout: :horizontal) do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
+
+  <%= f.date_field :rental_start, required: true %>
+  <%= f.date_field :rental_end, required: true %>
+
+  <%= f.collection_check_boxes :games_to_rent, Game.order(:title), :id, :title %>
+
+  <%= f.hidden_field :submitter_id, value: current_user.id %>
+
+  <%= f.submit %>
+<% end %>

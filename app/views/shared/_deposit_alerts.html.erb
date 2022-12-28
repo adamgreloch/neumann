@@ -1,0 +1,15 @@
+<% if user_signed_in? %>
+<% if current_user.deposit_to_pay? %>
+  <div class="alert alert-info">
+    You have unmet deposit requirements. In order to use Neumann system,
+    you are required to make a deposit of <%= current_user.deposit_amount %>.
+  </div>
+<% end %>
+
+<% if current_user.deposit_deducted? %>
+  <div class="alert alert-danger">
+    Your deposit has been deducted <%= current_user.deposit_deducted %> as a result of misbehaviour. Your account is
+    locked. Consider asking your nearest force majeure for details.
+  </div>
+<% end %>
+<% end %>

@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Source</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Source</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-  </head>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+</head>
 
-  <body>
-    <div class="col-lg-8 mx-auto p-4 py-md-5">
-      <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-        <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-          <span class="fs-4">Neumann</span>
-        </a>
-      </header>
-      <% flash.each do |type, msg| %>
-        <!-- TODO extend based on types-->
-        <div class="alert alert-info">
-          <%= msg %>
-        </div>
-      <% end %>
-      <main>
-        <%= yield %>
-      </main>
+<body>
+<%= render 'layouts/navbar' %>
+
+<div class="col-lg-8 mx-auto pt-4">
+  <% flash.each do |type, msg| %>
+    <!-- TODO extend based on types-->
+    <div class="alert alert-info">
+      <%= msg %>
     </div>
-  </body>
+  <% end %>
+  <%= render 'shared/deposit_alerts' %>
+  <main>
+    <%= yield %>
+  </main>
+
+  <% if Rails.env.development? %>
+    <br>
+    <%= debug(params) %>
+  <% end %>
+</div>
+</body>
+
+
 </html>

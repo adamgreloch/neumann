@@ -9,4 +9,6 @@ Rails.application.routes.draw do
 
   resources :users
   resources :games
+  resources :game_copies
+  resources :rental_requests
 end

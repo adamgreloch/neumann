@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_26_210522) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_28_112454) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,6 +35,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_210522) do
     t.integer "bgg_ranking", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "boxart_url"
+  end
+
+  create_table "games_per_requests", force: :cascade do |t|
+    t.bigint "rental_request_id"
+    t.bigint "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_games_per_requests_on_game_id"
+    t.index ["rental_request_id"], name: "index_games_per_requests_on_rental_request_id"
   end
 
   create_table "meetings", force: :cascade do |t|
@@ -45,6 +55,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_210522) do
   create_table "rental_requests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "submitter_id"
+    t.string "status", null: false
+    t.date "rental_start", null: false
+    t.date "rental_end", null: false
+    t.index ["submitter_id"], name: "index_rental_requests_on_submitter_id"
   end
 
   create_table "rentals", force: :cascade do |t|
@@ -85,6 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_210522) do
 
   add_foreign_key "game_copies", "games", column: "realizes_id"
   add_foreign_key "game_copies", "users", column: "owner_id"
+  add_foreign_key "rental_requests", "users", column: "submitter_id"
   add_foreign_key "user_opinions", "users", column: "opinion_about_id"
   add_foreign_key "user_opinions", "users", column: "opinion_by_id"
 end

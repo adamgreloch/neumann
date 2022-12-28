@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
-  # before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+
+  def index
+    @users = User.all
+  end
+
+  def show
+  end
 
 =begin
   # GET /users or /users.json
@@ -62,6 +69,7 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+=end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -73,5 +81,4 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password)
     end
-=end
 end

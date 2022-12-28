@@ -1,2 +1,15 @@
+$primary: #484033;
+//$secondary: #a7b596;
+$secondary: #9D9180;
+$danger: #9B5B42;
+$success: #364840;
+$warning: orange;
+$info: #AC94A3;
+
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+label.required:after {
+  color: #b79d8a;
+  content:" *";
+}

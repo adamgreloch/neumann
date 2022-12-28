@@ -6,7 +6,14 @@
   <% @users.each do |user| %>
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        <p><%= link_to user.name, user %></p>
+        <div class="row">
+          <div class="col-2">
+            <%= identicon_for user %>
+          </div>
+          <div class="col-auto">
+            <%= link_to user.name, user%>
+          </div>
+        </div>
       </li>
     </ul>
   <% end %>
