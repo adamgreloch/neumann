@@ -1,0 +1,44 @@
+<%= render @rental_request %>
+
+<!-- TODO add pagination (10.3.3)-->
+<!-- TODO get rid of find_by_id in view -->
+
+<div>
+  <div class="container">
+    <% sub = submitter %>
+    <h2>Request #<%= @rental_request.id %></h2>
+    <h3>Submitter</h3>
+    <div class="row mb-3">
+      <div class="col-2">
+        <%= identicon_for sub %>
+      </div>
+      <div class="col-auto">
+        <h1><%= sub.name %></h1>
+        <span class="badge bg-secondary">activity: <%= sub.activity %></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h3>Wants</h3>
+        <% @rental_request.query_wanted_games.each do |query| %>
+          <p>
+            <%= query.game.title %>
+          </p>
+        <% end %>
+      </div>
+      <div class="col">
+        <h3>Offers in return</h3>
+        <% @rental_request.query_offered_games.each do |query| %>
+          <p>
+            <%= query.game.title %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+    <div class="btn-group" role="group">
+      <%= link_to "Accept request", root_url, type: 'button', class: "btn btn-primary"%>
+      <%= link_to "Create a copy", root_url, type: 'button', class: "btn btn-outline-primary"%>
+    </div>
+  </div>
+</div>
+

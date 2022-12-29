@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   get "home/index"
   root to: "home#index"
 
+  devise_scope :user do
+    get "logout" => "devise/sessions#destroy", :as => "logout"
+  end
+
   resources :users
   resources :games
   resources :game_copies

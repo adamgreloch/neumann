@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_28_112454) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_29_173926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,18 +38,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_112454) do
     t.text "boxart_url"
   end
 
-  create_table "games_per_requests", force: :cascade do |t|
+  create_table "meetings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "offered_per_requests", force: :cascade do |t|
     t.bigint "rental_request_id"
     t.bigint "game_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["game_id"], name: "index_games_per_requests_on_game_id"
-    t.index ["rental_request_id"], name: "index_games_per_requests_on_rental_request_id"
-  end
-
-  create_table "meetings", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_offered_per_requests_on_game_id"
+    t.index ["rental_request_id"], name: "index_offered_per_requests_on_rental_request_id"
   end
 
   create_table "rental_requests", force: :cascade do |t|
@@ -98,9 +98,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_112454) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "wanted_per_requests", force: :cascade do |t|
+    t.bigint "rental_request_id"
+    t.bigint "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_wanted_per_requests_on_game_id"
+    t.index ["rental_request_id"], name: "index_wanted_per_requests_on_rental_request_id"
+  end
+
   add_foreign_key "game_copies", "games", column: "realizes_id"
   add_foreign_key "game_copies", "users", column: "owner_id"
+  add_foreign_key "offered_per_requests", "games"
+  add_foreign_key "offered_per_requests", "rental_requests"
   add_foreign_key "rental_requests", "users", column: "submitter_id"
   add_foreign_key "user_opinions", "users", column: "opinion_about_id"
   add_foreign_key "user_opinions", "users", column: "opinion_by_id"
+  add_foreign_key "wanted_per_requests", "games"
+  add_foreign_key "wanted_per_requests", "rental_requests"
 end

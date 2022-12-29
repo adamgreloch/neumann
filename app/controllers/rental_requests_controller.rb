@@ -1,5 +1,6 @@
 class RentalRequestsController < ApplicationController
   before_action :set_rental_request, only: %i[ show edit update destroy ]
+  helper_method :submitter, :query_wanted_games, :query_offered_games
 
   # GET /rental_requests or /rental_requests.json
   def index
@@ -57,6 +58,10 @@ class RentalRequestsController < ApplicationController
     end
   end
 
+  def submitter
+    User.find(@rental_request.submitter_id)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_rental_request
@@ -65,6 +70,7 @@ class RentalRequestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rental_request_params
-      params.require(:rental_request).permit(:submitter_id, :rental_start, :rental_end, :games_to_rent => [])
+      params.require(:rental_request).permit(:submitter_id, :rental_start, :rental_end, :wanted_games => [],
+                                             :offered_games => [])
     end
 end

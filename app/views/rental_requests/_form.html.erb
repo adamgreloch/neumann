@@ -4,7 +4,8 @@
   <%= f.date_field :rental_start, required: true %>
   <%= f.date_field :rental_end, required: true %>
 
-  <%= f.collection_check_boxes :games_to_rent, Game.order(:title), :id, :title %>
+  <%= f.collection_check_boxes :wanted_games, Game.order(:title), :id, :title %>
+  <%= f.collection_check_boxes :offered_games, Game.order(:title), :id, :title %>
 
   <%= f.hidden_field :submitter_id, value: current_user.id %>
 

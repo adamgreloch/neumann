@@ -15,7 +15,7 @@
           <%= link_to "Library", root_path, class: "nav-link active" %>
         </li>
         <li>
-          <%= link_to "Requests", root_path, class: "nav-link active" %>
+          <%= link_to "Requests", rental_requests_url, class: "nav-link active" %>
         </li>
         <li>
           <%= link_to "Games", games_path, class: "nav-link active" %>
@@ -34,7 +34,7 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="#">Log out</a></li>
+              <li><%= link_to "Sign out", logout_path, class: "dropdown-item" %></li>
             </ul>
           <% else %>
             <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
