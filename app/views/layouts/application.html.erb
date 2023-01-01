@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>Source</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -10,27 +10,26 @@
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 </head>
 
-<body>
+
+
+<body class="d-flex flex-column min-vh-100">
 <%= render 'layouts/navbar' %>
 
-<div class="col-lg-8 mx-auto pt-4">
-  <% flash.each do |type, msg| %>
-    <!-- TODO extend based on types-->
-    <div class="alert alert-info">
-      <%= msg %>
-    </div>
-  <% end %>
-  <%= render 'shared/deposit_alerts' %>
-  <main>
+<main>
+  <div class="col-lg-8 mx-auto p-4">
+    <% flash.each do |type, msg| %>
+      <!-- TODO extend based on types-->
+      <div class="alert alert-info">
+        <%= msg %>
+      </div>
+    <% end %>
+    <%= render 'shared/deposit_alerts' %>
+
     <%= yield %>
-  </main>
+  </div>
+</main>
 
-  <% if Rails.env.development? %>
-    <br>
-    <%= debug(params) %>
-  <% end %>
-</div>
+<%= render 'layouts/footer' %>
+
 </body>
-
-
 </html>

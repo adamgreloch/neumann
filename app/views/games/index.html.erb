@@ -2,21 +2,32 @@
 
 <h1>Games</h1>
 
-<div id="games">
-  <ul class="list-group list-group-flush">
-    <% @games.each do |game| %>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div class="row">
-          <div class="col-3">
-            <%= image_tag(game.boxart_url, class: "img-thumbnail") %>
-          </div>
-          <div class="col">
-            <p><%= link_to game.title, game %></p>
-          </div>
-        </div>
-      </li>
-  <% end %>
-  </ul>
+<div id="games" class="mt-4">
+  <%= will_paginate @games, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Rating</th>
+      <th scope="col">Weight</th>
+      <th scope="col">MIMUW rating</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @games.order(bgg_rating: :desc).each do |game| %>
+    <tr>
+      <th scope="row"><%= game.bgg_id %></th>
+      <td>
+        <%= image_tag(game.thumbnail_url, class: "img-thumbnail flex-shrink-0", height: 20, width: 70) %>
+        <b class="ms-md-2"><%= link_to game.title, game %></b></td>
+      <td><%= game.bgg_rating %>/10</td>
+      <td><%= game.bgg_weight %>/5</td>
+      <td>4.2/10</td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
 </div>
 
 <%= link_to "New game", new_game_path %>

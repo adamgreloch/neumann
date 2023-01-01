@@ -3,11 +3,31 @@ class CreateGames < ActiveRecord::Migration[7.0]
     create_table :games do |t|
       t.integer :bgg_id, null: false
       t.string :title, null: false
+
+      t.integer :year_published
+
+      t.integer :bgg_rating
+      t.integer :bgg_rating_num
+
+      t.integer :bgg_ranking
+
+      t.string :categories
+      t.string :mechanics
+
+      t.integer :bgg_weight
+
+      t.integer :playing_time
+
+      t.integer :min_players
+      t.integer :max_players
+
+      t.text :thumbnail_url
+      t.text :image_url
+
       t.text :description
-      t.integer :release_year, null: false
-      t.decimal :bgg_rating, null: false
-      t.integer :bgg_rated_count, null: false
-      t.integer :bgg_ranking, null: false
+
+      t.string :designer
+      t.string :publisher
 
       t.timestamps
     end

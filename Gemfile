@@ -82,3 +82,10 @@ gem "devise"
 
 gem 'ruby_identicon'
 
+gem 'yaml_db'
+
+gem 'smarter_csv'
+
+gem 'will_paginate'
+
+gem 'will_paginate-bootstrap-style'

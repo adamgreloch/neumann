@@ -1,6 +1,7 @@
 class RentalRequestsController < ApplicationController
   before_action :set_rental_request, only: %i[ show edit update destroy ]
   helper_method :submitter, :query_wanted_games, :query_offered_games
+  before_action :authenticate_user!
 
   # GET /rental_requests or /rental_requests.json
   def index

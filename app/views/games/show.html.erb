@@ -2,29 +2,88 @@
 
 <!-- TODO add pagination (10.3.3)-->
 
-<div>
-  <div class="container">
+<div class="container">
   <div class="row">
-    <div class="col-4">
-      <%= image_tag(@game.boxart_url, class: "img-thumbnail") %>
+    <div class="col-6 col-md-4">
+      <%= image_tag(@game.image_url, class: "img-thumbnail") %>
     </div>
-    <div class="col">
-      <h1><%= @game.title %></h1>
-      <span class="badge bg-secondary">BGG rating: <%= @game.bgg_rating %></span>
-      <span class="badge bg-dark">MIMUW rating: 4.2</span>
-      <p class="mt-2"><%= @game.description %></p>
-      <div class="btn-group" role="group">
-          <%= link_to "Request rental", new_rental_request_path, type: 'button', class: "btn btn-primary"%>
-          <%= link_to "Submit your copy", games_path, type: 'button', class: "btn btn-outline-primary"%>
-          <%= link_to "Review", games_path, type: 'button', class: "btn btn-outline-primary"%>
-          <%= link_to "Show on BGG", "https://boardgamegeek.com/boardgame/#{@game.bgg_id}", type: 'button', class: "btn btn-outline-primary"%>
+    <div class="col-md">
+      <h2><%= @game.title %></h2>
+      <span class="badge bg-secondary">BGG:
+        <%= @game.bgg_rating %>/10 (<%= ActiveSupport::Inflector.ordinalize @game.bgg_ranking %>)
+        </span>
+      <span class="badge bg-success">Weight:
+        <%= @game.bgg_weight %>/5</span>
+      <span class="badge bg-dark">MIMUW:
+          4.2/10 (32)</span>
+
+      <div class="d-grid gap-0 d-md-block my-3" role="group">
+        <button class="btn btn-primary btn-sm" href=<%= new_rental_request_path %>>
+          <i class="bi bi-calendar me-1"></i>
+          Request rental
+        </button>
+        <button class="btn btn-outline-primary btn-sm" href=<%= games_path %>>
+          <i class="bi bi-box-seam me-1"></i>
+          Submit your copy
+        </button>
+        <button class="btn btn-outline-primary btn-sm" href=<%= games_path %>>
+          <i class="bi bi-clipboard-check me-1"></i>
+          Review
+        </button>
+        <%#= link_to "Request rental", new_rental_request_path, type: 'button', class: "btn btn-primary btn-sm" %>
+        <%#= link_to "Submit your copy", games_path, type: 'button', class: "btn btn-outline-primary btn-sm" %>
+        <%#= link_to "Review", games_path, type: 'button', class: "btn btn-outline-primary btn-sm" %>
+        <%= link_to "Show on BGG", "https://boardgamegeek.com/boardgame/#{@game.bgg_id}", type: 'button', class: "btn btn-outline-primary btn-sm" %>
+      </div>
+
+      <div class="text-bg-light rounded border border-primary p-2">
+
+      <ul class="nav nav-pills nav-fill text-bg-light rounded " id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Details</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="description-tab" data-bs-toggle="tab" data-bs-target="#description-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Description</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Copies</button>
+        </li>
+      </ul>
+      <div class="tab-content mt-2" id="myTabContent">
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+          <ul class="list-unstyled mb-1">
+            <% if @game.categories? %>
+            <li><b>Categories:</b>
+              <%= @game.categories.split(';').to_sentence %>
+            </li>
+            <% end %>
+            <li><b>Mechanics:</b>
+              <%= @game.mechanics.split(';').to_sentence %>
+            </li>
+            <li><b>Players:</b>
+              <% if @game.min_players == @game.max_players %>
+                <%= @game.min_players %>
+              <% else %>
+                <%= @game.min_players %>-<%= @game.max_players %>
+              <% end %>
+            </li>
+            <li><b>Playing time:</b> <%= @game.playing_time %> min</li>
+            <li><b>Designer:</b> <%= @game.designer %></li>
+            <li><b>Publisher:</b> <%= @game.publisher %>, <%= @game.year_published %></li>
+          </ul>
+        </div>
+        <div class="tab-pane fade" id="description-tab-pane" role="tabpanel" aria-labelledby="description-tab" tabindex="0">
+          <p class="m-2"><%= @game.description %></p>
+        </div>
+        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...bb</div>
+        <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
+      </div>
       </div>
     </div>
   </div>
-  </div>
 
-  <%= link_to "Edit this game", edit_game_path(@game) %> |
-  <%= link_to "Back to games", games_path %>
+  <!--  <%#= link_to "Edit this game", edit_game_path(@game) %> |-->
+  <%#= link_to "Back to games", games_path %>
 
-  <%= button_to "Destroy this game", @game, method: :delete %>
+  <%#= button_to "Destroy this game", @game, method: :delete %>
 </div>

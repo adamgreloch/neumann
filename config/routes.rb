@@ -9,10 +9,10 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get "logout" => "devise/sessions#destroy", :as => "logout"
+    resources :game_copies
+    resources :rental_requests
+    resources :users
   end
 
-  resources :users
   resources :games
-  resources :game_copies
-  resources :rental_requests
 end

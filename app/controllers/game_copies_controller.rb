@@ -1,5 +1,6 @@
 class GameCopiesController < ApplicationController
   before_action :set_game_copy, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /game_copies or /game_copies.json
   def index

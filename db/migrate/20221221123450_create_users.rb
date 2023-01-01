@@ -4,9 +4,9 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :name, index: true, null: false
       t.text :description
 
-      t.decimal :deposit_amount, null: false
-      t.decimal :deposit_paid, null: false, default: 0
-      t.decimal :deposit_deducted, null: false, default: 0
+      t.integer :deposit_amount, null: false
+      t.integer :deposit_paid, null: false, default: 0
+      t.integer :deposit_deducted, null: false, default: 0
 
       t.integer :activity
 
