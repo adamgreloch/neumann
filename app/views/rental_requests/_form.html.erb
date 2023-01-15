@@ -4,10 +4,10 @@
   <%= f.date_field :rental_start, required: true %>
   <%= f.date_field :rental_end, required: true %>
 
-  <%= f.collection_check_boxes :wanted_games, Game.order(:title), :id, :title %>
-  <%= f.collection_check_boxes :offered_games, Game.order(:title), :id, :title %>
+<%#= f.collection_check_boxes :wanted_games, Game.order(:title), :id, :title, { data: { target: "filter.filterable" } } %>
+<%#= f.collection_check_boxes :offered_games, Game.order(:title), :id, :title %>
 
   <%= f.hidden_field :submitter_id, value: current_user.id %>
 
-  <%= f.submit %>
+<%= f.submit "Open request"%>
 <% end %>

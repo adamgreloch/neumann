@@ -1,0 +1,13 @@
+<% if user_signed_in? && current_user.has_request_open? %>
+  <% @request = RentalRequest.find(current_user.rental_request_id) %>
+
+  <%= bootstrap_form_with model: @request.wanted_per_requests.find_by(rental_request: @request),
+  html: {method: :delete } do |f| %>
+    <%= hidden_field_tag :rental_request_id, current_user.rental_request_id %>
+    <%= hidden_field_tag :game_id, @game.id %>
+    <%= f.button class: "btn btn-outline-primary btn-sm" do %>
+      <i class="bi bi-circle-fill me-1"></i>
+      Un-want
+    <% end %>
+  <% end %>
+<% end %>

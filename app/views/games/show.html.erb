@@ -17,9 +17,12 @@
       <span class="badge bg-dark">MIMUW: 4.2/10 (32)</span>
 
       <div class="d-grid gap-0 d-md-block my-3" role="group">
-        <a class="btn btn-primary btn-sm" href=<%= new_rental_request_url %>>
-          <i class="bi bi-calendar me-1"></i>
-          Request rental
+        <!--        TODO Inline if-->
+        <%= render 'add_wanted_form' %>
+        <%= render 'remove_wanted_form' %>
+        <a class="btn btn-outline-primary btn-sm" href=<%= new_rental_request_url %>>
+          <i class="bi bi-circle me-1"></i>
+          Offered
         </a>
         <a class="btn btn-outline-primary btn-sm" href=<%= games_path %>>
           <i class="bi bi-box-seam me-1"></i>

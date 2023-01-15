@@ -89,3 +89,5 @@ gem 'smarter_csv'
 gem 'will_paginate'
 
 gem 'will_paginate-bootstrap-style'
+
+gem 'ransack'

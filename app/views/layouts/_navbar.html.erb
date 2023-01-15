@@ -21,6 +21,12 @@
           <li>
             <%= link_to "Games", games_path, class: "nav-link active" %>
           </li>
+          <% if user_signed_in? && current_user.has_request_open?%>
+            <% request = RentalRequest.find(current_user.rental_request_id) %>
+            <li>
+            <%= link_to "Opened request ##{request.id}", request, class: "nav-link active" %>
+            </li>
+          <% end %>
         </ul>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item dropdown">
@@ -42,11 +48,16 @@
             <% end %>
           </li>
         </ul>
-        <form class="d-flex ms-2" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search games" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">
-            <i class="bi bi-search"></i></button>
-        </form>
+        <%= search_form_for @q, class: "d-flex ms-2" do |f| %>
+          <%= f.search_field :title_cont, class: "form-control me-2" %>
+          <%= f.button class: "btn btn-outline-success" do %>
+            <i class="bi bi-search"></i>
+          <% end %>
+        <% end %>
+<!--        <form class="d-flex ms-2" role="search">-->
+<!--          <input class="form-control me-2" type="search" placeholder="Search games" aria-label="Search">-->
+<!--          <button class="btn btn-outline-success" type="submit">-->
+<!--        </form>-->
       </div>
     </div>
   </nav>

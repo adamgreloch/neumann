@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :timeoutable
   before_create :set_deposit
+  has_one :rental_request
 
   def deposit_to_pay?
     self.deposit_amount > self.deposit_paid && self.deposit_deducted == 0
@@ -11,6 +12,10 @@ class User < ApplicationRecord
 
   def is_admin?
     AdminEmail.where(email: self.email).exists?
+  end
+
+  def has_request_open?
+    !self.rental_request_id.nil?
   end
 
   def deposit_deducted?

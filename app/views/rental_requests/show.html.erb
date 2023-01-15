@@ -3,7 +3,9 @@
 <!-- TODO add pagination (10.3.3)-->
 <!-- TODO get rid of find_by_id in view -->
 
-<div>
+<% is_submitter = user_signed_in? && @rental_request.submitter_id == current_user.id %>
+
+  <div>
   <div class="container">
     <% sub = submitter %>
     <h2>Request #<%= @rental_request.id %></h2>
@@ -35,10 +37,12 @@
         <% end %>
       </div>
     </div>
-    <div class="btn-group" role="group">
+    <% if !is_submitter %>
       <%= link_to "Accept request", root_url, type: 'button', class: "btn btn-primary"%>
       <%= link_to "Create a copy", root_url, type: 'button', class: "btn btn-outline-primary"%>
-    </div>
+    <% end %>
   </div>
+
+
 </div>
 
