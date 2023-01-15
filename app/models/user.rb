@@ -9,6 +9,10 @@ class User < ApplicationRecord
     self.deposit_amount > self.deposit_paid && self.deposit_deducted == 0
   end
 
+  def is_admin?
+    AdminEmail.where(email: self.email).exists?
+  end
+
   def deposit_deducted?
     self.deposit_deducted > 0
   end

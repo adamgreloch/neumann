@@ -14,25 +14,21 @@
         </span>
       <span class="badge bg-success">Weight:
         <%= @game.bgg_weight %>/5</span>
-      <span class="badge bg-dark">MIMUW:
-          4.2/10 (32)</span>
+      <span class="badge bg-dark">MIMUW: 4.2/10 (32)</span>
 
       <div class="d-grid gap-0 d-md-block my-3" role="group">
-        <button class="btn btn-primary btn-sm" href=<%= new_rental_request_path %>>
+        <a class="btn btn-primary btn-sm" href=<%= new_rental_request_url %>>
           <i class="bi bi-calendar me-1"></i>
           Request rental
-        </button>
-        <button class="btn btn-outline-primary btn-sm" href=<%= games_path %>>
+        </a>
+        <a class="btn btn-outline-primary btn-sm" href=<%= games_path %>>
           <i class="bi bi-box-seam me-1"></i>
           Submit your copy
-        </button>
-        <button class="btn btn-outline-primary btn-sm" href=<%= games_path %>>
+        </a>
+        <a class="btn btn-outline-primary btn-sm" href=<%= games_path %>>
           <i class="bi bi-clipboard-check me-1"></i>
           Review
-        </button>
-        <%#= link_to "Request rental", new_rental_request_path, type: 'button', class: "btn btn-primary btn-sm" %>
-        <%#= link_to "Submit your copy", games_path, type: 'button', class: "btn btn-outline-primary btn-sm" %>
-        <%#= link_to "Review", games_path, type: 'button', class: "btn btn-outline-primary btn-sm" %>
+        </a>
         <%= link_to "Show on BGG", "https://boardgamegeek.com/boardgame/#{@game.bgg_id}", type: 'button', class: "btn btn-outline-primary btn-sm" %>
       </div>
 

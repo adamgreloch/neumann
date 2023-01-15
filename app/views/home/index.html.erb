@@ -3,3 +3,9 @@
 <p>
   [Some stats here coming soon]
 </p>
+
+<% if user_signed_in? && current_user.is_admin? %>
+  <p>
+    I'm an admin
+  </p>
+<% end %>
