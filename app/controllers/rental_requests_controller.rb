@@ -10,6 +10,7 @@ class RentalRequestsController < ApplicationController
 
   # GET /rental_requests/1 or /rental_requests/1.json
   def show
+    @is_submitter = user_signed_in? && @rental_request.submitter_id == current_user.id
   end
 
   # GET /rental_requests/new
@@ -71,6 +72,6 @@ class RentalRequestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rental_request_params
-      params.require(:rental_request).permit(:submitter_id, :rental_start, :rental_end)
+      params.require(:rental_request).permit(:submitter_id, :rental_start, :rental_end, :status)
     end
 end

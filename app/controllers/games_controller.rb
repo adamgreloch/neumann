@@ -8,6 +8,11 @@ class GamesController < ApplicationController
 
   # GET /games/1 or /games/1.json
   def show
+      if @users_request.nil?
+        @game_wanted = false
+      else
+        @game_wanted = !@users_request.wanted_per_requests.include?(@game)
+      end
   end
 
   # GET /games/new
@@ -58,6 +63,7 @@ class GamesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_game
       @game = Game.find(params[:id])

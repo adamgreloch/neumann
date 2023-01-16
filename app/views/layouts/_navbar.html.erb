@@ -21,10 +21,9 @@
           <li>
             <%= link_to "Games", games_path, class: "nav-link active" %>
           </li>
-          <% if user_signed_in? && current_user.has_request_open?%>
-            <% request = RentalRequest.find(current_user.rental_request_id) %>
+          <% unless @users_request.nil? %>
             <li>
-            <%= link_to "Opened request ##{request.id}", request, class: "nav-link active" %>
+            <%= link_to "Opened request ##{@users_request.id}", @users_request, class: "nav-link active" %>
             </li>
           <% end %>
         </ul>

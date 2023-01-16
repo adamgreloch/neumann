@@ -6,16 +6,13 @@ class RentalRequest < ApplicationRecord
   has_many :offered_per_requests
   validates :rental_start, comparison: { less_than_or_equal_to: :rental_end }
 
-  # TODO gather games after submitting the request
-  # after_create :gather_games
+  has_one :submitter, class_name: "User", dependent: :nullify
+
   after_create :assign_to_submitter
+  after_update :update_in_submitter
 
-  def query_wanted_games
-    WantedPerRequest.includes(:game).where(rental_request_id: self.id)
-  end
-
-  def query_offered_games
-    OfferedPerRequest.includes(:game).where(rental_request_id: self.id)
+  def submitted?
+    self.status != "open"
   end
 
   private
@@ -24,10 +21,17 @@ class RentalRequest < ApplicationRecord
     self.status = "open"
   end
 
+  def update_in_submitter
+    if submitted?
+      self.submitter.rental_request_id = null
+      self.submitter.save
+    end
+  end
+
   def assign_to_submitter
-    submitter = User.find(submitter_id)
-    submitter.rental_request_id = self.id
-    submitter.save
+    self.submitter = User.find(submitter_id)
+    self.submitter.rental_request_id = self.id
+    self.submitter.save
   end
 
   def gather_games

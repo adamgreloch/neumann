@@ -1,7 +1,5 @@
 <%= render @game %>
 
-<!-- TODO add pagination (10.3.3)-->
-
 <div class="container">
   <div class="row">
     <div class="col-6 col-md-4">
@@ -17,9 +15,11 @@
       <span class="badge bg-dark">MIMUW: 4.2/10 (32)</span>
 
       <div class="d-grid gap-0 d-md-block my-3" role="group">
-        <!--        TODO Inline if-->
-        <%= render 'add_wanted_form' %>
-        <%= render 'remove_wanted_form' %>
+        <%= if @game_wanted
+             render 'remove_wanted_form'
+           else
+             render 'add_wanted_form'
+           end %>
         <a class="btn btn-outline-primary btn-sm" href=<%= new_rental_request_url %>>
           <i class="bi bi-circle me-1"></i>
           Offered

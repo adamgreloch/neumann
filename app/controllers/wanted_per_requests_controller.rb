@@ -10,7 +10,7 @@ class WantedPerRequestsController < ApplicationController
 
     respond_to do |format|
       if @rental_request.save
-        format.html { redirect_to home_index_url, notice: "Wanted games added to request." }
+        format.html { redirect_back_or_to games_url, notice: "Wanted game added to request." }
         format.json { render :show, status: :created, location: @wanted_per_request }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -24,7 +24,7 @@ class WantedPerRequestsController < ApplicationController
     @wanted_per_request.destroy
 
     respond_to do |format|
-      format.html { redirect_to rental_request_url, notice: "Rental request was successfully destroyed." }
+      format.html { redirect_back_or_to games_url, notice: "Wanted game removed from request." }
       format.json { head :no_content }
     end
   end
