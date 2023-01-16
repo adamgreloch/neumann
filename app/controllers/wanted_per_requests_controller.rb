@@ -1,16 +1,16 @@
 class WantedPerRequestsController < ApplicationController
+  before_action :set_rental_request
+
   def new
     @wanted_per_request = WantedPerRequest.new
   end
 
   def create
-    @rental_request = RentalRequest.find(params[:rental_request_id])
-
     @rental_request.wanted_per_requests << WantedPerRequest.create(rental_request_id: @rental_request.id, game_id: params[:game_id])
 
     respond_to do |format|
       if @rental_request.save
-        format.html { redirect_back_or_to games_url, notice: "Wanted game added to request." }
+        format.html { redirect_back_or_to games_url, notice: "Wanted game added to request ##{@rental_request.id}." }
         format.json { render :show, status: :created, location: @wanted_per_request }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -24,12 +24,16 @@ class WantedPerRequestsController < ApplicationController
     @wanted_per_request.destroy
 
     respond_to do |format|
-      format.html { redirect_back_or_to games_url, notice: "Wanted game removed from request." }
+      format.html { redirect_back_or_to games_url, notice: "Wanted game removed from request ##{@rental_request.id}." }
       format.json { head :no_content }
     end
   end
 
   private
+    def set_rental_request
+      @rental_request = RentalRequest.find(params[:rental_request_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_wanted_per_request
       @wanted_per_request = WantedPerRequest.find(params[:rental_request])

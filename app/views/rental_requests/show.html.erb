@@ -2,52 +2,76 @@
 
 <!-- TODO add pagination (10.3.3)-->
 <!-- TODO get rid of find_by_id in view -->
+<% sub = submitter %>
 
-  <div>
-  <div class="container">
-    <% sub = submitter %>
-    <h2>Request #<%= @rental_request.id %></h2>
-    <h3>Submitter</h3>
-    <div class="row mb-3">
-      <div class="col-2">
-        <%= identicon_for sub %>
-      </div>
-      <div class="col-auto">
-        <h1><%= sub.name %></h1>
-        <span class="badge bg-secondary">activity: <%= sub.activity %></span>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <h3>Wants</h3>
-        <% @rental_request.wanted_per_requests.each do |query| %>
-          <p>
-            <%= query.game.title %>
-          </p>
-        <% end %>
-      </div>
-      <div class="col">
-        <h3>Offers in return</h3>
-        <% @rental_request.offered_per_requests.each do |query| %>
-          <p>
-            <%= query.game.title %>
-          </p>
-        <% end %>
-      </div>
-    </div>
-    <div class="btn-group gap-2">
-    <% if @is_submitter %>
-      <%= button_to "Submit request", root_url, type: 'button', class: "btn btn-primary" %>
-      <%= button_to @rental_request, method: :delete, class: "btn btn-outline-danger", form: { data: { 'turbo-confirm': 'Are you sure?' } } do %>
-        <i class="bi bi-trash"></i> Discard
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>Request #<%= @rental_request.id %></h2>
+      <% if @is_submitter %>
+        <p class="text-secondary">You are viewing your own request.</p>
       <% end %>
-    <% else %>
-      <%=  link_to "Accept request", root_url, type: 'button', class: "btn btn-primary" %>
-      <%=  link_to "Create a copy", root_url, type: 'button', class: "btn btn-outline-primary" %>
-    <%  end %>
     </div>
   </div>
-
-
+  <div class="row mt-2 align-items-center">
+    <div class="col-2 col-md-1 mb-3">
+      <%= identicon_for sub %>
+    </div>
+    <div class="col-auto mb-3">
+      <h4 class="mb-1"><%= sub.name %></h4>
+      <span class="badge bg-secondary">activity: <%= sub.activity %></span>
+    </div>
+    <div class="ms-auto col-md-auto">
+      <div class="btn-group gap-2">
+        <% if @is_submitter %>
+          <%= button_to "Submit request", root_url, type: 'button', class: "btn btn-primary" %>
+          <%= button_to @rental_request, method: :delete, class: "btn btn-outline-danger", form: { data: { 'turbo-confirm': 'Are you sure?' } } do %>
+            <i class="bi bi-trash"></i> Discard
+          <% end %>
+        <% else %>
+          <%= link_to "Accept request", root_url, type: 'button', class: "btn btn-primary" %>
+          <%= link_to "Create a copy", root_url, type: 'button', class: "btn btn-outline-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md mb-3">
+      <h4>Wants</h4>
+      <ul class="list-group">
+        <% @rental_request.wanted_per_requests.each do |query| %>
+          <li class="list-group-item">
+            <div class="d-flex align-items-center">
+              <div>
+                <%= image_tag(query.game.thumbnail_url, class: "img-thumbnail flex-shrink-0", height: 20, width: 70) %>
+                <b class="ms-md-2"><%= link_to query.game.title, query.game %></b>
+              </div>
+              <div class="ms-auto">
+                <%= render 'trash_wanted_form', game: query.game %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-md">
+      <h4>Offers in return</h4>
+      <ul class="list-group">
+        <% @rental_request.offered_per_requests.each do |query| %>
+          <li class="list-group-item">
+            <div class="d-flex align-items-center">
+              <div>
+                <%= image_tag(query.game.thumbnail_url, class: "img-thumbnail flex-shrink-0", height: 20, width: 70) %>
+                <b class="ms-md-2"><%= link_to query.game.title, query.game %></b>
+              </div>
+              <div class="ms-auto">
+                <%= render 'trash_offered_form', game: query.game %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>
 
