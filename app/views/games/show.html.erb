@@ -14,7 +14,7 @@
         <%= @game.bgg_weight %>/5</span>
       <span class="badge bg-dark">MIMUW: 4.2/10 (32)</span>
 
-      <div class="d-grid gap-0 d-md-block my-3" role="group">
+      <div class="d-md-flex my-3 d-grid">
         <%= if @game_wanted
              render 'remove_wanted_form'
            else
