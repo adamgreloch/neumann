@@ -19,7 +19,9 @@
   <div class="col-lg-10 mx-auto p-4">
     <% flash.each do |type, msg| %>
       <!-- TODO extend based on types-->
-      <div class="alert alert-info d-flex align-items-center alert-dismissible fade show" role="alert">
+      <div class="position-absolute top-0 start-50 translate-middle-x
+      mt-2
+      alert alert-info d-flex align-items-center alert-dismissible fade show" role="alert">
         <i class="bi bi-info-circle flex-shrink-0 me-2"></i>
         <%= msg %>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

@@ -1,5 +1,3 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Rental requests</h1>
 <p>The following list contains all active rental requests. Here, X
   <i class="bi bi-arrow-right"></i> Y means that the request submitter
@@ -7,6 +5,12 @@
 </p>
 
 <div id="rental_requests">
+  <% if @rental_requests.count == 0 %>
+    <p class="text-center text-secondary">
+      There is currently no requests available. Submit your own!
+      <i class="bi bi-balloon"></i>
+    </p>
+  <% end %>
   <ul class="list-group">
     <% @rental_requests.each do |rental_request| %>
       <li class="list-group-item d-flex">

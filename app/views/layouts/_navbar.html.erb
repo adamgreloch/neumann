@@ -10,20 +10,29 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li>
-            <%= link_to "Home", root_path, class: "nav-link active" %>
+            <%= link_to "Home", root_path, class: "nav-link" %>
           </li>
           <li>
-            <%= link_to "Library", root_path, class: "nav-link active" %>
+            <%= link_to "Library", root_path, class: "nav-link" %>
           </li>
           <li>
-            <%= link_to "Requests", rental_requests_url, class: "nav-link active" %>
+            <%= link_to "Requests", rental_requests_url, class: "nav-link" %>
           </li>
           <li>
-            <%= link_to "Games", games_path, class: "nav-link active" %>
+            <%= link_to "Games", games_path, class: "nav-link" %>
           </li>
-          <% unless @users_request.nil? %>
+          <% if @users_request.nil? %>
             <li>
-            <%= link_to "Opened request ##{@users_request.id}", @users_request, class: "nav-link active" %>
+              <%= link_to new_rental_request_url, class: "nav-link btn btn-outline-secondary ms-2" do %>
+                <i class="bi bi-plus me-1"></i> Open new request
+              <% end %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to @users_request, class: "nav-link btn btn-outline-secondary ms-2" do %>
+                <i class="bi bi-basket me-1"></i>
+                Request #<%= @users_request.id %>
+              <% end %>
             </li>
           <% end %>
         </ul>
@@ -53,10 +62,10 @@
             <i class="bi bi-search"></i>
           <% end %>
         <% end %>
-<!--        <form class="d-flex ms-2" role="search">-->
-<!--          <input class="form-control me-2" type="search" placeholder="Search games" aria-label="Search">-->
-<!--          <button class="btn btn-outline-success" type="submit">-->
-<!--        </form>-->
+        <!--        <form class="d-flex ms-2" role="search">-->
+        <!--          <input class="form-control me-2" type="search" placeholder="Search games" aria-label="Search">-->
+        <!--          <button class="btn btn-outline-success" type="submit">-->
+        <!--        </form>-->
       </div>
     </div>
   </nav>

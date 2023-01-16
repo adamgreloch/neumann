@@ -35,13 +35,17 @@
         <% end %>
       </div>
     </div>
+    <div class="btn-group gap-2">
     <% if @is_submitter %>
-      <%=  link_to "Submit request", root_url, type: 'button', class: "btn btn-primary" %>
-      <%= button_to "Discard", @rental_request, method: :delete, class: "btn btn-danger" %>
+      <%= button_to "Submit request", root_url, type: 'button', class: "btn btn-primary" %>
+      <%= button_to @rental_request, method: :delete, class: "btn btn-outline-danger", form: { data: { 'turbo-confirm': 'Are you sure?' } } do %>
+        <i class="bi bi-trash"></i> Discard
+      <% end %>
     <% else %>
       <%=  link_to "Accept request", root_url, type: 'button', class: "btn btn-primary" %>
       <%=  link_to "Create a copy", root_url, type: 'button', class: "btn btn-outline-primary" %>
     <%  end %>
+    </div>
   </div>
 
 
