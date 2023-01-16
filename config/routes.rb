@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   end
 
   resources :wanted_per_requests, only: [:create, :destroy]
+  resources :offered_per_requests, only: [:create, :destroy]
   resources :games
 end

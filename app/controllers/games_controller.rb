@@ -10,8 +10,10 @@ class GamesController < ApplicationController
   def show
       if @users_request.nil?
         @game_wanted = false
+        @game_offered = false
       else
-        @game_wanted = !@users_request.wanted_per_requests.include?(@game)
+        @game_wanted = @users_request.wanted_per_requests.exists?(game_id: @game.id)
+        @game_offered = @users_request.offered_per_requests.exists?(game_id: @game.id)
       end
   end
 

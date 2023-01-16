@@ -3,7 +3,9 @@ class RentalRequest < ApplicationRecord
   before_create :set_status
   has_many :wanted_per_requests, class_name: "WantedPerRequest",
            foreign_key: "rental_request_id", dependent: :destroy
-  has_many :offered_per_requests
+  has_many :offered_per_requests, class_name: "OfferedPerRequest",
+           foreign_key: "rental_request_id", dependent: :destroy
+
   validates :rental_start, comparison: { less_than_or_equal_to: :rental_end }
 
   has_one :submitter, class_name: "User", dependent: :nullify

@@ -20,10 +20,11 @@
            else
              render 'add_wanted_form'
            end %>
-        <a class="btn btn-outline-primary btn-sm" href=<%= new_rental_request_url %>>
-          <i class="bi bi-circle me-1"></i>
-          Offered
-        </a>
+        <%= if @game_offered
+              render 'remove_offered_form'
+            else
+              render 'add_offered_form'
+            end %>
         <a class="btn btn-outline-primary btn-sm" href=<%= games_path %>>
           <i class="bi bi-box-seam me-1"></i>
           Submit your copy
