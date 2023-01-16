@@ -6,7 +6,7 @@ class CreateGames < ActiveRecord::Migration[7.0]
 
       t.integer :year_published
 
-      t.integer :bgg_rating
+      t.decimal :bgg_rating, precision: 3, scale: 1
       t.integer :bgg_rating_num
 
       t.integer :bgg_ranking
