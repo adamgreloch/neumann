@@ -108,6 +108,7 @@ class RentalRequestsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_rental_request
       @rental_request = RentalRequest.find(params[:id])
+      @submitter = @rental_request.submitter
     end
 
     # Only allow a list of trusted parameters through.

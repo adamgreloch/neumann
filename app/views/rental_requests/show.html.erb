@@ -1,7 +1,5 @@
 <%= render @rental_request %>
 
-<% sub = @rental_request.submitter %>
-
 <div class="container">
   <div class="row">
     <div class="col">
@@ -34,8 +32,8 @@
           <%= identicon_for @rental_request.submitter %>
         </div>
         <div class="col-auto mb-3">
-          <h4 class="mb-1"><%= sub.name %></h4>
-          <span class="badge bg-secondary">activity: <%= sub.activity %></span>
+          <h4 class="mb-1"><%= link_to @submitter.name, @submitter %></h4>
+          <span class="badge bg-secondary">activity: <%= @submitter.activity %></span>
         </div>
         <div class="ms-auto col-md-auto">
           <div class="btn-group gap-2">

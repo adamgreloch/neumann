@@ -24,6 +24,7 @@ class GameCopiesController < ApplicationController
   # POST /game_copies or /game_copies.json
   def create
     @game_copy = GameCopy.new(game_copy_params)
+    @game_copy.realizes.game_copies << @game_copy
 
     respond_to do |format|
       if @game_copy.save

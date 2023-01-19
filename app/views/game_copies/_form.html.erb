@@ -6,7 +6,7 @@
 
   <%= f.text_field :barcode, label: "Barcode (EAN)", required: true %>
 
-  <%= f.form_group :condition, label: { text: "Overall copy condition" },
+  <%= f.form_group :condition, label: { text: "Overall condition of box and its contents" },
                    help: "This evaluation is supposed to help future users of your copy." do %>
      <%= f.radio_button :condition, 0, label: "0 - Barely exists" %>
     <%= f.radio_button :condition, 1, label: "1 - Really bad" %>
@@ -15,8 +15,8 @@
     <%= f.radio_button :condition, 4, label: "4 - Nicely kept" %>
     <%= f.radio_button :condition, 5, label: "5 - Well preserved" %>
     <%= f.radio_button :condition, 6, label: "6 - Nearly mint" %>
-    <%= f.radio_button :condition, 7, label: "7 - Have played approximately once" %>
-    <%= f.radio_button :condition, 8, label: "8 - Never touched the box" %>
+    <%= f.radio_button :condition, 7, label: "7 - Played approximately once" %>
+    <%= f.radio_button :condition, 8, label: "8 - Untouched" %>
   <% end %>
 
   <%= f.text_area :description, label: "Additional notes" %>

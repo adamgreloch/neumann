@@ -6,6 +6,9 @@ class User < ApplicationRecord
   before_create :set_deposit
 
   has_many :rental_requests, foreign_key: "submitter_id"
+  has_many :rentals, foreign_key: "submitter_id"
+  has_many :game_copies, foreign_key: "owner_id"
+
   has_one :open_request, -> { where status: "open" },
           class_name: "RentalRequest", foreign_key: "submitter_id", dependent: :destroy
 
