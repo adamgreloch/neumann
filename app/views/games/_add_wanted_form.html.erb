@@ -1,6 +1,6 @@
 <% if user_signed_in? && current_user.has_request_open? %>
   <%= bootstrap_form_with model: @users_request.wanted_per_requests.build, class: "d-flex" do |f| %>
-    <%= hidden_field_tag :rental_request_id, current_user.rental_request_id %>
+    <%= hidden_field_tag :rental_request_id, @users_request.id %>
     <%= hidden_field_tag :game_id, @game.id %>
     <%= f.button class: "btn btn-outline-primary btn-sm flex-fill" do %>
       <i class="bi bi-circle me-1"></i>

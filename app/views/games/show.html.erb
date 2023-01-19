@@ -16,14 +16,14 @@
 
       <div class="d-md-flex my-3 d-grid">
         <%= if @game_wanted
-             render 'remove_wanted_form'
+             render 'remove_wanted_form', game: @game
            else
-             render 'add_wanted_form'
+             render 'add_wanted_form', game: @game
            end %>
         <%= if @game_offered
-              render 'remove_offered_form'
+              render 'remove_offered_form', game: @game
             else
-              render 'add_offered_form'
+              render 'add_offered_form', game: @game
             end %>
         <a class="btn btn-outline-primary btn-sm" href=<%= games_path %>>
           <i class="bi bi-box-seam me-1"></i>

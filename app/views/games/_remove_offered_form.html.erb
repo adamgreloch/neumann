@@ -1,11 +1,8 @@
 <% if user_signed_in? && current_user.has_request_open? %>
-  <%= bootstrap_form_with model: @users_request.offered_per_requests.find_by(rental_request: @users_request), class: "d-flex",
-  html: {method: :delete } do |f| %>
-    <%= hidden_field_tag :rental_request_id, current_user.rental_request_id %>
-    <%= hidden_field_tag :game_id, @game.id %>
-    <%= f.button class: "btn btn-outline-primary btn-sm flex-fill" do %>
-      <i class="bi bi-circle-fill me-1"></i>
-      Un-offer
-    <% end %>
+  <%= button_to remove_offered_rental_request_path(@users_request), class: "btn btn-outline-primary btn-sm",
+                params: {game_id: game.id},
+                method: :put do %>
+    <i class="bi bi-circle-fill me-1"></i>
+    Un-offer
   <% end %>
 <% end %>

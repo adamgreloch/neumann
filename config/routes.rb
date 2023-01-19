@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       member do
         put :submit
         put :reopen
+        put :remove_offered
+        put :remove_wanted
       end
     end
     resources :wanted_per_requests, only: [:create, :destroy]

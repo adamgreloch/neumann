@@ -5,14 +5,24 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h2>Request #<%= @rental_request.id %></h2>
+      <h2>Request #<%= @rental_request.id %>
+      <% if @is_submitter %>
+      <span class="text-secondary">
+        <% if @rental_request.submitted? %>
+          (submitted)
+        <% else %>
+          (open)
+        <% end %>
+          </span>
+        <% end %>
+      </h2>
       <% if @is_submitter %>
         <p class="text-secondary">You are viewing your own request.
-        <% if @rental_request.submitted? %>
-          It is submitted and other users can accept it.
-        <% else %>
-          In order to make it available to other users, make sure to submit it.
-        <% end %>
+          <% if @rental_request.submitted? %>
+            It is submitted and other users can accept it.
+          <% else %>
+            In order to make it available to other users, make sure to submit it.
+          <% end %>
         </p>
       <% end %>
     </div>
@@ -38,9 +48,9 @@
               <% else %>
                 <%= button_to submit_rental_request_path(@rental_request),
                               class: "btn btn-outline-primary", method: :put do %>
-                <i class="bi bi-arrow-up-circle me-1"></i> Submit
+                  <i class="bi bi-arrow-up-circle me-1"></i> Submit
+                <% end %>
               <% end %>
-            <% end %>
               <%= button_to edit_rental_request_path, method: :get, class: "btn btn-outline-primary" do %>
                 <i class="bi bi-pencil me-1"></i> Edit details
               <% end %>
