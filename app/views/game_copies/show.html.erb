@@ -1,20 +1,9 @@
-<%= render @game_copy %>
-
 <div>
-  <h1><%= @game_copy.realizes.name %> (Copy <%= @game_copy.copy_id %>)
+  <h1><%= @game_copy.realizes.title %> (Copy <%= @game_copy.id %>)
   </h1>
 
   <p>
-    <b>Owner:</b>
-    <%= link_to @game_copy.owner.name, @game_copy.owner %> |
+    <b>Owner:</b> <%= link_to @game_copy.owner.name, @game_copy.owner %>
   </p>
-
-  <%= button_to "Submit copy", game_copies_path, class: "btn btn-primary"%>
-
   <br>
-
-  <%= link_to "Edit this game_copy", edit_game_copy_path(@game_copy) %> |
-  <%= link_to "Back to game_copies", game_copies_path %>
-
-  <%= button_to "Destroy this game_copy", @game_copy, method: :delete %>
 </div>

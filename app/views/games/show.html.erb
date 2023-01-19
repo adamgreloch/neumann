@@ -31,10 +31,7 @@
           <%= render 'shared/request_button' %>
         <% end %>
         <% end %>
-        <a class="btn btn-outline-primary" href=<%= games_path %>>
-          <i class="bi bi-box-seam me-1"></i>
-          Add copy
-        </a>
+        <%= render 'new_copy_form' %>
         <a class="btn btn-outline-primary" href=<%= games_path %>>
           <i class="bi bi-clipboard-check me-1"></i>
           Review

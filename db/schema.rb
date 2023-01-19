@@ -23,8 +23,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_15_114611) do
   create_table "game_copies", force: :cascade do |t|
     t.bigint "realizes_id"
     t.bigint "owner_id"
-    t.string "copy_id", null: false
     t.integer "condition", null: false
+    t.integer "barcode", null: false
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_game_copies_on_owner_id"

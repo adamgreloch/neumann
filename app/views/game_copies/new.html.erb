@@ -1,9 +1,14 @@
-<h1>New game_copy</h1>
+<h1>Submit your own copy</h1>
 
-<%= render "form", game_copy: @game_copy %>
+<div class="col-lg-6">
 
-<br>
+<p>
+  You are about to provide your copy of <%= @game.title %> to the Neumann system.
+  Please evaluate the physical condition of your copy and add the box barcode.
+  You can submit additional description concerning the condition or its explanation.
+  Description is public.
+</p>
 
-<div>
-  <%= link_to "Back to game_copies", game_copies_path %>
+<%= render "form", game_copy: @game_copy, game: @game %>
+
 </div>

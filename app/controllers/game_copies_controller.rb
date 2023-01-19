@@ -14,6 +14,7 @@ class GameCopiesController < ApplicationController
   # GET /game_copies/new
   def new
     @game_copy = GameCopy.new
+    @game = Game.find(params[:game_id])
   end
 
   # GET /game_copies/1/edit
@@ -66,6 +67,6 @@ class GameCopiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def game_copy_params
-      params.fetch(:game_copy, {})
+      params.require(:game_copy).permit(:owner_id, :realizes_id, :condition, :description, :barcode)
     end
 end

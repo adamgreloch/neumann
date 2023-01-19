@@ -1,24 +1,25 @@
-<%= bootstrap_form_with(model: game_copy, layout: :horizontal) do |f| %>
+<%= bootstrap_form_with(model: game_copy) do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
 
-  <% if game_copy.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(game_copy.errors.count, "error") %> prohibited this game_copy from being saved:</h2>
+  <%= f.hidden_field :owner_id, value: current_user.id %>
+  <%= f.hidden_field :realizes_id, value: game.id %>
 
-      <ul>
-        <% game_copy.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
+  <%= f.text_field :barcode, label: "Barcode (EAN)", required: true %>
+
+  <%= f.form_group :condition, label: { text: "Overall copy condition" },
+                   help: "This evaluation is supposed to help future users of your copy." do %>
+     <%= f.radio_button :condition, 0, label: "0 - Barely exists" %>
+    <%= f.radio_button :condition, 1, label: "1 - Really bad" %>
+    <%= f.radio_button :condition, 2, label: "2 - War-torn" %>
+    <%= f.radio_button :condition, 3, label: "3 - Medium" %>
+    <%= f.radio_button :condition, 4, label: "4 - Nicely kept" %>
+    <%= f.radio_button :condition, 5, label: "5 - Well preserved" %>
+    <%= f.radio_button :condition, 6, label: "6 - Nearly mint" %>
+    <%= f.radio_button :condition, 7, label: "7 - Have played approximately once" %>
+    <%= f.radio_button :condition, 8, label: "8 - Never touched the box" %>
   <% end %>
 
-  <%= f.text_field :title %>
-  <%= f.number_field :bgg_id %>
-  <%= f.text_area :description %>
-  <%= f.text_field :release_year %>
-  <%= f.text_field :bgg_rating %>
-  <%= f.text_field :bgg_rated_count %>
-  <%= f.text_field :bgg_ranking %>
-  <%= f.submit %>
+  <%= f.text_area :description, label: "Additional notes" %>
 
+  <%= f.submit "Submit" %>
 <% end %>
