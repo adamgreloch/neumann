@@ -1,0 +1,30 @@
+<%= bootstrap_form_with model: @rental do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
+
+  <%= f.hidden_field :accepted_by_id, value: current_user.id %>
+  <%= f.hidden_field :realizes_id, value: rental_request.id %>
+
+  <% if rental_request.can_accept?(current_user) %>
+    <%= f.submit "Submit" %>
+  <% else %>
+    <p>
+      Oops!
+    </p>
+    <p>
+      You can't accept this request, because you don't possess the following games it requires:
+    </p>
+    <ul class="list-unstyled">
+      <% rental_request.games_lacking(current_user).each do |game| %>
+      <li>
+        <%= link_to game.title, game %>
+      </li>
+    <% end %>
+    </ul>
+    <p class="text-secondary">
+      Double-check the list of game copies that you have entered.
+      Maybe you have the copy, but forgot to add it into Neumann?
+    </p>
+    <%= link_to "Back to requests", rental_requests_url, class: "btn btn-outline-primary" %>
+  <% end %>
+
+<% end %>

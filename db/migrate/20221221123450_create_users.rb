@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.integer :deposit_paid, null: false, default: 0
       t.integer :deposit_deducted, null: false, default: 0
 
-      t.integer :activity
+      t.integer :activity, default: 0
 
       t.timestamps
     end

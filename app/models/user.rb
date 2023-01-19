@@ -12,6 +12,10 @@ class User < ApplicationRecord
   has_one :open_request, -> { where status: "open" },
           class_name: "RentalRequest", foreign_key: "submitter_id", dependent: :destroy
 
+  def available_copies
+    self.game_copies.where(rented_to_id: nil)
+  end
+
   def deposit_to_pay?
     self.deposit_amount > self.deposit_paid && self.deposit_deducted == 0
   end

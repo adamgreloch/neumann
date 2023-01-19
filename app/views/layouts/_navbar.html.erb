@@ -49,7 +49,7 @@
           <% end %>
         </ul>
         <%= search_form_for @q, class: "d-flex" do |f| %>
-          <%= f.search_field :title_cont, class: "form-control me-2" %>
+          <%= f.search_field :title_cont, class: "form-control me-2", placeholder: "Search games" %>
           <%= f.button class: "btn btn-outline-success" do %>
             <i class="bi bi-search"></i>
           <% end %>

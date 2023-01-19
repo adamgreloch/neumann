@@ -19,6 +19,20 @@ class RentalRequest < ApplicationRecord
     self.status != "open"
   end
 
+  def can_accept?(user)
+    lacks(user).nil?
+  end
+
+  def lacks(user)
+    user_has = user.available_copies.pluck(:realizes_id).uniq
+    requested = wanted_per_requests.pluck(:game_id).uniq
+    requested - user_has
+  end
+
+  def games_lacking(user)
+    Game.find(lacks(user))
+  end
+
   private
 
   def set_status

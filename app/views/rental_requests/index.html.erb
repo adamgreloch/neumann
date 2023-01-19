@@ -57,7 +57,11 @@
               </ul>
             </div>
             <div class="col-1">
-              <%= link_to "Accept", root_url, type: 'button', class: "btn btn-outline-primary" %>
+              <%= button_to "Accept", new_rental_path,
+                            type: 'button',
+                            class: "btn btn-outline-primary",
+                            params: { rental_request_id: rental_request.id },
+                            method: :get %>
             </div>
           </div>
         </div>

@@ -3,4 +3,5 @@ class Game < ApplicationRecord
   def available_copies
     self.game_copies.where(rented_to_id: nil)
   end
+
 end
