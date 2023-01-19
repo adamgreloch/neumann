@@ -112,7 +112,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_15_114611) do
     t.integer "deposit_amount", null: false
     t.integer "deposit_paid", default: 0, null: false
     t.integer "deposit_deducted", default: 0, null: false
-    t.integer "activity"
+    t.integer "activity", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: "", null: false

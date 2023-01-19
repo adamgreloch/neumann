@@ -56,7 +56,7 @@
           <ul class="list-unstyled mb-1">
             <li><b>Member since:</b> <%= l @user.created_at %></li>
             <li><b>Requests submitted:</b> <%= @user.rental_requests.where(status: "submitted").count %></li>
-            <!--            <li><b>Rentals completed:</b> <%#= @user.rentals.where(status: "completed").count %></li>-->
+            <li><b>Rentals completed:</b> <%= @user.rentals.where(status: "completed").count %></li>
             <li><b>Game copies provided:</b> <%= @user.game_copies.count %></li>
           </ul>
           <h4 class="mt-3">Copies owned</h4>
@@ -67,7 +67,8 @@
                   <%= image_tag(copy.realizes.thumbnail_url, class: "img-thumbnail", width: 80) %>
                   <div>
                   <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1"><%= link_to copy.realizes.title, copy.realizes %></h5>
+                    <h5 class="mb-1"><%= link_to copy.realizes.title, copy.realizes %>
+                    <span class="text-secondary">(#<%= copy.id %>)</span></h5>
                   </div>
                   <p class="mb-1"><%= copy.description %></p>
                   <small>Condition: <%= copy.condition %>/8</small>
@@ -76,7 +77,8 @@
                 <div class="ms-auto d-flex gap-2 my-2">
                   <%= button_to "Show copy", game_copy_path(copy), class: "btn btn-outline-primary", method: :get %>
                   <% if user_signed_in? && @user.id == current_user.id %>
-                    <%= button_to game_copy_path(copy), class: "btn btn-outline-danger", method: :delete do %>
+                    <%= button_to game_copy_path(copy), class: "btn btn-outline-danger", method: :delete,
+                                  data: { 'turbo-confirm': "Are you sure you want to delete your copy of #{copy.realizes.title}?" } do %>
                       <i class="bi bi-exclamation-octagon me-1"></i> Retract
                     <% end %>
                   <% end %>

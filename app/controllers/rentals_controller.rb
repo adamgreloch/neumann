@@ -66,6 +66,6 @@ class RentalsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rental_params
-      params.fetch(:rental, {})
+      params.require(:rental).permit(:realizes_id, :accepted_by_id)
     end
 end

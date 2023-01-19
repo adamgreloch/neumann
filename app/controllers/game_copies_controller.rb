@@ -31,7 +31,7 @@ class GameCopiesController < ApplicationController
         format.html { redirect_to game_copy_url(@game_copy), notice: "Game copy was successfully created." }
         format.json { render :show, status: :created, location: @game_copy }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to root_path, notice: "Failed to create game copy." }
         format.json { render json: @game_copy.errors, status: :unprocessable_entity }
       end
     end
@@ -44,7 +44,7 @@ class GameCopiesController < ApplicationController
         format.html { redirect_to game_copy_url(@game_copy), notice: "Game copy was successfully updated." }
         format.json { render :show, status: :ok, location: @game_copy }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_to root_path, notice: "Failed to update game copy." }
         format.json { render json: @game_copy.errors, status: :unprocessable_entity }
       end
     end
@@ -55,7 +55,7 @@ class GameCopiesController < ApplicationController
     @game_copy.destroy
 
     respond_to do |format|
-      format.html { redirect_to game_copies_url, notice: "Game copy was successfully destroyed." }
+      format.html { redirect_back_or_to root_url, notice: "Game copy was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -64,6 +64,7 @@ class GameCopiesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_game_copy
       @game_copy = GameCopy.find(params[:id])
+      @game = @game_copy.realizes
     end
 
     # Only allow a list of trusted parameters through.

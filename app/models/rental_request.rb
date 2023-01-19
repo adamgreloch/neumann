@@ -1,6 +1,6 @@
 class RentalRequest < ApplicationRecord
   attr_accessor :wanted_games, :offered_games
-  before_create :set_status
+  before_create :realize_request
   has_many :wanted_per_requests, class_name: "WantedPerRequest",
            foreign_key: "rental_request_id", dependent: :destroy
   has_many :offered_per_requests, class_name: "OfferedPerRequest",
@@ -20,7 +20,7 @@ class RentalRequest < ApplicationRecord
   end
 
   def can_accept?(user)
-    lacks(user).nil?
+    lacks(user).count == 0
   end
 
   def lacks(user)
@@ -31,6 +31,14 @@ class RentalRequest < ApplicationRecord
 
   def games_lacking(user)
     Game.find(lacks(user))
+  end
+
+  def wanted
+    Game.find(wanted_per_requests.pluck(:game_id))
+  end
+
+  def offered
+    Game.find(offered_per_requests.pluck(:game_id))
   end
 
   private

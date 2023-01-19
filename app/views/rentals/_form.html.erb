@@ -5,6 +5,38 @@
   <%= f.hidden_field :realizes_id, value: rental_request.id %>
 
   <% if rental_request.can_accept?(current_user) %>
+    <p>
+      You are about to accept the rental request submitted
+      by <%= link_to rental_request.submitter.name, rental_request.submitter %>,
+      which requires you to provide him a copy of the following games:
+    </p>
+    <ul class="list-unstyled">
+      <% rental_request.wanted.each do |game| %>
+        <li>
+          <%= link_to game.title, game %>
+        </li>
+      <% end %>
+    </ul>
+    <p>
+      In exchange, <%= rental_request.submitter.name %>
+      will be required to give you copies of games below:
+    </p>
+    <ul class="list-unstyled">
+      <% rental_request.offered.each do |game| %>
+        <li>
+          <%= link_to game.title, game %>
+        </li>
+      <% end %>
+    </ul>
+    <p>
+      Game swap must take place before <%= l rental_request.rental_start %>
+      and will last until <%= l rental_request.rental_end %>
+      (<%= (rental_request.rental_end - rental_request.rental_start).to_i %> days).
+      After rental end, both parties have 1 day to swap back rented copies.
+    </p>
+    <%= f.check_box :accept, label: "I accept Neumann renting rules
+    and fully acknowledge that my deposit can be taken irreversibly
+    in case of not fulfilling above arrangement.", required: true %>
     <%= f.submit "Submit" %>
   <% else %>
     <p>
