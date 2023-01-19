@@ -22,7 +22,7 @@
             <%= link_to "Games", games_path, class: "nav-link" %>
           </li>
           <% if user_signed_in? %>
-            <li>
+            <li class="mt-2 mt-md-0 ms-md-2 d-flex align-items-center">
               <%= render 'shared/request_button' %>
             </li>
           <% end %>
@@ -47,7 +47,7 @@
             <% end %>
           </li>
         </ul>
-        <%= search_form_for @q, class: "d-flex ms-2" do |f| %>
+        <%= search_form_for @q, class: "d-flex ms-md-2" do |f| %>
           <%= f.search_field :title_cont, class: "form-control me-2" %>
           <%= f.button class: "btn btn-outline-success" do %>
             <i class="bi bi-search"></i>

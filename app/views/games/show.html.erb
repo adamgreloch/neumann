@@ -2,11 +2,11 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-6 col-md-4">
+    <div class="col-md-4">
       <%= image_tag(@game.image_url, class: "img-thumbnail") %>
     </div>
     <div class="col-md">
-      <h2><%= @game.title %></h2>
+      <h2 class="mt-3 mt-md-0"><%= @game.title %></h2>
       <span class="badge bg-secondary">BGG:
         <%= @game.bgg_rating %>/10 (<%= ActiveSupport::Inflector.ordinalize @game.bgg_ranking %>)
         </span>
@@ -14,7 +14,9 @@
         <%= @game.bgg_weight %>/5</span>
       <span class="badge bg-dark">MIMUW: 4.2/10 (32)</span>
 
-      <div class="d-md-flex my-3 d-grid">
+      <div class="d-md-flex my-3 d-grid gap-1">
+        <% if user_signed_in? %>
+        <% if current_user.has_request_open? %>
         <%= if @game_wanted
              render 'remove_wanted_form', game: @game
            else
@@ -25,15 +27,19 @@
             else
               render 'add_offered_form', game: @game
             end %>
-        <a class="btn btn-outline-primary btn-sm" href=<%= games_path %>>
+        <% else %>
+          <%= render 'shared/request_button' %>
+        <% end %>
+        <% end %>
+        <a class="btn btn-outline-primary" href=<%= games_path %>>
           <i class="bi bi-box-seam me-1"></i>
-          Submit your copy
+          Add copy
         </a>
-        <a class="btn btn-outline-primary btn-sm" href=<%= games_path %>>
+        <a class="btn btn-outline-primary" href=<%= games_path %>>
           <i class="bi bi-clipboard-check me-1"></i>
           Review
         </a>
-        <%= link_to "Show on BGG", "https://boardgamegeek.com/boardgame/#{@game.bgg_id}", type: 'button', class: "btn btn-outline-primary btn-sm" %>
+        <%= link_to "Show on BGG", "https://boardgamegeek.com/boardgame/#{@game.bgg_id}", type: 'button', class: "btn btn-outline-primary" %>
       </div>
 
       <div class="text-bg-light rounded border border-primary p-2">

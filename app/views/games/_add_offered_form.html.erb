@@ -2,7 +2,7 @@
   <%= bootstrap_form_with model: @users_request.offered_per_requests.build, class: "d-flex" do |f| %>
     <%= hidden_field_tag :rental_request_id, @users_request.id %>
     <%= hidden_field_tag :game_id, @game.id %>
-    <%= f.button class: "btn btn-outline-primary btn-sm flex-fill" do %>
+    <%= f.button class: "btn btn-outline-primary flex-fill" do %>
       <i class="bi bi-circle me-1"></i>
       Offer
     <% end %>
