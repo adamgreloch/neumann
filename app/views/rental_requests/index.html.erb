@@ -1,5 +1,5 @@
 <h1>Rental requests</h1>
-<p>The following list contains all active rental requests. Here, X
+<p>The following list contains all submitted rental requests. Here, X
   <i class="bi bi-arrow-right"></i> Y means that the request submitter
   is interested in giving all games from set X in return for all games from set Y for a specified time period.
 </p>
@@ -12,7 +12,7 @@
     </p>
   <% end %>
   <ul class="list-group">
-    <% @rental_requests.each do |rental_request| %>
+    <% @rental_requests.submitted.each do |rental_request| %>
       <li class="list-group-item d-flex">
         <div class="container-fluid">
           <div class="row align-items-center">

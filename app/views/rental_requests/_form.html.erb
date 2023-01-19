@@ -1,13 +1,12 @@
-<%= bootstrap_form_with(model: rental_request, layout: :horizontal) do |f| %>
+<%= bootstrap_form_with model: rental_request do |f| %>
   <%= f.alert_message "Please fix the errors below." %>
 
   <%= f.date_field :rental_start, required: true %>
   <%= f.date_field :rental_end, required: true %>
 
-<%#= f.collection_check_boxes :wanted_games, Game.order(:title), :id, :title, { data: { target: "filter.filterable" } } %>
-<%#= f.collection_check_boxes :offered_games, Game.order(:title), :id, :title %>
+  <%= f.text_area :description, label: "Additional notes" %>
 
   <%= f.hidden_field :submitter_id, value: current_user.id %>
 
-<%= f.submit "Open request"%>
+  <%= f.submit "Open request"%>
 <% end %>

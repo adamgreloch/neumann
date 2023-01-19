@@ -21,18 +21,9 @@
           <li>
             <%= link_to "Games", games_path, class: "nav-link" %>
           </li>
-          <% if @users_request.nil? %>
+          <% if user_signed_in? %>
             <li>
-              <%= link_to new_rental_request_url, class: "nav-link btn btn-outline-secondary ms-2" do %>
-                <i class="bi bi-plus me-1"></i> Open new request
-              <% end %>
-            </li>
-          <% else %>
-            <li>
-              <%= link_to @users_request, class: "nav-link btn btn-outline-secondary ms-2" do %>
-                <i class="bi bi-basket me-1"></i>
-                Request #<%= @users_request.id %>
-              <% end %>
+              <%= render 'shared/request_button' %>
             </li>
           <% end %>
         </ul>

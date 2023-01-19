@@ -8,10 +8,12 @@ class RentalRequest < ApplicationRecord
 
   validates :rental_start, comparison: { less_than_or_equal_to: :rental_end }
 
-  has_one :submitter, class_name: "User", dependent: :nullify
+  belongs_to :submitter, class_name: "User"
+
+  scope :submitted, -> {where status: "submitted" }
 
   after_create :assign_to_submitter
-  after_update :update_in_submitter
+  after_update :reload_submitter
 
   def submitted?
     self.status != "open"
@@ -23,17 +25,12 @@ class RentalRequest < ApplicationRecord
     self.status = "open"
   end
 
-  def update_in_submitter
-    if submitted?
-      self.submitter.rental_request_id = null
-      self.submitter.save
-    end
+  def assign_to_submitter
+    self.submitter.open_request = self
   end
 
-  def assign_to_submitter
-    self.submitter = User.find(submitter_id)
-    self.submitter.rental_request_id = self.id
-    self.submitter.save
+  def reload_submitter
+    self.submitter.reload_open_request
   end
 
   def gather_games

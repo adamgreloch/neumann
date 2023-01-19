@@ -1,7 +1,9 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "~> 2.7.3"
+ruby "> 2.7.3"
+
+gem "dotenv-rails", "~> 2.7", ">= 2.7.6"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
@@ -91,3 +93,5 @@ gem 'will_paginate'
 gem 'will_paginate-bootstrap-style'
 
 gem 'ransack'
+
+gem "google-cloud-storage", "~> 1.31", ">= 1.31.1", require: false

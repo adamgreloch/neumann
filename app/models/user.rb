@@ -5,6 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :timeoutable
   before_create :set_deposit
 
+  has_many :rental_requests, foreign_key: "submitter_id"
+  has_one :open_request, -> { where status: "open" },
+          class_name: "RentalRequest", foreign_key: "submitter_id", dependent: :destroy
+
   def deposit_to_pay?
     self.deposit_amount > self.deposit_paid && self.deposit_deducted == 0
   end
@@ -14,7 +18,7 @@ class User < ApplicationRecord
   end
 
   def has_request_open?
-    !self.rental_request_id.nil?
+    !self.open_request.nil?
   end
 
   def deposit_deducted?

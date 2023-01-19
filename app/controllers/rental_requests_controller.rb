@@ -1,6 +1,5 @@
 class RentalRequestsController < ApplicationController
-  before_action :set_rental_request, only: %i[ show edit update destroy ]
-  helper_method :submitter, :query_wanted_games, :query_offered_games
+  before_action :set_rental_request, only: %i[ show edit submit reopen update destroy ]
   before_action :authenticate_user!
 
   # GET /rental_requests or /rental_requests.json
@@ -20,6 +19,26 @@ class RentalRequestsController < ApplicationController
 
   # GET /rental_requests/1/edit
   def edit
+  end
+
+  def submit
+    respond_to do |format|
+      if @rental_request.update(status: "submitted");
+        format.html { redirect_to rental_request_url(@rental_request), notice: "Rental request submitted." }
+      else
+        format.html { redirect_to rental_request_url(@rental_request), notice: "Failed to submit the request. No idea why. Consult the administrator." }
+      end
+    end
+  end
+
+  def reopen
+    respond_to do |format|
+      if @rental_request.update(status: "open");
+        format.html { redirect_to rental_request_url(@rental_request), notice: "Rental request reopened." }
+      else
+        format.html { redirect_to rental_request_url(@rental_request), notice: "Failed to submit the request. No idea why. Consult the administrator." }
+      end
+    end
   end
 
   # POST /rental_requests or /rental_requests.json
@@ -72,6 +91,6 @@ class RentalRequestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rental_request_params
-      params.require(:rental_request).permit(:submitter_id, :rental_start, :rental_end, :status)
+      params.require(:rental_request).permit(:submitter_id, :rental_start, :rental_end, :status, :description)
     end
 end

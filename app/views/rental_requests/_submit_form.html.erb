@@ -1,0 +1,5 @@
+<%= bootstrap_form_with model: rental_request, url: rental_request_path(rental_request), class: "d-flex" do |f| %>
+  <%= f.button class: "btn btn-outline-primary flex-fill", params: {status: "submitted"} do %>
+    Submit
+  <% end %>
+<% end %>
