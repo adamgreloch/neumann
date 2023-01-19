@@ -8,7 +8,7 @@
     <div class="col-md">
       <h2 class="mt-3 mt-md-0"><%= @game.title %></h2>
       <span class="badge bg-secondary">BGG:
-        <%= @game.bgg_rating %>/10 (<%= ActiveSupport::Inflector.ordinalize @game.bgg_ranking %>)
+        <%= @game.bgg_rating %>/10 (<%= @game.bgg_ranking %>)
         </span>
       <span class="badge bg-success">Weight:
         <%= @game.bgg_weight %>/5</span>

@@ -37,10 +37,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_15_114611) do
     t.integer "year_published"
     t.decimal "bgg_rating", precision: 3, scale: 1
     t.integer "bgg_rating_num"
-    t.integer "bgg_ranking"
+    t.string "bgg_ranking"
     t.string "categories"
     t.string "mechanics"
-    t.integer "bgg_weight"
+    t.decimal "bgg_weight", precision: 2, scale: 1
     t.integer "playing_time"
     t.integer "min_players"
     t.integer "max_players"

@@ -1,0 +1,12 @@
+<% if @users_request.nil? %>
+  <%= link_to new_rental_request_url, class: "btn btn-outline-primary" do %>
+    <i class="bi bi-plus me-1"></i> Open new request
+  <% end %>
+<% else %>
+  <%= link_to @users_request, class: "btn btn-outline-primary" do %>
+    <i class="bi bi-basket me-1"></i>
+    Request #<%= @users_request.id %> (<%= @users_request.wanted_per_requests.count%>
+       <i class="bi bi-arrow-right"></i>
+    <%= @users_request.offered_per_requests.count%>)
+  <% end %>
+<% end %>
