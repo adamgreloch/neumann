@@ -16,20 +16,25 @@
 
       <div class="d-md-flex my-3 d-grid gap-1">
         <% if user_signed_in? %>
-        <% if current_user.has_request_open? %>
-        <%= if @game_wanted
-             render 'remove_wanted_form', game: @game
-           else
-             render 'add_wanted_form', game: @game
-           end %>
-        <%= if @game_offered
-              render 'remove_offered_form', game: @game
-            else
-              render 'add_offered_form', game: @game
-            end %>
-        <% else %>
-          <%= render 'shared/request_button' %>
-        <% end %>
+          <% if current_user.has_request_open? %>
+            <%= if @game_wanted
+                  render 'remove_wanted_form', game: @game
+                else
+                  unless @game_offered
+                    render 'add_wanted_form', game: @game
+                  end
+                end %>
+            <%= if @game_offered
+                  render 'remove_offered_form', game: @game
+                else
+                  unless @game_wanted
+                    render 'add_offered_form', game: @game
+                  end
+                end
+            %>
+          <% else %>
+            <%= render 'shared/request_button' %>
+          <% end %>
         <% end %>
         <%= render 'new_copy_form' %>
         <a class="btn btn-outline-primary" href=<%= games_path %>>
@@ -41,52 +46,65 @@
 
       <div class="text-bg-light rounded border border-primary p-2">
 
-      <ul class="nav nav-pills nav-fill text-bg-light rounded " id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Details</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="description-tab" data-bs-toggle="tab" data-bs-target="#description-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Description</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Copies</button>
-        </li>
-      </ul>
-      <div class="tab-content mt-2" id="myTabContent">
-        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-          <ul class="list-unstyled mb-1">
-            <% if @game.categories? %>
-            <li><b>Categories:</b>
-              <%= @game.categories.split(';').to_sentence %>
-            </li>
-            <% end %>
-            <li><b>Mechanics:</b>
-              <%= @game.mechanics.split(';').to_sentence %>
-            </li>
-            <li><b>Players:</b>
-              <% if @game.min_players == @game.max_players %>
-                <%= @game.min_players %>
-              <% else %>
-                <%= @game.min_players %>-<%= @game.max_players %>
+        <ul class="nav nav-pills nav-fill text-bg-light rounded " id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Details</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="description-tab" data-bs-toggle="tab" data-bs-target="#description-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Description</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">
+              Copies
+              <span class="badge text-bg-secondary ms-1"><%= @game.available_copies.count %>
+                /<%= @game.game_copies.count %></span>
+            </button>
+          </li>
+        </ul>
+        <div class="tab-content mt-2" id="myTabContent">
+          <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+            <ul class="list-unstyled mb-1">
+              <% if @game.categories? %>
+                <li><b>Categories:</b>
+                  <%= @game.categories.split(';').to_sentence %>
+                </li>
               <% end %>
-            </li>
-            <li><b>Playing time:</b> <%= @game.playing_time %> min</li>
-            <li><b>Designer:</b> <%= @game.designer %></li>
-            <li><b>Publisher:</b> <%= @game.publisher %>, <%= @game.year_published %></li>
-          </ul>
+              <li><b>Mechanics:</b>
+                <%= @game.mechanics.split(';').to_sentence %>
+              </li>
+              <li><b>Players:</b>
+                <% if @game.min_players == @game.max_players %>
+                  <%= @game.min_players %>
+                <% else %>
+                  <%= @game.min_players %>-<%= @game.max_players %>
+                <% end %>
+              </li>
+              <li><b>Playing time:</b> <%= @game.playing_time %> min</li>
+              <li><b>Designer:</b> <%= @game.designer %></li>
+              <li><b>Publisher:</b> <%= @game.publisher %>, <%= @game.year_published %></li>
+            </ul>
+          </div>
+          <div class="tab-pane fade" id="description-tab-pane" role="tabpanel" aria-labelledby="description-tab" tabindex="0">
+            <p class="m-2"><%= @game.description %></p>
+          </div>
+          <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+            <% @game.game_copies.each do |copy| %>
+              <div class="list-group-item list-group-item-action d-flex gap-3 align-items-center">
+                <div>
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><%= link_to "#{copy.owner.name}'s copy", copy %></h5>
+                  </div>
+                  <p class="mb-1"><%= copy.description %></p>
+                  <small>Condition: <%= copy.condition %>/8</small>
+                </div>
+                <div class="ms-auto d-flex gap-2">
+                  <%= button_to "Show copy", game_copy_path(copy), class: "btn btn-outline-primary", method: :get %>
+                </div>
+              </div>
+            <% end %>
+          </div>
         </div>
-        <div class="tab-pane fade" id="description-tab-pane" role="tabpanel" aria-labelledby="description-tab" tabindex="0">
-          <p class="m-2"><%= @game.description %></p>
-        </div>
-        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...bb</div>
-        <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
-      </div>
       </div>
     </div>
   </div>
-
-  <!--  <%#= link_to "Edit this game", edit_game_path(@game) %> |-->
-  <%#= link_to "Back to games", games_path %>
-
-  <%#= button_to "Destroy this game", @game, method: :delete %>
 </div>

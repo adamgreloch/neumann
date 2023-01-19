@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_15_114611) do
   create_table "game_copies", force: :cascade do |t|
     t.bigint "realizes_id"
     t.bigint "owner_id"
+    t.bigint "rented_to_id"
     t.integer "condition", null: false
     t.integer "barcode", null: false
     t.text "description"
@@ -30,6 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_15_114611) do
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_game_copies_on_owner_id"
     t.index ["realizes_id"], name: "index_game_copies_on_realizes_id"
+    t.index ["rented_to_id"], name: "index_game_copies_on_rented_to_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -81,8 +83,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_15_114611) do
   end
 
   create_table "rentals", force: :cascade do |t|
+    t.bigint "submitter_id"
+    t.bigint "realizes_id"
+    t.string "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["realizes_id"], name: "index_rentals_on_realizes_id"
+    t.index ["submitter_id"], name: "index_rentals_on_submitter_id"
   end
 
   create_table "user_opinions", force: :cascade do |t|
@@ -128,7 +135,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_15_114611) do
 
   add_foreign_key "game_copies", "games", column: "realizes_id"
   add_foreign_key "game_copies", "users", column: "owner_id"
+  add_foreign_key "game_copies", "users", column: "rented_to_id"
   add_foreign_key "rental_requests", "users", column: "submitter_id"
+  add_foreign_key "rentals", "rental_requests", column: "realizes_id"
+  add_foreign_key "rentals", "users", column: "submitter_id"
   add_foreign_key "user_opinions", "users", column: "opinion_about_id"
   add_foreign_key "user_opinions", "users", column: "opinion_by_id"
 end
