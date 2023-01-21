@@ -5,6 +5,7 @@
   <p>
     <b>Submitter:</b> <%= link_to @rental.realizes.submitter.name, @rental.realizes.submitter %>
     <b>Status:</b> <%= @rental.status %>
+    <b>Days left:</b> <%= (@rental.realizes.rental_end - DateTime.current.beginning_of_day).to_i %>
   </p>
   <%=  render 'rental_mgr_buttons', rental: @rental  %>
   <br>

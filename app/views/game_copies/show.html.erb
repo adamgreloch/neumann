@@ -1,9 +1,2 @@
-<div>
-  <h1><%= @game_copy.realizes.title %> (Copy <%= @game_copy.id %>)
-  </h1>
-
-  <p>
-    <b>Owner:</b> <%= link_to @game_copy.owner.name, @game_copy.owner %>
-  </p>
-  <br>
-</div>
+<%= render @game_copy %>
+<%= render @game_copy.realizes %>

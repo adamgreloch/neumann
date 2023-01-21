@@ -1,0 +1,27 @@
+<div class="container mb-3">
+  <div class="row">
+    <div class="col">
+      <h2><%= @game_copy.owner.name %>'s copy of <%= @game_copy.realizes.title %>
+        <span class="text-secondary">
+          (#<%= @game_copy.id %>)
+        </span>
+      </h2>
+    </div>
+    <p class="text-secondary">
+      <% if user_signed_in? && @game_copy.owner_id == current_user.id %>
+        Manage your game copy, view its stats or retract it.
+      <% else %>
+        See game copies' stats, review it or report.
+      <% end %>
+    </p>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <ul class="list-unstyled mb-1">
+        <li><b>Condition:</b> <%= @game_copy.condition %> - <%= describe_condition(@game_copy.condition) %></li>
+        <li><b>In Neumann since:</b> <%= l @game_copy.created_at %></li>
+        <li><b>Currently:</b> </li>
+      </ul>
+    </div>
+  </div>
+</div>

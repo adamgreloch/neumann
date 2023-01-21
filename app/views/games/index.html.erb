@@ -1,6 +1,6 @@
 <h1>Games</h1>
 
-<% unless params[:q].nil? %>
+<% unless params[:q].nil? || params[:q]["title_cont"].nil? %>
   <p class="text-secondary">
     Looked for titles containing "<%= params[:q]["title_cont"] %>":
   </p>
@@ -22,10 +22,10 @@
   <table class="table table-hover">
     <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Rating</th>
-      <th scope="col">Weight</th>
+      <th scope="col"><%= sort_link(@q, :bgg_id, "#") %></th>
+      <th scope="col"><%= sort_link(@q, :title) %></th>
+      <th scope="col"><%= sort_link(@q, :bgg_rating, "Rating") %></th>
+      <th scope="col"><%= sort_link(@q, :weight, "Weight") %></th>
       <th scope="col">N-rating</th>
       <th scope="col">Copies</th>
     </tr>
