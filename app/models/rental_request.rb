@@ -1,6 +1,6 @@
 class RentalRequest < ApplicationRecord
   attr_accessor :wanted_games, :offered_games
-  before_create :realize_request
+
   has_many :wanted_per_requests, class_name: "WantedPerRequest",
            foreign_key: "rental_request_id", dependent: :destroy
   has_many :offered_per_requests, class_name: "OfferedPerRequest",
@@ -16,11 +16,23 @@ class RentalRequest < ApplicationRecord
   after_update :reload_submitter
 
   def submitted?
-    self.status != "open"
+    self.status == "submitted"
+  end
+
+  def open?
+    self.status == "open"
+  end
+
+  def editable?
+    self.status != "realized"
   end
 
   def can_accept?(user)
     lacks(user).count == 0
+  end
+
+  def is_submitter?(user)
+    self.submitter_id == user.id
   end
 
   def lacks(user)

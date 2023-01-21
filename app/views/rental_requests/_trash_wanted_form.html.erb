@@ -1,5 +1,7 @@
-<%= button_to remove_wanted_rental_request_path(@users_request), class: "btn btn-outline-primary",
+<% if rental_request.open? %>
+  <%= button_to remove_wanted_rental_request_path(rental_request), class: "btn btn-outline-primary",
               params: {game_id: game.id},
              method: :put do %>
   <i class="bi bi-x-lg"></i>
+<% end %>
 <% end %>

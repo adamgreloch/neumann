@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_15_114611) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_21_212314) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,6 +61,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_15_114611) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "offered_per_rentals", force: :cascade do |t|
+    t.integer "rental_id"
+    t.integer "game_copy_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_copy_id"], name: "index_offered_per_rentals_on_game_copy_id"
+    t.index ["rental_id", "game_copy_id"], name: "index_offered_per_rentals_on_rental_id_and_game_copy_id", unique: true
+    t.index ["rental_id"], name: "index_offered_per_rentals_on_rental_id"
+  end
+
   create_table "offered_per_requests", force: :cascade do |t|
     t.integer "rental_request_id"
     t.integer "game_id"
@@ -84,8 +94,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_15_114611) do
 
   create_table "rentals", force: :cascade do |t|
     t.bigint "submitter_id"
-    t.bigint "realizes_id"
     t.bigint "accepted_by_id"
+    t.bigint "realizes_id"
     t.string "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -125,6 +135,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_15_114611) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "wanted_per_rentals", force: :cascade do |t|
+    t.integer "rental_id"
+    t.integer "game_copy_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_copy_id"], name: "index_wanted_per_rentals_on_game_copy_id"
+    t.index ["rental_id", "game_copy_id"], name: "index_wanted_per_rentals_on_rental_id_and_game_copy_id", unique: true
+    t.index ["rental_id"], name: "index_wanted_per_rentals_on_rental_id"
+  end
+
   create_table "wanted_per_requests", force: :cascade do |t|
     t.integer "rental_request_id"
     t.integer "game_id"
@@ -139,8 +159,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_15_114611) do
   add_foreign_key "game_copies", "users", column: "owner_id"
   add_foreign_key "game_copies", "users", column: "rented_to_id"
   add_foreign_key "rental_requests", "users", column: "submitter_id"
-  add_foreign_key "rentals", "rental_requests", column: "accepted_by_id"
   add_foreign_key "rentals", "rental_requests", column: "realizes_id"
+  add_foreign_key "rentals", "users", column: "accepted_by_id"
   add_foreign_key "rentals", "users", column: "submitter_id"
   add_foreign_key "user_opinions", "users", column: "opinion_about_id"
   add_foreign_key "user_opinions", "users", column: "opinion_by_id"

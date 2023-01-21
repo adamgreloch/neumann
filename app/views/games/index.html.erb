@@ -1,16 +1,24 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Games</h1>
 
 <% unless params[:q].nil? %>
-<p class="text-secondary">
-  Looked for titles containing "<%= params[:q]["title_cont"] %>":
-</p>
+  <p class="text-secondary">
+    Looked for titles containing "<%= params[:q]["title_cont"] %>":
+  </p>
 <% end %>
 
-<div id="games" class="mt-4">
+<div class="d-flex gap-2 align-items-start">
   <%= will_paginate @games, renderer: WillPaginate::ActionView::BootstrapLinkRenderer,
-                    inner_window: 1, outer_window: 0%>
+                    inner_window: 1, outer_window: 0 %>
+
+  <% if params[:copies] == "true" %>
+    <%= link_to "Show all", games_path, class: "btn btn-outline-primary" %>
+  <% else %>
+    <%= link_to "Show games with copies only", games_path(copies: true), class: "btn btn-outline-primary" %>
+  <% end %>
+
+</div>
+
+<div id="games" class="mt-4">
   <table class="table table-hover">
     <thead>
     <tr>
@@ -18,20 +26,22 @@
       <th scope="col">Name</th>
       <th scope="col">Rating</th>
       <th scope="col">Weight</th>
-      <th scope="col">MIMUW rating</th>
+      <th scope="col">N-rating</th>
+      <th scope="col">Copies</th>
     </tr>
     </thead>
     <tbody>
-    <% @games.order(bgg_rating: :desc).each do |game| %>
-    <tr>
-      <th scope="row"><%= game.bgg_id %></th>
-      <td>
-        <%= image_tag(game.thumbnail_url, class: "img-thumbnail flex-shrink-0", height: 20, width: 70) %>
-        <b class="ms-md-2"><%= link_to game.title, game %></b></td>
-      <td><%= game.bgg_rating %>/10</td>
-      <td><%= game.bgg_weight %>/5</td>
-      <td>4.2/10</td>
-    </tr>
+    <% @games.each do |game| %>
+      <tr>
+        <th scope="row"><%= game.bgg_id %></th>
+        <td>
+          <%= image_tag(game.thumbnail_url, class: "img-thumbnail flex-shrink-0", height: 20, width: 70) %>
+          <b class="ms-md-2"><%= link_to game.title, game %></b></td>
+        <td><%= game.bgg_rating %>/10</td>
+        <td><%= game.bgg_weight %>/5</td>
+        <td>4.2/10</td>
+        <td><%= game.available_copies.count %>/<%= game.game_copies.count %></td>
+      </tr>
     <% end %>
     </tbody>
   </table>

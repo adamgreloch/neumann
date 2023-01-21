@@ -1,0 +1,18 @@
+<div class="d-flex gap-2">
+
+<%=  button_to "Mark swapped", set_swapped_rental_path(rental),
+               type: 'button',
+               class: "btn btn-outline-primary",
+               method: :put  if rental.to_swap? %>
+
+<%=  button_to "Mark finished", set_finished_rental_path(rental),
+               type: 'button',
+               class: "btn btn-outline-primary",
+               method: :put  if rental.to_finish? %>
+
+<%=  button_to "Report problem", set_problem_rental_path(rental),
+               type: 'button',
+               class: "btn btn-outline-danger",
+               method: :put  if rental.to_finish? %>
+
+</div>

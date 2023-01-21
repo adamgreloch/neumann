@@ -4,7 +4,12 @@ class GamesController < ApplicationController
 
   # GET /games or /games.json
   def index
-    @games = @q.result(distinct: true).paginate(page: params[:page], per_page: 15)
+    query = @q.result(distinct: true)
+    @copies = params[:copies]
+
+    query = query.where.associated(:game_copies) unless @copies.nil?
+
+    @games = query.order(bgg_rating: :desc).paginate(page: params[:page], per_page: 15)
   end
 
   # GET /games/1 or /games/1.json

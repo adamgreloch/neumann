@@ -1,0 +1,11 @@
+<div>
+  <h1>Rental <%= @rental.id %>
+  </h1>
+
+  <p>
+    <b>Submitter:</b> <%= link_to @rental.realizes.submitter.name, @rental.realizes.submitter %>
+    <b>Status:</b> <%= @rental.status %>
+  </p>
+  <%=  render 'rental_mgr_buttons', rental: @rental  %>
+  <br>
+</div>

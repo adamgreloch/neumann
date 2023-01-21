@@ -3,6 +3,7 @@
 
   <%= f.hidden_field :accepted_by_id, value: current_user.id %>
   <%= f.hidden_field :realizes_id, value: rental_request.id %>
+  <%= f.hidden_field :status, value: "accepted" %>
 
   <% if rental_request.can_accept?(current_user) %>
     <p>
