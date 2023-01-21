@@ -8,15 +8,9 @@
 
   <%= f.form_group :condition, label: { text: "Overall condition of box and its contents" },
                    help: "This evaluation is supposed to help future users of your copy." do %>
-     <%= f.radio_button :condition, 0, label: "0 - Barely exists" %>
-    <%= f.radio_button :condition, 1, label: "1 - Really bad" %>
-    <%= f.radio_button :condition, 2, label: "2 - War-torn" %>
-    <%= f.radio_button :condition, 3, label: "3 - Medium" %>
-    <%= f.radio_button :condition, 4, label: "4 - Nicely kept" %>
-    <%= f.radio_button :condition, 5, label: "5 - Well preserved" %>
-    <%= f.radio_button :condition, 6, label: "6 - Nearly mint" %>
-    <%= f.radio_button :condition, 7, label: "7 - Played approximately once" %>
-    <%= f.radio_button :condition, 8, label: "8 - Untouched" %>
+    <% (0..8).each do |level| %>
+      <%= f.radio_button :condition, level, label: "#{level} - #{describe_condition(level)}" %>
+    <% end %>
   <% end %>
 
   <%= f.text_area :description, label: "Additional notes" %>
