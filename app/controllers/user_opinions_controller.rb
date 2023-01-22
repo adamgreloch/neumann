@@ -14,10 +14,12 @@ class UserOpinionsController < ApplicationController
   # GET /user_opinions/new
   def new
     @user_opinion = UserOpinion.new
+    @opinion_about = User.find(params[:opinion_about_id])
   end
 
   # GET /user_opinions/1/edit
   def edit
+    @opinion_about = @user_opinion.opinion_about
   end
 
   # POST /user_opinions or /user_opinions.json
@@ -26,7 +28,7 @@ class UserOpinionsController < ApplicationController
 
     respond_to do |format|
       if @user_opinion.save
-        format.html { redirect_to user_opinion_url(@user_opinion), notice: "User opinion was successfully created." }
+        format.html { redirect_to user_url(@opinion_about), notice: "User opinion was successfully submitted." }
         format.json { render :show, status: :created, location: @user_opinion }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +41,7 @@ class UserOpinionsController < ApplicationController
   def update
     respond_to do |format|
       if @user_opinion.update(user_opinion_params)
-        format.html { redirect_to user_opinion_url(@user_opinion), notice: "User opinion was successfully updated." }
+        format.html { redirect_to user_url(@opinion_about), notice: "User opinion was successfully submitted." }
         format.json { render :show, status: :ok, location: @user_opinion }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -66,6 +68,6 @@ class UserOpinionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_opinion_params
-      params.fetch(:user_opinion, {})
+      params.require(:user_opinion).permit(:opinion_by_id, :opinion_about_id, :contact_rating, :compliance_rating, :comment)
     end
 end

@@ -1,0 +1,28 @@
+<h4 class="mt-3">Opinions about <%= about.name %></h4>
+<div class="mt-2 list-group">
+  <% about.opinions_about.each do |opinion| %>
+    <div class="card">
+      <div class="card-header">
+        <%= l opinion.updated_at %>
+      </div>
+      <div class="card-body d-flex align-items-center">
+        <div style="max-width: 70px">
+          <%= identicon_for opinion.opinion_by %>
+        </div>
+        <blockquote class="blockquote mb-0 ms-3">
+          <p>
+            <%= opinion.comment %>
+          </p>
+          <footer class="blockquote-footer"> <%= link_to opinion.opinion_by.name, opinion.opinion_by %> </footer>
+        </blockquote>
+      </div>
+      <div class="card-footer text-muted">
+        <ul class="list-unstyled mb-1">
+          <li><b>Contact experience:</b> <%= "#{opinion.contact_rating} - #{describe_contact(opinion.contact_rating)}." %></li>
+          <li><b>Compliance:</b>  <%=
+            "#{opinion.compliance_rating} - #{describe_compliance(opinion.compliance_rating)}." %> </li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</div>

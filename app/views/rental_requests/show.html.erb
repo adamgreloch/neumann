@@ -23,13 +23,7 @@
   <div class="card">
     <div class="card-body">
       <div class="row mt-2 align-items-center">
-        <div class="col-4 col-md-2 col-lg-1 mb-3">
-          <%= identicon_for @rental_request.submitter %>
-        </div>
-        <div class="col-auto mb-3">
-          <h4 class="mb-1"><%= link_to @submitter.name, @submitter %></h4>
-          <span class="badge bg-secondary">activity: <%= @submitter.activity %></span>
-        </div>
+        <%= render 'users/user_snippet', user: @rental_request.submitter %>
         <div class="ms-auto col-md-auto">
           <div class="btn-group gap-2">
             <% if @is_submitter %>

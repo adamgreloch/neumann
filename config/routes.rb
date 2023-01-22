@@ -28,7 +28,11 @@ Rails.application.routes.draw do
     end
     resources :wanted_per_requests, only: [:create, :destroy]
     resources :offered_per_requests, only: [:create, :destroy]
-    resources :users
+    resources :users do
+      member do
+        put :star
+      end
+    end
   end
 
   resources :games

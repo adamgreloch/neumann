@@ -14,6 +14,25 @@ class User < ApplicationRecord
   has_one :open_request, -> { where status: "open" },
           class_name: "RentalRequest", foreign_key: "submitter_id", dependent: :destroy
 
+  has_many :opinions_about, class_name: "UserOpinion", foreign_key: "opinion_about_id"
+  has_many :opinions_by, class_name: "UserOpinion", foreign_key: "opinion_by_id"
+
+  def avg_compliance
+    if self.opinions_about.count == 0
+      "?"
+    else
+      self.opinions_about.average(:compliance_rating)
+    end
+  end
+
+  def avg_contact
+    if self.opinions_about.count == 0
+      "?"
+    else
+      self.opinions_about.average(:contact_rating)
+    end
+  end
+
   def available_copies
     self.game_copies.where(rented_to_id: nil)
   end

@@ -1,0 +1,24 @@
+<%= bootstrap_form_with(model: @user_opinion) do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
+
+  <%= f.hidden_field :opinion_by_id, value: current_user.id %>
+  <%= f.hidden_field :opinion_about_id, value: user.id %>
+
+  <%= f.form_group :contact_rating, label: { text: "Overall contact experience" },
+                   help: "How would you rate your cooperation with #{user.name}?" do %>
+    <% (0..4).each do |level| %>
+      <%= f.radio_button :contact_rating, level, label: "#{level} - #{describe_contact(level)}" %>
+    <% end %>
+  <% end %>
+
+  <%= f.form_group :compliance_rating, label: { text: "Compliance" },
+                   help: "Was #{user.name} a fair player in rentals?" do %>
+    <% (0..6).each do |level| %>
+      <%= f.radio_button :compliance_rating, level, label: "#{level} - #{describe_compliance(level)}" %>
+    <% end %>
+  <% end %>
+
+  <%= f.text_area :comment, label: "Text review", placeholder: "Would be great to hear more than just numbers!", required: true %>
+
+  <%= f.submit "Submit" %>
+<% end %>

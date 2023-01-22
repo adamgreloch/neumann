@@ -1,0 +1,7 @@
+<h4>Stats</h4>
+<ul class="list-unstyled mb-1">
+  <li><b>Member since:</b> <%= l user.created_at %></li>
+  <li><b>Requests active:</b> <%= user.rental_requests.where(status: "submitted").count %></li>
+  <li><b>Rentals:</b> <%= user.all_active_rentals.count %> in progress, <%= user.all_archival_rentals.count %> finished.</li>
+  <li><b>Game copies provided:</b> <%= user.game_copies.count %></li>
+</ul>

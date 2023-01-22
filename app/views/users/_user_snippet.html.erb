@@ -1,0 +1,9 @@
+<div class="col-4 col-md-2 col-lg-1 mb-3">
+    <%= identicon_for user %>
+</div>
+<div class="col-auto mb-3">
+  <h4 class="mb-1"><%= link_to user.name, user %></h4>
+  <span class="badge bg-secondary">activity | <%= user.activity %></span>
+  <span class="badge bg-info">ce | <%= user.avg_contact %>/4</span>
+  <span class="badge bg-danger">com | <%= user.avg_compliance %>/6</span>
+</div>
