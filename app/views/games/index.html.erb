@@ -25,7 +25,7 @@
       <th scope="col"><%= sort_link(@q, :bgg_id, "#") %></th>
       <th scope="col"><%= sort_link(@q, :title) %></th>
       <th scope="col"><%= sort_link(@q, :bgg_rating, "Rating") %></th>
-      <th scope="col"><%= sort_link(@q, :weight, "Weight") %></th>
+      <th scope="col"><%= sort_link(@q, :bgg_weight, "Weight") %></th>
       <th scope="col">N-rating</th>
       <th scope="col">Copies</th>
     </tr>
@@ -39,7 +39,12 @@
           <b class="ms-md-2"><%= link_to game.title, game %></b></td>
         <td><%= game.bgg_rating %>/10</td>
         <td><%= game.bgg_weight %>/5</td>
-        <td>4.2/10</td>
+        <td>
+          <% if game.opinions.count == 0 %>
+            unranked
+          <% else %>
+            <%= game.n_rating %>/10 (<%= game.n_rank %>)
+          <% end %></td>
         <td><%= game.available_copies.count %>/<%= game.game_copies.count %></td>
       </tr>
     <% end %>

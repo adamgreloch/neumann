@@ -10,7 +10,7 @@
         </span>
       <span class="badge bg-success">Weight:
         <%= @game.bgg_weight %>/5</span>
-      <span class="badge bg-dark">MIMUW: 4.2/10 (32)</span>
+      <span class="badge bg-dark">N-rating: <%= @game.n_rating %>/10 (<%= @game.n_rank %>)</span>
 
       <div class="d-md-flex my-3 d-grid gap-1">
         <% if user_signed_in? %>
@@ -35,10 +35,10 @@
           <% end %>
         <% end %>
         <%= render 'games/new_copy_form' %>
-        <a class="btn btn-outline-primary" href=<%= games_path %>>
-          <i class="bi bi-clipboard-check me-1"></i>
-          Review
-        </a>
+        <%= link_to new_game_opinion_path(opinion_about_id: @game.id),
+                    class: "btn btn-outline-primary", method: :put do %>
+          <i class="bi bi-clipboard-check me-1"></i> Review
+        <% end %>
         <%= link_to "Show on BGG", "https://boardgamegeek.com/boardgame/#{@game.bgg_id}", type: 'button', class: "btn btn-outline-primary" %>
       </div>
 

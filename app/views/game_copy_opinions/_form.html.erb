@@ -1,0 +1,15 @@
+<%= bootstrap_form_with(model: @game_copy_opinion) do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
+
+  <%= f.hidden_field :opinion_by_id, value: current_user.id %>
+  <%= f.hidden_field :opinion_about_id, value: game_copy.id %>
+
+  <%= f.form_group :condition, label: { text: "Overall condition of box and its contents" },
+                   help: "This evaluation is supposed to estimate real condition of the copy." do %>
+    <% (0..8).each do |level| %>
+      <%= f.radio_button :condition, level, label: "#{level} - #{describe_condition(level)}" %>
+    <% end %>
+  <% end %>
+
+  <%= f.submit "Submit" %>
+<% end %>

@@ -17,7 +17,11 @@ Rails.application.routes.draw do
         put :set_problem
       end
     end
+
     resources :user_opinions
+    resources :game_copy_opinions
+    resources :game_opinions
+
     resources :rental_requests do
       member do
         put :submit

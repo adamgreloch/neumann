@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_21_212345) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_21_223464) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,6 +32,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_21_212345) do
     t.index ["owner_id"], name: "index_game_copies_on_owner_id"
     t.index ["realizes_id"], name: "index_game_copies_on_realizes_id"
     t.index ["rented_to_id"], name: "index_game_copies_on_rented_to_id"
+  end
+
+  create_table "game_copy_opinions", force: :cascade do |t|
+    t.bigint "opinion_by_id"
+    t.bigint "opinion_about_id"
+    t.integer "condition", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["opinion_about_id"], name: "index_game_copy_opinions_on_opinion_about_id"
+    t.index ["opinion_by_id"], name: "index_game_copy_opinions_on_opinion_by_id"
+  end
+
+  create_table "game_opinions", force: :cascade do |t|
+    t.bigint "opinion_by_id"
+    t.bigint "opinion_about_id"
+    t.integer "rating", null: false
+    t.integer "weight", null: false
+    t.integer "playing_time", null: false
+    t.integer "min_players", null: false
+    t.integer "max_players", null: false
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["opinion_about_id"], name: "index_game_opinions_on_opinion_about_id"
+    t.index ["opinion_by_id"], name: "index_game_opinions_on_opinion_by_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -159,6 +184,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_21_212345) do
   add_foreign_key "game_copies", "games", column: "realizes_id"
   add_foreign_key "game_copies", "users", column: "owner_id"
   add_foreign_key "game_copies", "users", column: "rented_to_id"
+  add_foreign_key "game_copy_opinions", "game_copies", column: "opinion_about_id"
+  add_foreign_key "game_copy_opinions", "users", column: "opinion_by_id"
+  add_foreign_key "game_opinions", "games", column: "opinion_about_id"
+  add_foreign_key "game_opinions", "users", column: "opinion_by_id"
   add_foreign_key "rental_requests", "users", column: "submitter_id"
   add_foreign_key "rentals", "rental_requests", column: "realizes_id"
   add_foreign_key "rentals", "users", column: "accepted_by_id"
