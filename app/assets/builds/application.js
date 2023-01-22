@@ -11828,7 +11828,7 @@
     connect() {
       setTimeout(() => {
         this.dismiss();
-      }, 3e3);
+      }, 5e3);
     }
     dismiss() {
       this.element.remove();

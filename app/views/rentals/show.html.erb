@@ -1,12 +1,53 @@
 <div>
-  <h1>Rental <%= @rental.id %>
-  </h1>
+  <% accepted_by = @rental.accepted_by %>
+  <% submitter = @rental.realizes.submitter %>
 
-  <p>
-    <b>Submitter:</b> <%= link_to @rental.realizes.submitter.name, @rental.realizes.submitter %>
-    <b>Status:</b> <%= @rental.status %>
-    <b>Days left:</b> <%= (@rental.realizes.rental_end - DateTime.current.beginning_of_day).to_i %>
-  </p>
-  <%=  render 'rental_mgr_buttons', rental: @rental  %>
-  <br>
+  <h2>Rental between <%= submitter.name %> and <%= accepted_by.name %>
+    <span class="text-secondary">
+      (#<%= @rental.id %>)
+    </span>
+  </h2>
+
+
+  <div class="card">
+    <div class="card-body d-flex">
+      <ul class="list-unstyled mb-1">
+        <li>
+          <b>Status:</b> <%= @rental.status %>
+        </li>
+        <li>
+          <b>Submitter:</b> <%= link_to @rental.realizes.submitter.name, @rental.realizes.submitter %>
+        </li>
+        <li>
+          <b>Rental start:</b> <%= @rental_request.rental_start %> </li>
+        <li>
+          <b>Rental end:</b> <%= @rental_request.rental_end %>
+          (days left: <%= (@rental.realizes.rental_end - DateTime.current.beginning_of_day).to_i %>)
+        </li>
+      </ul>
+      <div class="ms-auto">
+        <%= render 'rental_mgr_buttons', rental: @rental %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <h3>Games rented by:</h3>
+    <div class="col-md mb-3">
+      <h4><%= link_to accepted_by.name, accepted_by %></h4>
+      <ul class="list-group">
+        <% @rental.wanted_per_rentals.each do |query| %>
+          <%= render 'shared/list_game_copy', game_copy: query.game_copy %>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-md mb-3">
+      <h4><%= link_to submitter.name, submitter %></h4>
+      <ul class="list-group">
+        <% @rental.offered_per_rentals.each do |query| %>
+          <%= render 'shared/list_game_copy', game_copy: query.game_copy %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>

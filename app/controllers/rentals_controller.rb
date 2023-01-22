@@ -8,6 +8,7 @@ class RentalsController < ApplicationController
 
   # GET /rentals/1 or /rentals/1.json
   def show
+    @rental_request = @rental.realizes
   end
 
   # GET /rentals/new
@@ -32,7 +33,7 @@ class RentalsController < ApplicationController
 
   def set_finished
     respond_to do |format|
-      if @rental.update(status: "finished");
+      if @rental.swap_back_and_finish
         format.html { redirect_to rental_url(@rental), notice: "Rental marked as finished!" }
       else
         format.html { redirect_to rental_url(@rental), notice: "Error." }
@@ -42,7 +43,7 @@ class RentalsController < ApplicationController
 
   def set_problem
     respond_to do |format|
-      if @rental.update(status: "problem");
+      if @rental.update(status: "problematic");
         format.html { redirect_to rental_url(@rental), notice: "Rental marked as problematic. Good luck:/" }
       else
         format.html { redirect_to rental_url(@rental), notice: "Error." }

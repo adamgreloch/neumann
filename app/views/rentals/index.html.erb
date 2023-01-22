@@ -13,7 +13,7 @@
       <li class="list-group-item">
         <div class="d-flex align-items-center">
           <div class="d-md-flex gap-4 align-items-center">
-            <%= link_to "Request \##{rental.id}", rental, class: "text-nowrap" %>
+            <%= link_to "Rental \##{rental.id}", rental, class: "text-nowrap" %>
             <small class="ms-1 text-muted">
               <%= l rental.realizes.rental_start %> -
               <%= l rental.realizes.rental_end %>
@@ -33,40 +33,12 @@
       <li class="list-group-item">
         <div class="d-flex align-items-center">
           <div class="d-flex gap-4 align-items-center">
-            <%= link_to "Request \##{rental.id}", rental, class: "text-nowrap" %>
+            <%= link_to "Rental \##{rental.id}", rental, class: "text-nowrap" %>
             <small class="ms-1 text-muted">
               <%= l rental.realizes.rental_start %> -
               <%= l rental.realizes.rental_end %>
             </small>
-            <ul class="list-group list-group-horizontal">
-              <% wanted = rental.realizes.wanted_per_requests %>
-              <% if wanted.empty? %>
-                <li class="list-group-item">
-                  <i class="bi bi-braces"></i>
-                </li>
-              <% else %>
-                <% wanted.each do |entry| %>
-                  <li class="list-group-item">
-                    <%= link_to entry.game.title, entry.game %>
-                  </li>
-                <% end %>
-              <% end %>
-              <li class="list-group-item">
-                <i class="bi bi-arrow-right"></i>
-              </li>
-              <% offered = rental.realizes.offered_per_requests %>
-              <% if offered.empty? %>
-                <li class="list-group-item">
-                  <i class="bi bi-braces"></i>
-                </li>
-              <% else %>
-                <% offered.each do |entry| %>
-                  <li class="list-group-item">
-                    <%= link_to entry.game.title, entry.game %>
-                  </li>
-                <% end %>
-              <% end %>
-            </ul>
+            <%= render 'shared/games_func', rental_request: rental.realizes %>
           </div>
           <div class="ms-auto">
             <%= render 'rental_mgr_buttons', rental: rental %>

@@ -1,4 +1,4 @@
-<%= button_to new_game_copy_path, class: "btn btn-outline-primary",
-              params: {game_id: @game.id}, method: :get do %>
+<%= link_to new_game_copy_path(game_id: @game.id), class: "btn btn-outline-primary",
+            method: :get do %>
   <i class="bi bi-box-seam me-1"></i> Add copy
 <% end %>

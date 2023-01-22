@@ -40,6 +40,20 @@ class Rental < ApplicationRecord
     self.save
   end
 
+  def swap_back_and_finish
+    self.status = "finished"
+
+    wanted_per_rentals.each do |wanted|
+      accepted_by.retrieve_copy(wanted.game_copy_id)
+    end
+
+    offered_per_rentals.each do |offered|
+      submitter.retrieve_copy(offered.game_copy_id)
+    end
+
+    self.save
+  end
+
   private
   def realize_request
     self.status = "accepted"
