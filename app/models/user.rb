@@ -17,6 +17,13 @@ class User < ApplicationRecord
   has_many :opinions_about, class_name: "UserOpinion", foreign_key: "opinion_about_id"
   has_many :opinions_by, class_name: "UserOpinion", foreign_key: "opinion_by_id"
 
+  ACCEPT_ACTIVITY_BONUS = 5
+  PER_GAME_ACTIVITY_BONUS = 1
+
+  def reviewed_by?(user)
+    opinions_about.where(opinion_by_id: user.id).exists?
+  end
+
   def avg_compliance
     if self.opinions_about.count == 0
       "?"
@@ -43,10 +50,14 @@ class User < ApplicationRecord
 
   def rent_to(copy_id, user)
     game_copies.find(copy_id).update(rented_to_id: user.id)
+    self.activity += PER_GAME_ACTIVITY_BONUS
+    self.save
   end
 
   def retrieve_copy(copy_id)
     game_copies.find(copy_id).update(rented_to_id: nil)
+    self.activity += PER_GAME_ACTIVITY_BONUS
+    self.save
   end
 
   def all_rentals

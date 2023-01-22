@@ -13,46 +13,13 @@
   <% end %>
   <ul class="list-group">
     <% @rental_requests.submitted.each do |rental_request| %>
-      <li class="list-group-item">
-        <div class="d-flex align-items-center">
-          <div class="d-md-flex gap-4 align-items-center">
-            <%= link_to "Request \##{rental_request.id}", rental_request, class: "text-nowrap" %>
-            <small class="ms-1 text-muted">
-              <%= l rental_request.rental_start %> -
-              <%= l rental_request.rental_end %>
-            </small>
-            <%= render 'shared/games_func', rental_request: rental_request %>
-          </div>
-          <div class="ms-auto">
-            <% if rental_request.is_submitter?(current_user) %>
-              <span class="text-secondary">(Your own)</span>
-            <% else %>
-              <%= button_to "Accept", new_rental_path,
-                            type: 'button',
-                            class: "btn btn-outline-primary",
-                            params: { rental_request_id: rental_request.id },
-                            method: :get %>
-            <% end %>
-          </div>
-        </div>
-      </li>
+      <%= render 'list_request', rental_request: rental_request %>
     <% end %>
   </ul>
   <h5 class="mt-3">Archival rental requests</h5>
   <ul class="list-group">
     <% @rental_requests.archival.each do |rental_request| %>
-      <li class="list-group-item">
-        <div class="d-flex align-items-center">
-          <div class="d-flex gap-4 align-items-center">
-            <%= link_to "Request \##{rental_request.id}", rental_request, class: "text-nowrap" %>
-            <small class="ms-1 text-muted">
-              <%= l rental_request.rental_start %> -
-              <%= l rental_request.rental_end %>
-            </small>
-            <%= render 'shared/games_func', rental_request: rental_request %>
-          </div>
-        </div>
-      </li>
+      <%= render 'list_request', rental_request: rental_request %>
     <% end %>
   </ul>
 </div>

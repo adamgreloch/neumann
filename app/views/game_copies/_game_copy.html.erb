@@ -36,6 +36,7 @@
           </span>
         </li>
         <li><b>In Neumann since:</b> <%= @game_copy.created_at.to_date %></li>
+        <li><b>ISBN:</b> <%= @game_copy.barcode %></li>
       </ul>
       <div class="ms-auto">
         <% if user_signed_in? && @game_copy.owner.id == current_user.id && !@game_copy.rented? %>

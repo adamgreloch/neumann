@@ -1,5 +1,5 @@
 class RentalsController < ApplicationController
-  before_action :set_rental, only: %i[ show edit set_swapped set_finished set_problem update destroy ]
+  before_action :set_rental, only: %i[ show edit set_swapped set_finished set_problem accept update destroy ]
 
   # GET /rentals or /rentals.json
   def index
@@ -19,6 +19,16 @@ class RentalsController < ApplicationController
 
   # GET /rentals/1/edit
   def edit
+  end
+
+  def accept
+    respond_to do |format|
+      if @rental.accept(User.find(params[:user_id]));
+        format.html { redirect_to rental_url(@rental), notice: "Rental accepted." }
+      else
+        format.html { redirect_to rental_url(@rental), notice: "Error." }
+      end
+    end
   end
 
   def set_swapped
@@ -97,6 +107,6 @@ class RentalsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rental_params
-      params.require(:rental).permit(:realizes_id, :accepted_by_id, :status).except(:accept)
+      params.require(:rental).permit(:realizes_id, :accepted_by_id, :status, :accepted_by_status).except(:accept)
     end
 end

@@ -28,7 +28,7 @@ class UserOpinionsController < ApplicationController
 
     respond_to do |format|
       if @user_opinion.save
-        format.html { redirect_to user_url(@opinion_about), notice: "User opinion was successfully submitted." }
+        format.html { redirect_to user_path(@opinion_about), notice: "User opinion was successfully submitted." }
         format.json { render :show, status: :created, location: @user_opinion }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,9 +39,11 @@ class UserOpinionsController < ApplicationController
 
   # PATCH/PUT /user_opinions/1 or /user_opinions/1.json
   def update
+    @opinion_about = @user_opinion.opinion_about
+
     respond_to do |format|
       if @user_opinion.update(user_opinion_params)
-        format.html { redirect_to user_url(@opinion_about), notice: "User opinion was successfully submitted." }
+        format.html { redirect_to user_path(@opinion_about), notice: "User opinion was successfully submitted." }
         format.json { render :show, status: :ok, location: @user_opinion }
       else
         format.html { render :edit, status: :unprocessable_entity }

@@ -1,0 +1,5 @@
+<%= button_to "Accept", new_rental_path,
+              type: 'button',
+              class: "btn btn-outline-primary",
+              params: { rental_request_id: rental_request.id },
+              method: :get unless rental_request.is_submitter?(current_user) %>

@@ -19,9 +19,12 @@
             <%= link_to "Games", games_path, class: "nav-link" %>
           </li>
           <% if user_signed_in? %>
-          <li>
-            <%= link_to "Your rentals", rentals_path, class: "nav-link" %>
-          </li>
+            <li>
+              <%= link_to "Users", users_path, class: "nav-link" %>
+            </li>
+            <li>
+              <%= link_to "Your rentals", rentals_path, class: "nav-link" %>
+            </li>
           <% end %>
         </ul>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">

@@ -1,28 +1,18 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Users</h1>
 
 <div id="users">
   <ul class="list-group">
     <% @users.each do |user| %>
-    <li class="list-group-item d-flex">
-      <div class="container-fluid">
+      <li class="list-group-item">
         <div class="row align-items-center">
-          <div class="col-1">
-            <%= identicon_for user %>
-          </div>
-          <div class="col-auto">
-            <%= link_to user.name, user %>
-          </div>
-          <div class="ms-auto col-1">
-            <%= link_to "Accept", root_url, type: 'button', class: "btn btn-outline-primary" %>
+          <%= render 'user_snippet', user: user %>
+          <div class="ms-auto">
             <% if user_signed_in? && current_user.is_admin? %>
               <%= link_to "Accept deposit", root_url, type: 'button', class: "btn btn-outline-primary" %>
             <% end %>
           </div>
         </div>
-      </div>
-    </li>
-  <% end %>
+      </li>
+    <% end %>
   </ul>
 </div>

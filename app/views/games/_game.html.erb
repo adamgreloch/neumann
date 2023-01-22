@@ -15,17 +15,17 @@
       <div class="d-md-flex my-3 d-grid gap-1">
         <% if user_signed_in? %>
           <% if current_user.has_request_open? %>
-            <%= if @game_wanted
+            <%= if @users_request.wants?(@game)
                   render 'games/remove_wanted_form', game: @game
                 else
-                  unless @game_offered
+                  unless @users_request.offers?(@game)
                     render 'games/add_wanted_form', game: @game
                   end
                 end %>
-            <%= if @game_offered
+            <%= if @users_request.offers?(@game)
                   render 'games/remove_offered_form', game: @game
                 else
-                  unless @game_wanted
+                  unless @users_request.wants?(@game)
                     render 'games/add_offered_form', game: @game
                   end
                 end

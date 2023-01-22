@@ -9,20 +9,55 @@ class Rental < ApplicationRecord
   before_create :set_submitter_id
   after_create :realize_request
 
+  ACCEPTED = "accepted"
+  SWAPPED = "swapped"
+  TO_SWAP = "to_swap"
+  FINISHED = "finished"
+
   def to_swap?
-    self.status == "accepted"
+    self.status == TO_SWAP
+  end
+
+  def submitter_accepted?
+    self.submitter_status == ACCEPTED
+  end
+
+  def accept_pending?(user)
+    if user == realizes.submitter
+      !submitter_accepted?
+    else
+      if user == accepted_by
+        self.accepted_by_status != ACCEPTED
+      else
+        false
+      end
+    end
+  end
+
+  def accept(user)
+    if user == realizes.submitter
+      self.submitter_status = ACCEPTED
+    else
+      if user == accepted_by
+        self.accepted_by_status = ACCEPTED
+      end
+    end
+    if self.submitter_status == self.accepted_by_status && self.submitter_status == ACCEPTED
+      self.status = TO_SWAP
+    end
+    self.save
   end
 
   def swapped?
-    self.status == "swapped"
+    self.status == SWAPPED
   end
 
   def to_finish?
-    self.status == "swapped"
+    self.status == SWAPPED
   end
 
   def finished?
-    self.status == "finished"
+    self.status == FINISHED
   end
 
   def swap_copies
@@ -55,6 +90,7 @@ class Rental < ApplicationRecord
   end
 
   private
+
   def realize_request
     self.status = "accepted"
     self.realizes.update(status: "realized")

@@ -4,6 +4,7 @@
   <%= f.hidden_field :accepted_by_id, value: current_user.id %>
   <%= f.hidden_field :realizes_id, value: rental_request.id %>
   <%= f.hidden_field :status, value: "accepted" %>
+  <%= f.hidden_field :accepted_by_status, value: "accepted" %>
 
   <% if rental_request.can_accept?(current_user) %>
     <p>
@@ -35,7 +36,7 @@
       (<%= (rental_request.rental_end - rental_request.rental_start).to_i %> days).
       After rental end, both parties have 1 day to swap back rented copies.
     </p>
-    <%= f.check_box :accept, label: "I accept Neumann renting rules
+    <%= f.check_box :accepted, label: "I accept Neumann renting rules
     and fully acknowledge that my deposit can be taken irreversibly
     in case of not fulfilling above arrangement.", required: true %>
     <%= f.submit "Submit" %>

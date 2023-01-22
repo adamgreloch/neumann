@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_21_223464) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_22_203553) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_21_223464) do
     t.bigint "owner_id"
     t.bigint "rented_to_id"
     t.integer "condition", null: false
-    t.integer "barcode", null: false
+    t.string "barcode", null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -121,9 +121,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_21_223464) do
     t.bigint "submitter_id"
     t.bigint "accepted_by_id"
     t.bigint "realizes_id"
-    t.string "status", null: false
+    t.string "accepted_by_status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "submitter_status"
+    t.string "status"
     t.index ["accepted_by_id"], name: "index_rentals_on_accepted_by_id"
     t.index ["realizes_id"], name: "index_rentals_on_realizes_id"
     t.index ["submitter_id"], name: "index_rentals_on_submitter_id"
@@ -155,7 +157,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_21_223464) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "stars"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

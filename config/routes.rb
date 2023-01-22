@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         put :set_swapped
         put :set_finished
         put :set_problem
+        put :accept
       end
     end
 

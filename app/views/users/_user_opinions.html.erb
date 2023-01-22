@@ -15,6 +15,10 @@
           </p>
           <footer class="blockquote-footer"> <%= link_to opinion.opinion_by.name, opinion.opinion_by %> </footer>
         </blockquote>
+        <%= link_to edit_user_opinion_path(id: opinion.id, opinion_about_id: @user.id),
+                    class: "btn btn-outline-primary ms-auto" do %>
+          <i class="bi bi-pencil"></i>
+        <% end if opinion.opinion_by == current_user %>
       </div>
       <div class="card-footer text-muted">
         <ul class="list-unstyled mb-1">

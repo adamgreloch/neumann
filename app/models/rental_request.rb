@@ -46,6 +46,14 @@ class RentalRequest < ApplicationRecord
     Game.find(lacks(user))
   end
 
+  def wants?(game)
+    self.wanted_per_requests.exists?(game_id: game.id)
+  end
+
+  def offers?(game)
+    self.offered_per_requests.exists?(game_id: game.id)
+  end
+
   def wanted
     Game.find(wanted_per_requests.pluck(:game_id))
   end
