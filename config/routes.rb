@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   devise_scope :user do
+    get "login" => "devise/sessions#new", :as => "login"
+    get "signup" => "devise/registrations#new", :as => "signup"
     get "logout" => "devise/sessions#destroy", :as => "logout"
     resources :game_copies
     resources :rentals do

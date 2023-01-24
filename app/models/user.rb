@@ -20,6 +20,18 @@ class User < ApplicationRecord
   ACCEPT_ACTIVITY_BONUS = 5
   PER_GAME_ACTIVITY_BONUS = 1
 
+  def rentals_pending
+    submitted_rentals.where(status: :accepted)
+  end
+
+  def rentals_to_swap
+    accepted_rentals.or(submitted_rentals).where(status: :to_swap)
+  end
+
+  def rentals_active
+    accepted_rentals.or(submitted_rentals).where(status: :swapped)
+  end
+
   def reviewed_by?(user)
     opinions_about.where(opinion_by_id: user.id).exists?
   end
@@ -65,15 +77,15 @@ class User < ApplicationRecord
   end
 
   def all_active_rentals
-    self.submitted_rentals.where.not(status: "finished") + self.accepted_rentals.where.not(status: "finished")
+    self.submitted_rentals.or(self.accepted_rentals).where.not(status: "finished")
   end
 
   def all_archival_rentals
-    self.submitted_rentals.where(status: "finished") + self.accepted_rentals.where(status: "finished")
+    self.submitted_rentals.or(self.accepted_rentals).where(status: "finished")
   end
 
   def deposit_to_pay?
-    self.deposit_amount > self.deposit_paid && self.deposit_deducted == 0
+    !is_admin? && self.deposit_amount > self.deposit_paid && self.deposit_deducted == 0
   end
 
   def is_admin?

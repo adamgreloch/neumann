@@ -28,7 +28,7 @@ class UserOpinionsController < ApplicationController
 
     respond_to do |format|
       if @user_opinion.save
-        format.html { redirect_to user_path(@opinion_about), notice: "User opinion was successfully submitted." }
+        format.html { redirect_to user_path(@user_opinion.opinion_about), notice: "User opinion was successfully submitted." }
         format.json { render :show, status: :created, location: @user_opinion }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +43,7 @@ class UserOpinionsController < ApplicationController
 
     respond_to do |format|
       if @user_opinion.update(user_opinion_params)
-        format.html { redirect_to user_path(@opinion_about), notice: "User opinion was successfully submitted." }
+        format.html { redirect_to user_path(@user_opinion.opinion_about), notice: "User opinion was successfully submitted." }
         format.json { render :show, status: :ok, location: @user_opinion }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,10 +54,11 @@ class UserOpinionsController < ApplicationController
 
   # DELETE /user_opinions/1 or /user_opinions/1.json
   def destroy
+    @opinion_about = @user_opinion.opinion_about
     @user_opinion.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_opinions_url, notice: "User opinion was successfully destroyed." }
+      format.html { redirect_to user_path(@opinion_about), notice: "User opinion was successfully submitted." }
       format.json { head :no_content }
     end
   end

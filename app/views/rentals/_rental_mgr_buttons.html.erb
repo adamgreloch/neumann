@@ -1,27 +1,39 @@
 <div class="d-flex gap-2">
 
-<%=  button_to "Accept", accept_rental_path(id: rental.id, user_id: current_user.id),
-               type: 'button',
-               class: "btn btn-outline-primary",
-               data: { 'turbo-confirm': "Are you sure you want to accept this rental?" },
-               method: :put  if rental.accept_pending?(current_user) %>
+  <%= button_to accept_rental_path(id: rental.id, user_id: current_user.id),
+                type: 'button',
+                class: "btn btn-outline-primary",
+                data: { 'turbo-confirm': "Are you sure you want to accept this rental?" },
+                method: :put do %>
+    <i class="bi bi-check me-1"></i>
+    Accept
+  <% end if rental.accept_pending?(current_user) %>
 
-<%=  button_to "Mark swapped", set_swapped_rental_path(rental),
-               type: 'button',
-               class: "btn btn-outline-primary",
-               data: { 'turbo-confirm': "Are you sure you want mark this rental as SWAPPED?" },
-               method: :put  if rental.to_swap? %>
+  <%= button_to set_swapped_rental_path(rental),
+                type: 'button',
+                class: "btn btn-outline-primary",
+                data: { 'turbo-confirm': "Are you sure you want mark this rental as SWAPPED?" },
+                method: :put do %>
+    <i class="bi bi-arrow-left-right me-1"></i>
+    Swap
+  <% end if rental.to_swap? %>
 
-<%=  button_to "Mark finished", set_finished_rental_path(rental),
-               type: 'button',
-               class: "btn btn-outline-primary",
-               data: { 'turbo-confirm': "Are you sure you want mark this rental as FINISHED?" },
-               method: :put  if rental.to_finish? %>
+  <%= button_to set_finished_rental_path(rental),
+                type: 'button',
+                class: "btn btn-outline-primary",
+                data: { 'turbo-confirm': "Are you sure you want mark this rental as FINISHED?" },
+                method: :put do %>
+    <i class="bi bi-check-circle-fill me-1"></i>
+    Mark as finished
+  <% end if rental.to_finish? %>
 
-<%=  button_to "Report problem", set_problem_rental_path(rental),
-               type: 'button',
-               class: "btn btn-outline-danger",
-               data: { 'turbo-confirm': "Are you sure you want mark this rental as PROBLEMATIC?" },
-               method: :put  if rental.to_finish? %>
+  <%= button_to set_problem_rental_path(rental),
+                type: 'button',
+                class: "btn btn-outline-danger",
+                data: { 'turbo-confirm': "Are you sure you want mark this rental as PROBLEMATIC?" },
+                method: :put do %>
+    <i class="bi bi-exclamation-octagon me-1"></i>
+    Report problem
+  <% end if rental.to_finish? %>
 
 </div>

@@ -1,0 +1,57 @@
+<% if user.rentals_pending.exists? %>
+  <div class="mt-2 shadow-sm alert alert-success alert-dismissible fade show" role="alert">
+    <div class="d-flex mb-2">
+      <i class="bi bi-info-circle flex-shrink-0 me-2"></i>
+      You have rentals to accept!
+    </div>
+    <ul class="list-unstyled mb-0">
+      <% user.rentals_pending.each do |rental| %>
+        <li>
+          <%= link_to "Rental ##{rental.id}", rental %>
+          :<%= render 'shared/games_func_text', rental_request: rental.realizes %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if user.rentals_to_swap.exists? %>
+  <div class="mt-2 shadow-sm alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="d-flex mb-2">
+      <i class="bi bi-arrow-left-right flex-shrink-0 me-2"></i>
+      You have rentals to swap!
+    </div>
+    <ul class="list-unstyled mb-0">
+      <% user.rentals_to_swap.each do |rental| %>
+        <li>
+          <%= link_to "Rental ##{rental.id}", rental %>
+          :<%= render 'shared/games_func_text', rental_request: rental.realizes %>
+          (starts in <%= (rental.realizes.rental_start - DateTime.current.beginning_of_day).to_i %> d)
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if user.rentals_active.exists? %>
+  <div class="mt-2 alert alert-dismissible border border-2 show" role="alert">
+    <div class="d-flex mb-2">
+      <i class="bi bi-clock-history flex-shrink-0 me-2"></i>
+      You have active rentals:
+    </div>
+    <ul class="list-unstyled mb-0">
+      <% user.rentals_active.each do |rental| %>
+        <li class="mb-2">
+          <%= link_to "Rental ##{rental.id}", rental %>
+          :<%= render 'shared/games_func_text', rental_request: rental.realizes %>
+          (start: <%= rental.realizes.rental_start %>, days till end: <%= rental.days_left %>)
+          <div class="progress mt-2"
+               role="progressbar">
+            <div class="progress-bar" style="width: <%=rental.progress%>%"></div>
+            <%= "#{rental.rental_days_left}/#{rental.days}" %> rental days left
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

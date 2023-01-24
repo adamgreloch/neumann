@@ -48,6 +48,25 @@ class Rental < ApplicationRecord
     self.save
   end
 
+  def days
+    (realizes.rental_end - realizes.rental_start).to_i
+  end
+  def days_left
+    (realizes.rental_end - DateTime.current.beginning_of_day).to_i
+  end
+
+  def rental_days_left
+    [days, days_left].min
+  end
+
+  def progress
+    if days_left > days
+      0
+    else
+      (days - days_left) / days
+    end
+  end
+
   def swapped?
     self.status == SWAPPED
   end

@@ -4,11 +4,11 @@
   <%= f.hidden_field :opinion_by_id, value: current_user.id %>
   <%= f.hidden_field :opinion_about_id, value: game.id %>
 
-  <%= f.text_field :rating, required: true %>
-  <%= f.text_field :weight, required: true %>
-  <%= f.text_field :playing_time, required: true %>
-  <%= f.text_field :min_players, required: true %>
-  <%= f.text_field :max_players, required: true %>
+  <%= f.number_field :rating, required: true, step: 0.1, max: 10 %>
+  <%= f.number_field :weight, required: true, step: 0.1, max: 5 %>
+  <%= f.number_field :playing_time, required: true, min: 0%>
+  <%= f.number_field :min_players, required: true, min: 0 %>
+  <%= f.number_field :max_players, required: true, min: 0 %>
 
   <%= f.text_area :comment, required: true %>
 

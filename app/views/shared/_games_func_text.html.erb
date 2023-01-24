@@ -1,0 +1,23 @@
+<% wanted = rental_request.wanted_per_requests %>
+<% if wanted.empty? %>
+  <i class="bi bi-braces"></i>
+<% else %>
+  <% wanted.take(1).each do |entry| %>
+    <%= link_to truncate(entry.game.title, length: 25), entry.game %>
+  <% end %>
+  <% if wanted.count > 1 %>
+    <i class="bi bi-plus"></i> <%= wanted.count - 1 %>
+  <% end %>
+<% end %>
+<i class="bi bi-arrow-right"></i>
+<% offered = rental_request.offered_per_requests %>
+<% if offered.empty? %>
+  <i class="bi bi-braces"></i>
+<% else %>
+  <% offered.take(1).each do |entry| %>
+    <%= link_to truncate(entry.game.title, length: 25), entry.game %>
+  <% end %>
+  <% if offered.count > 1 %>
+    <i class="bi bi-plus"></i> <%= offered.count - 1 %>
+  <% end %>
+<% end %>
