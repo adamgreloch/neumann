@@ -9,6 +9,7 @@ class Game < ApplicationRecord
   def n_rating
     self.opinions.average(:rating)
   end
+
   def n_rank
     self.opinions.where("rating <= ?", n_rating).count
   end
