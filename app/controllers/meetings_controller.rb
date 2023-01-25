@@ -1,5 +1,7 @@
 class MeetingsController < ApplicationController
-  before_action :set_meeting, only: %i[ show edit update destroy ]
+  before_action :set_meeting, only: %i[ show edit attend unattend update destroy ]
+  before_action :authenticate_user!
+  before_action :force_to_pay
 
   # GET /meetings or /meetings.json
   def index
@@ -17,6 +19,33 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/1/edit
   def edit
+  end
+
+  # PUT
+  def attend
+    user = User.find(params[:user_id])
+    respond_to do |format|
+      if @meeting.add_participant(user)
+        format.html { redirect_to meeting_url(@meeting), notice: "Happy attending!" }
+        format.json { render :show, status: :created, location: @meeting }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @meeting.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def unattend
+    user = User.find(params[:user_id])
+    respond_to do |format|
+      if @meeting.remove_participant(user)
+        format.html { redirect_to meeting_url(@meeting), notice: "You no longer want to attend this meeting." }
+        format.json { render :show, status: :created, location: @meeting }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @meeting.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # POST /meetings or /meetings.json
@@ -65,6 +94,6 @@ class MeetingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def meeting_params
-      params.fetch(:meeting, {})
+      params.require(:meeting).permit(:organizer_id, :title, :location, :time, :date, :description)
     end
 end

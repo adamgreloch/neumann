@@ -2,12 +2,25 @@ class ApplicationController < ActionController::Base
   before_action :set_search, :set_open_request
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :create_admin
+  before_action :markdown
+
+  def force_to_pay
+    if user_signed_in? && current_user.deposit_to_pay?
+      redirect_to root_url
+    end
+  end
 
   protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   end
+
+  def markdown
+    @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+  end
+
+  private
 
   def create_admin
     admin_email = "admin@neumann.xyz"
@@ -19,8 +32,6 @@ class ApplicationController < ActionController::Base
       AdminEmail.create(email: admin_email)
     end
   end
-
-  private
 
   def set_open_request
     if user_signed_in? && current_user.has_request_open?

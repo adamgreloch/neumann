@@ -1,5 +1,6 @@
 class WantedPerRequestsController < ApplicationController
   before_action :set_rental_request
+  before_action :authenticate_user!
 
   def new
     @wanted_per_request = WantedPerRequest.new

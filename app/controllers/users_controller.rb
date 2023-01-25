@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show star edit update destroy ]
   before_action :authenticate_user!
+  before_action :force_to_pay, only: %i[ star edit update destroy ]
 
   def index
     @users = User.all

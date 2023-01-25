@@ -1,5 +1,7 @@
 class RentalsController < ApplicationController
   before_action :set_rental, only: %i[ show edit set_swapped set_finished set_problem accept update destroy ]
+  before_action :authenticate_user!
+  before_action :force_to_pay
 
   # GET /rentals or /rentals.json
   def index

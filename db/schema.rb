@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_22_203553) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_25_090125) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,9 +81,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_22_203553) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "meeting_participants", force: :cascade do |t|
+    t.integer "meeting_id"
+    t.integer "participant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meeting_id", "participant_id"], name: "index_meeting_participants_on_meeting_id_and_participant_id", unique: true
+    t.index ["meeting_id"], name: "index_meeting_participants_on_meeting_id"
+    t.index ["participant_id"], name: "index_meeting_participants_on_participant_id"
+  end
+
   create_table "meetings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "organizer_id"
+    t.string "title", null: false
+    t.string "location", null: false
+    t.time "time", null: false
+    t.date "date", null: false
+    t.text "description"
+    t.index ["organizer_id"], name: "index_meetings_on_organizer_id"
   end
 
   create_table "offered_per_rentals", force: :cascade do |t|
@@ -189,6 +206,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_22_203553) do
   add_foreign_key "game_copy_opinions", "users", column: "opinion_by_id"
   add_foreign_key "game_opinions", "games", column: "opinion_about_id"
   add_foreign_key "game_opinions", "users", column: "opinion_by_id"
+  add_foreign_key "meetings", "users", column: "organizer_id"
   add_foreign_key "rental_requests", "users", column: "submitter_id"
   add_foreign_key "rentals", "rental_requests", column: "realizes_id"
   add_foreign_key "rentals", "users", column: "accepted_by_id"

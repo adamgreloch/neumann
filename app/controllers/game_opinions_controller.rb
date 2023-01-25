@@ -42,11 +42,9 @@ class GameOpinionsController < ApplicationController
 
   # PATCH/PUT /game_opinions/1 or /game_opinions/1.json
   def update
-    @opinion_about = Game.find(params[:opinion_about_id])
-
     respond_to do |format|
       if @game_opinion.update(game_opinion_params)
-        format.html { redirect_to game_url(@opinion_about), notice: "Game copy opinion was successfully submitted." }
+        format.html { redirect_to game_url(@game_opinion.opinion_about), notice: "Game copy opinion was successfully submitted." }
         format.json { render :show, status: :ok, location: @game_opinion }
       else
         format.html { render :edit, status: :unprocessable_entity }

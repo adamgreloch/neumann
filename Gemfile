@@ -94,4 +94,6 @@ gem 'will_paginate-bootstrap-style'
 
 gem 'ransack'
 
+gem 'redcarpet'
+
 gem "google-cloud-storage", "~> 1.31", ">= 1.31.1", require: false

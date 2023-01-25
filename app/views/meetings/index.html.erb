@@ -1,0 +1,35 @@
+<div class="d-md-flex gap-2 align-items-center mb-2">
+  <div>
+    <h1>Meetings</h1>
+    <p>Catch up with your friends to play some boardgames.</p>
+  </div>
+  <%= link_to new_meeting_path,
+              type: 'button',
+              class: "ms-auto btn btn-outline-primary" do %>
+    <i class="bi bi-plus me-1"></i> Plan new meeting
+  <% end %>
+</div>
+
+<div id="meetings">
+  <% if @meetings.count == 0 %>
+    <p class="text-center text-secondary">
+      There is currently no meetings planned. Organize your own!
+      <i class="bi bi-balloon"></i>
+    </p>
+  <% end %>
+  <ul class="list-group">
+    <% @meetings.each do |meeting| %>
+      <li class="list-group-item">
+        <div class="d-flex align-items-center">
+          <div class="d-md-flex gap-4 align-items-center">
+            <%= link_to meeting.title, meeting, class: "text-nowrap" %>
+            <%= render 'meeting_icons', meeting: meeting %>
+          </div>
+          <div class="ms-auto">
+            <%= render 'meeting_mgr_buttons', meeting: meeting %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

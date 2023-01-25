@@ -1,0 +1,16 @@
+<%= bootstrap_form_with model: @meeting do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
+
+  <%= f.hidden_field :organizer_id, value: current_user.id %>
+
+  <%= f.text_field :title, required: true %>
+  <%= f.time_field :time, required: true,
+                   value: "%H:%M" %>
+  <%= f.date_field :date, required: true %>
+
+  <%= f.text_field :location, required: true %>
+
+  <%= f.text_area :description, help: "Neumann supports Markdown rendering!", rows: 10, class: "font-monospace" %>
+
+  <%= f.submit "Submit" %>
+<% end %>

@@ -1,0 +1,42 @@
+<div>
+  <div class="d-md-flex align-items-center">
+    <div>
+      <h2><%= @meeting.title %>
+        <span class="text-secondary">
+          (#<%= @meeting.id %>)
+        </span>
+      </h2>
+      <%= render 'meeting_icons', meeting: @meeting %>
+    </div>
+    <div class="ms-auto">
+      <%= render 'meeting_mgr_buttons', meeting: @meeting %>
+    </div>
+  </div>
+  <div class="card mt-3 mb-0">
+    <div class="card-header">
+      Meeting description
+    </div>
+    <div class="card-body">
+      <%= @markdown.render(@meeting.description).html_safe %>
+    </div>
+  </div>
+  <div class="card mt-3 mb-0">
+    <div class="card-header">
+      Meeting participants (<%= @meeting.participants.count %>)
+    </div>
+    <div class="card-body">
+      <% if @meeting.participants.exists? %>
+        <ul class="mb-0">
+          <% @meeting.participants.each do |participant| %>
+            <li>
+              <%= link_to participant.name, participant %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        None
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>

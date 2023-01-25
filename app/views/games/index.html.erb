@@ -1,22 +1,23 @@
-<h1>Games</h1>
+<div class="d-md-flex gap-2 align-items-start">
+  <h1>Games</h1>
+  <div class="d-md-flex gap-2 align-items-start ms-auto">
+    <%= will_paginate @games, renderer: WillPaginate::ActionView::BootstrapLinkRenderer,
+                      inner_window: 1, outer_window: 0 %>
+
+    <% if params[:copies] == "true" %>
+      <%= link_to "Show all", games_path, class: "btn btn-outline-primary" %>
+    <% else %>
+      <%= link_to "Show games with copies only", games_path(copies: true), class: "btn btn-outline-primary" %>
+    <% end %>
+  </div>
+</div>
+
 
 <% unless params[:q].nil? || params[:q]["title_cont"].nil? %>
   <p class="text-secondary">
     Looked for titles containing "<%= params[:q]["title_cont"] %>":
   </p>
 <% end %>
-
-<div class="d-md-flex gap-2 align-items-start">
-  <%= will_paginate @games, renderer: WillPaginate::ActionView::BootstrapLinkRenderer,
-                    inner_window: 1, outer_window: 0 %>
-
-  <% if params[:copies] == "true" %>
-    <%= link_to "Show all", games_path, class: "btn btn-outline-primary" %>
-  <% else %>
-    <%= link_to "Show games with copies only", games_path(copies: true), class: "btn btn-outline-primary" %>
-  <% end %>
-
-</div>
 
 <div id="games" class="mt-4">
   <table class="table table-hover">

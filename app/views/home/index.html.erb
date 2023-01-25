@@ -2,6 +2,7 @@
   <% if user_signed_in? %>
     <%= render 'user_panel', user: current_user %>
   <% end %>
+  <%= render 'shared/deposit_alerts' %>
   <h1>Welcome to Neumann</h1>
 
   <p>

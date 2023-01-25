@@ -40,6 +40,12 @@ Rails.application.routes.draw do
         put :star
       end
     end
+    resources :meetings do
+      member do
+        put :attend
+        put :unattend
+      end
+    end
   end
 
   resources :games

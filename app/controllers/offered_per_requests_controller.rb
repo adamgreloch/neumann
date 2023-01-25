@@ -1,5 +1,6 @@
 class OfferedPerRequestsController < ApplicationController
   before_action :set_rental_request
+  before_action :authenticate_user!
 
   def new
     @offered_per_request = OfferedPerRequest.new

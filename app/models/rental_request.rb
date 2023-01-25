@@ -1,6 +1,4 @@
 class RentalRequest < ApplicationRecord
-  attr_accessor :wanted_games, :offered_games
-
   has_many :wanted_per_requests, class_name: "WantedPerRequest",
            foreign_key: "rental_request_id", dependent: :destroy
   has_many :offered_per_requests, class_name: "OfferedPerRequest",
