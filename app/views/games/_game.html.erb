@@ -33,7 +33,6 @@
           <% else %>
             <%= render 'shared/request_button' %>
           <% end %>
-          <% end if current_user.is_admin? %>
           <%= render 'games/new_copy_form' unless current_user.deposit_to_pay? %>
           <%= link_to new_game_opinion_path(opinion_about_id: @game.id),
                       class: "btn btn-outline-primary", method: :put do %>
@@ -44,6 +43,7 @@
                         data: { 'turbo-confirm': "1984 detected. Are you sure you want to delete this game?" },
                         method: :delete do %>
             <i class="bi bi-trash"></i>
+          <% end if current_user.is_admin? %>
         <% end %>
         <%= link_to "Show on BGG", "https://boardgamegeek.com/boardgame/#{@game.bgg_id}", type: 'button', class: "btn btn-outline-primary" %>
       </div>

@@ -15,6 +15,10 @@ class RentalRequest < ApplicationRecord
   after_create :assign_to_submitter
   after_update :reload_submitter
 
+  def is_empty?
+    self.wanted_per_requests.empty? && self.offered_per_requests.empty?
+  end
+
   def submitted?
     self.status == "submitted"
   end
@@ -73,19 +77,5 @@ class RentalRequest < ApplicationRecord
 
   def reload_submitter
     self.submitter.reload_open_request
-  end
-
-  def gather_games
-    # TODO rollback/transaction
-    wanted_games.each do |game|
-      unless game.empty?
-        WantedPerRequest.create(rental_request_id: self.id, game_id: game)
-      end
-    end
-    offered_games.each do |game|
-      unless game.empty?
-        OfferedPerRequest.create(rental_request_id: self.id, game_id: game)
-      end
-    end
   end
 end

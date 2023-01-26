@@ -25,7 +25,7 @@
       <div class="row mt-2 align-items-center">
         <%= render 'users/user_snippet', user: @rental_request.submitter %>
         <div class="ms-auto col-md-auto">
-          <div class="btn-group gap-2">
+          <div class="d-flex gap-2 align-items-center">
             <% if @is_submitter %>
               <% if @rental_request.editable? %>
                 <% if @rental_request.submitted? %>
@@ -34,9 +34,13 @@
                     <i class="bi bi-arrow-down-circle me-1"></i> Re-open
                   <% end %>
                 <% else %>
-                  <%= button_to submit_rental_request_path(@rental_request),
-                                class: "btn btn-outline-primary", method: :put do %>
-                    <i class="bi bi-arrow-up-circle me-1"></i> Submit
+                  <% if @rental_request.is_empty? %>
+                    <span class="text-secondary">(Add something to make request submittable)</span>
+                  <% else %>
+                    <%= button_to submit_rental_request_path(@rental_request),
+                                  class: "btn btn-outline-primary", method: :put do %>
+                      <i class="bi bi-arrow-up-circle me-1"></i> Submit
+                    <% end %>
                   <% end %>
                 <% end %>
                 <%= button_to edit_rental_request_path, method: :get, class: "btn btn-outline-primary" do %>
