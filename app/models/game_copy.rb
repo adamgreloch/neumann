@@ -11,4 +11,12 @@ class GameCopy < ApplicationRecord
   def avg_condition
     self.opinions.average(:condition)
   end
+
+  def reviewed_by?(user)
+    self.opinions.where(opinion_by: user).exists?
+  end
+
+  def review_by(user)
+    self.opinions.find_by(opinion_by: user)
+  end
 end

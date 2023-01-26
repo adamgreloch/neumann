@@ -1,41 +1,8 @@
 <% if about.opinions.exists? %>
-  <div class="mt-3 list-group">
+  <div class="mt-2">
     <h5>Game reviews</h5>
     <% about.opinions.each do |opinion| %>
-      <div class="card">
-        <div class="card-header">
-          <%= opinion.updated_at.strftime("%Y-%m-%d") %>
-        </div>
-        <div class="card-body d-flex align-items-center">
-          <div style="max-width: 70px">
-            <%= identicon_for opinion.opinion_by %>
-          </div>
-          <blockquote class="blockquote mb-0 ms-3">
-            <p>
-              <%= opinion.comment %>
-            </p>
-            <footer class="blockquote-footer"> <%= link_to opinion.opinion_by.name, opinion.opinion_by %> </footer>
-          </blockquote>
-          <%= link_to edit_game_opinion_path(id: opinion),
-                      class: "btn btn-outline-primary ms-auto" do %>
-            <i class="bi bi-pencil"></i>
-          <% end if opinion.opinion_by == current_user %>
-        </div>
-        <div class="card-footer text-muted">
-          <ul class="list-unstyled mb-1 d-flex gap-4">
-            <li><b>Rating:</b> <%= opinion.rating %></li>
-            <li><b>Weight:</b>  <%= opinion.weight %> </li>
-            <li><b>Players:</b>
-              <% if opinion.min_players == opinion.max_players %>
-                <%= opinion.min_players %>
-              <% else %>
-                <%= opinion.min_players %>-<%= opinion.max_players %>
-              <% end %>
-            </li>
-            <li><b>Playing time:</b> <%= opinion.playing_time %> min</li>
-          </ul>
-        </div>
-      </div>
+      <%= render opinion %>
     <% end %>
   </div>
 <% end %>

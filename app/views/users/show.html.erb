@@ -36,6 +36,9 @@
                             class: "btn btn-outline-primary", method: :put do %>
                 <i class="bi bi-flag me-1"></i> Report
               <% end %>
+              <%= link_to "Manage deposit", edit_user_path(@user),
+                          type: 'button',
+                          class: "btn btn-outline-primary" if user_signed_in? && current_user.is_admin? %>
             <% end %>
           </div>
         </div>

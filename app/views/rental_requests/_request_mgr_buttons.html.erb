@@ -1,5 +1,17 @@
-<%= button_to "Accept", new_rental_path,
-              type: 'button',
-              class: "btn btn-outline-primary",
-              params: { rental_request_id: rental_request.id },
-              method: :get unless rental_request.is_submitter?(current_user) %>
+<% if rental_request.editable? %>
+  <% if rental_request.is_submitter?(current_user) %>
+    <span class="text-secondary">(Your own)</span>
+  <% else %>
+    <%= button_to "Accept", new_rental_path,
+                  type: 'button',
+                  class: "btn btn-outline-primary",
+                  params: { rental_request_id: rental_request.id },
+                  method: :get unless rental_request.is_submitter?(current_user) %>
+
+  <% end %>
+<% end %>
+<%= link_to edit_rental_request_path(rental_request),
+            type: 'button',
+            class: "btn btn-outline-primary" do %>
+  <i class="bi bi-pencil-square"></i>
+<% end if current_user.is_admin? %>

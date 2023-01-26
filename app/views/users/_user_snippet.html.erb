@@ -8,12 +8,17 @@
       <span class="badge bg-black">admin</span>
     <% end %>
     <span class="badge bg-secondary">activity
-    <i class="bi bi-arrow-right"></i> <%= user.activity %></span>
+      <i class="bi bi-arrow-right"></i> <b><%= user.activity %></b></span>
     <span class="badge bg-info">contact
     <i class="bi bi-arrow-right"></i>
-      <%= user.avg_contact %>/4</span>
+      <b><%= user.avg_contact %>/4</b></span>
     <span class="badge bg-danger">comply
     <i class="bi bi-arrow-right"></i>
-      <%= user.avg_compliance %>/6</span>
+      <b><%= user.avg_compliance %>/6</b></span>
+    <% if user.deposit_deducted? %>
+    <span class="badge bg-black">
+      <i class="bi bi-lock me-1"></i> locked
+    </span>
+    <% end %>
   </div>
 </div>

@@ -14,4 +14,8 @@ class Game < ApplicationRecord
     self.opinions.where("rating <= ?", n_rating).count
   end
 
+  def reviewed_by?(user)
+    self.opinions.where(opinion_by: user).exists?
+  end
+
 end

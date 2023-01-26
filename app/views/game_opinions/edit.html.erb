@@ -1,7 +1,7 @@
 <h2>Edit review</h2>
 
-<div class="col-lg-6">
-  <%= render "form", game: @opinion_about %>
+<div class="col-lg-4">
+  <%= render "form", game: @game_opinion.opinion_about %>
 
   <div class="mt-2">
     <%= link_to "Delete", game_opinion_path(@game_opinion),

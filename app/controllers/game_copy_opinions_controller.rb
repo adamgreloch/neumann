@@ -19,7 +19,6 @@ class GameCopyOpinionsController < ApplicationController
 
   # GET /game_copy_opinions/1/edit
   def edit
-    @opinion_about = @game_copy_opinion.opinion_about
   end
 
   # TODO clean up this mess
@@ -27,11 +26,10 @@ class GameCopyOpinionsController < ApplicationController
   # POST /game_copy_opinions or /game_copy_opinions.json
   def create
     @game_copy_opinion = GameCopyOpinion.new(game_copy_opinion_params)
-    @opinion_about = @game_copy_opinion.opinion_about
 
     respond_to do |format|
       if @game_copy_opinion.save
-        format.html { redirect_to game_copy_url(@opinion_about), notice: "Game copy opinion was successfully submitted." }
+        format.html { redirect_to game_copy_url(@game_copy_opinion.opinion_about), notice: "Game copy opinion was successfully submitted." }
         format.json { render :show, status: :created, location: @game_copy_opinion }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,11 +40,9 @@ class GameCopyOpinionsController < ApplicationController
 
   # PATCH/PUT /game_copy_opinions/1 or /game_copy_opinions/1.json
   def update
-    @opinion_about = GameCopy.find(params[:opinion_about_id])
-
     respond_to do |format|
       if @game_copy_opinion.update(game_copy_opinion_params)
-        format.html { redirect_to game_copy_url(@opinion_about), notice: "Game copy opinion was successfully submitted." }
+        format.html { redirect_to game_copy_url(@game_copy_opinion.opinion_about), notice: "Game copy opinion was successfully submitted." }
         format.json { render :show, status: :ok, location: @game_copy_opinion }
       else
         format.html { render :edit, status: :unprocessable_entity }

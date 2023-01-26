@@ -10,14 +10,8 @@
     <div class="my-2 my-md-0">
       <%= render 'shared/games_func', rental_request: rental_request %>
     </div>
-    <% if rental_request.editable? %>
     <div class="ms-auto">
-      <% if rental_request.is_submitter?(current_user) %>
-        <span class="text-secondary">(Your own)</span>
-      <% else %>
-        <%= render 'request_mgr_buttons', rental_request: rental_request %>
-      <% end %>
+      <%= render 'request_mgr_buttons', rental_request: rental_request %>
     </div>
-    <% end %>
   </div>
 </li>
