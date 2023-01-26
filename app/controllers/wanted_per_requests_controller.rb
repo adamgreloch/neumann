@@ -31,17 +31,18 @@ class WantedPerRequestsController < ApplicationController
   end
 
   private
-    def set_rental_request
-      @rental_request = RentalRequest.find(params[:rental_request_id])
-    end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_wanted_per_request
-      @wanted_per_request = WantedPerRequest.find(params[:rental_request])
-    end
+  def set_rental_request
+    @rental_request = RentalRequest.find(params[:rental_request_id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def wanted_per_request_params
-      params.require(:wanted_per_request).permit(:rental_request_id, :game_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_wanted_per_request
+    @wanted_per_request = WantedPerRequest.find(params[:rental_request])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def wanted_per_request_params
+    params.require(:wanted_per_request).permit(:rental_request_id, :game_id)
+  end
 end

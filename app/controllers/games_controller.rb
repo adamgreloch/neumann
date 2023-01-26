@@ -14,13 +14,13 @@ class GamesController < ApplicationController
 
   # GET /games/1 or /games/1.json
   def show
-      if @users_request.nil?
-        @game_wanted = false
-        @game_offered = false
-      else
-        @game_wanted = @users_request.wanted_per_requests.exists?(game_id: @game.id)
-        @game_offered = @users_request.offered_per_requests.exists?(game_id: @game.id)
-      end
+    if @users_request.nil?
+      @game_wanted = false
+      @game_offered = false
+    else
+      @game_wanted = @users_request.wanted_per_requests.exists?(game_id: @game.id)
+      @game_offered = @users_request.offered_per_requests.exists?(game_id: @game.id)
+    end
   end
 
   # GET /games/new
@@ -72,14 +72,14 @@ class GamesController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_game
-      @game = Game.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_game
+    @game = Game.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def game_params
-      params.require(:game).permit(:title, :bgg_id, :description, :release_year, :bgg_rating,
-                                   :bgg_rated_count, :bgg_ranking, :boxart_url)
-    end
+  # Only allow a list of trusted parameters through.
+  def game_params
+    params.require(:game).permit(:title, :bgg_id, :description, :release_year, :bgg_rating,
+                                 :bgg_rated_count, :bgg_ranking, :boxart_url)
+  end
 end

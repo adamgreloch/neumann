@@ -102,13 +102,14 @@ class RentalsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_rental
-      @rental = Rental.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def rental_params
-      params.require(:rental).permit(:realizes_id, :accepted_by_id, :status, :accepted_by_status).except(:accept)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_rental
+    @rental = Rental.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def rental_params
+    params.require(:rental).permit(:realizes_id, :accepted_by_id, :status, :accepted_by_status).except(:accept)
+  end
 end

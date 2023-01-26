@@ -51,6 +51,7 @@ class Rental < ApplicationRecord
   def days
     (realizes.rental_end - realizes.rental_start).to_i
   end
+
   def days_left
     (realizes.rental_end - DateTime.current.beginning_of_day).to_i
   end

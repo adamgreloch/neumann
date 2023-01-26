@@ -106,14 +106,15 @@ class RentalRequestsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_rental_request
-      @rental_request = RentalRequest.find(params[:id])
-      @submitter = @rental_request.submitter
-    end
 
-    # Only allow a list of trusted parameters through.
-    def rental_request_params
-      params.require(:rental_request).permit(:submitter_id, :rental_start, :rental_end, :status, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_rental_request
+    @rental_request = RentalRequest.find(params[:id])
+    @submitter = @rental_request.submitter
+  end
+
+  # Only allow a list of trusted parameters through.
+  def rental_request_params
+    params.require(:rental_request).permit(:submitter_id, :rental_start, :rental_end, :status, :description)
+  end
 end

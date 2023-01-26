@@ -64,13 +64,14 @@ class UserOpinionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user_opinion
-      @user_opinion = UserOpinion.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_opinion_params
-      params.require(:user_opinion).permit(:opinion_by_id, :opinion_about_id, :contact_rating, :compliance_rating, :comment)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user_opinion
+    @user_opinion = UserOpinion.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def user_opinion_params
+    params.require(:user_opinion).permit(:opinion_by_id, :opinion_about_id, :contact_rating, :compliance_rating, :comment)
+  end
 end

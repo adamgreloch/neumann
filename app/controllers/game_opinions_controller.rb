@@ -64,15 +64,16 @@ class GameOpinionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_game_opinion
-      @game_opinion = GameOpinion.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def game_opinion_params
-      params.require(:game_opinion).permit(:opinion_by_id, :opinion_about_id,
-                                           :rating, :weight, :playing_time, :min_players,
-                                           :max_players, :comment)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_game_opinion
+    @game_opinion = GameOpinion.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def game_opinion_params
+    params.require(:game_opinion).permit(:opinion_by_id, :opinion_about_id,
+                                         :rating, :weight, :playing_time, :min_players,
+                                         :max_players, :comment)
+  end
 end

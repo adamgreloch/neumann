@@ -9,8 +9,8 @@ class RentalRequest < ApplicationRecord
 
   belongs_to :submitter, class_name: "User"
 
-  scope :submitted, -> {where status: "submitted" }
-  scope :archival, -> {where status: "realized" }
+  scope :submitted, -> { where status: "submitted" }
+  scope :archival, -> { where status: "realized" }
 
   after_create :assign_to_submitter
   after_update :reload_submitter

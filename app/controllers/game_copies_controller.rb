@@ -61,14 +61,15 @@ class GameCopiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_game_copy
-      @game_copy = GameCopy.find(params[:id])
-      @game = @game_copy.realizes
-    end
 
-    # Only allow a list of trusted parameters through.
-    def game_copy_params
-      params.require(:game_copy).permit(:owner_id, :realizes_id, :condition, :description, :barcode)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_game_copy
+    @game_copy = GameCopy.find(params[:id])
+    @game = @game_copy.realizes
+  end
+
+  # Only allow a list of trusted parameters through.
+  def game_copy_params
+    params.require(:game_copy).permit(:owner_id, :realizes_id, :condition, :description, :barcode)
+  end
 end
