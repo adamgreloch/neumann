@@ -1,5 +1,4 @@
 module UsersHelper
-
   # Returns the Gravatar for the given user.
   def identicon_for(user)
     image_tag("data:image/jpeg;base64,#{RubyIdenticon.create_base64(user.email.downcase)}", class: 'img-thumbnail')

@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
     return unless user_signed_in? && current_user.deposit_to_pay?
 
     redirect_to root_url
-
   end
 
   protected
@@ -24,11 +23,11 @@ class ApplicationController < ActionController::Base
   private
 
   def create_admin
-    admin_email = "admin@neumann.xyz"
+    admin_email = 'admin@neumann.xyz'
 
     unless User.exists?(0)
-      User.create(id: 0, name: "neumann", email: admin_email, password: "123456",
-                  password_confirmation: "123456")
+      User.create(id: 0, name: 'neumann', email: admin_email, password: '123456',
+                  password_confirmation: '123456')
     end
     return if AdminEmail.where(email: admin_email).exists?
 
@@ -37,7 +36,7 @@ class ApplicationController < ActionController::Base
 
   def set_open_request
     @users_request = if user_signed_in? && current_user.has_request_open?
-                       current_user.rental_requests.find_by(status: "open")
+                       current_user.rental_requests.find_by(status: 'open')
                      end
   end
 

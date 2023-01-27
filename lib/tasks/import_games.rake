@@ -1,6 +1,6 @@
-desc "Import games from CSV"
+desc 'Import games from CSV'
 
-task :import_games => :environment do
+task import_games: :environment do
   require 'csv'
 
   path = "#{Rails.root}/storage/games.csv"

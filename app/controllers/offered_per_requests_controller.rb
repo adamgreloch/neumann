@@ -9,7 +9,8 @@ class OfferedPerRequestsController < ApplicationController
   def create
     @rental_request = RentalRequest.find(params[:rental_request_id])
 
-    @rental_request.offered_per_requests << OfferedPerRequest.create(rental_request_id: @rental_request.id, game_id: params[:game_id])
+    @rental_request.offered_per_requests << OfferedPerRequest.create(rental_request_id: @rental_request.id,
+                                                                     game_id: params[:game_id])
 
     respond_to do |format|
       if @rental_request.save

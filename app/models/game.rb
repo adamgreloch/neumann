@@ -17,5 +17,4 @@ class Game < ApplicationRecord
   def reviewed_by?(user)
     opinions.where(opinion_by: user).exists?
   end
-
 end

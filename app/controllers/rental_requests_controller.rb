@@ -1,6 +1,6 @@
 class RentalRequestsController < ApplicationController
   before_action :set_rental_request, only: %i[ show edit
-    submit reopen remove_offered remove_wanted update destroy ]
+                                               submit reopen remove_offered remove_wanted update destroy ]
   before_action :authenticate_user!
   before_action :force_to_pay
 
@@ -20,8 +20,7 @@ class RentalRequestsController < ApplicationController
   end
 
   # GET /rental_requests/1/edit
-  def edit
-  end
+  def edit; end
 
   def submit
     respond_to do |format|

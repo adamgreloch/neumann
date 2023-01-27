@@ -7,7 +7,8 @@ class WantedPerRequestsController < ApplicationController
   end
 
   def create
-    @rental_request.wanted_per_requests << WantedPerRequest.create(rental_request_id: @rental_request.id, game_id: params[:game_id])
+    @rental_request.wanted_per_requests << WantedPerRequest.create(rental_request_id: @rental_request.id,
+                                                                   game_id: params[:game_id])
 
     respond_to do |format|
       if @rental_request.save

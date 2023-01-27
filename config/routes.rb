@@ -4,13 +4,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  get "home/index"
-  root to: "home#index"
+  get 'home/index'
+  root to: 'home#index'
 
   devise_scope :user do
-    get "login" => "devise/sessions#new", :as => "login"
-    get "signup" => "devise/registrations#new", :as => "signup"
-    get "logout" => "devise/sessions#destroy", :as => "logout"
+    get 'login' => 'devise/sessions#new', :as => 'login'
+    get 'signup' => 'devise/registrations#new', :as => 'signup'
+    get 'logout' => 'devise/sessions#destroy', :as => 'logout'
     resources :game_copies
     resources :rentals do
       member do
@@ -33,8 +33,8 @@ Rails.application.routes.draw do
         put :remove_wanted
       end
     end
-    resources :wanted_per_requests, only: [:create, :destroy]
-    resources :offered_per_requests, only: [:create, :destroy]
+    resources :wanted_per_requests, only: %i[create destroy]
+    resources :offered_per_requests, only: %i[create destroy]
     resources :users do
       member do
         put :star

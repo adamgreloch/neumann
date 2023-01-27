@@ -1,15 +1,19 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-key_file = File.join "config", "master.key"
-if File.exist? key_file
-  ENV["RAILS_MASTER_KEY"] = File.read key_file
-end
+key_file = File.join 'config', 'master.key'
+ENV['RAILS_MASTER_KEY'] = File.read key_file if File.exist? key_file
+
+# The default locale loading mechanism in Rails does not load locale files in
+# nested dictionaries, like we have here. So, for this to work, we must
+# explicitly tell Rails to look further:
+config.i18n.load_path += Dir[Rails.root.join('config', 'locales',
+                                             '**', '*.{rb,yml}')]
 
 module Source
   class Application < Rails::Application

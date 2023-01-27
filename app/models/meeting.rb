@@ -23,5 +23,4 @@ class Meeting < ApplicationRecord
   def remove_participant(user)
     meeting_participants.find_by(participant_id: user.id).destroy
   end
-
 end

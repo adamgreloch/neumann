@@ -1,5 +1,5 @@
 class UserOpinionsController < ApplicationController
-  before_action :set_user_opinion, only: %i[ show edit update destroy ]
+  before_action :set_user_opinion, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   # GET /user_opinions or /user_opinions.json
@@ -67,6 +67,7 @@ class UserOpinionsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_opinion_params
-    params.require(:user_opinion).permit(:opinion_by_id, :opinion_about_id, :contact_rating, :compliance_rating, :comment)
+    params.require(:user_opinion).permit(:opinion_by_id, :opinion_about_id, :contact_rating, :compliance_rating,
+                                         :comment)
   end
 end

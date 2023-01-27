@@ -1,5 +1,5 @@
 class MeetingsController < ApplicationController
-  before_action :set_meeting, only: %i[ show edit attend unattend update destroy ]
+  before_action :set_meeting, only: %i[show edit attend unattend update destroy]
   before_action :authenticate_user!
   before_action :force_to_pay
 
