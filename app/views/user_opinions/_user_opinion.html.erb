@@ -1,37 +1,30 @@
-<div class="mt-2 list-group">
-  <div class="card">
-    <div class="card-header">
-      <%= link_to l(user_opinion.updated_at), user_opinion %>
+<div class="list-group-item">
+  <div class="d-flex align-items-start gap-3">
+    <div style="min-width: 70px; max-width: 70px">
+      <%= identicon_for user_opinion.opinion_by %>
     </div>
-    <div class="card-body d-flex align-items-center">
-      <div style="max-width: 70px">
-        <%= identicon_for user_opinion.opinion_by %>
-      </div>
-      <blockquote class="blockquote mb-0 ms-3">
-        <p>
-          <%= user_opinion.comment %>
-        </p>
-        <footer class="blockquote-footer"> <%= link_to user_opinion.opinion_by.name, user_opinion.opinion_by %> </footer>
-      </blockquote>
-      <div class="d-flex ms-auto gap-2">
-        <%= link_to edit_user_opinion_path(user_opinion),
-                    class: "btn btn-outline-primary ms-auto" do %>
-          <i class="bi bi-pencil"></i>
-        <% end if user_opinion.opinion_by == current_user %>
-        <%= button_to user_opinion_path(user_opinion),
-                      class: "btn btn-outline-primary ms-auto",
-                      data: { 'turbo-confirm': "1984 detected. Are you sure you want to delete this opinion?" },
-                      method: :delete do %>
-          <i class="bi bi-trash"></i>
-        <% end if current_user.admin? %>
-      </div>
+    <div>
+      <b> <%= link_to user_opinion.opinion_by.name, user_opinion.opinion_by %> </b>
+      <p>
+        <%= user_opinion.comment %>
+      </p>
     </div>
-    <div class="card-footer text-muted">
-      <ul class="list-unstyled mb-1">
-        <li><b>Contact experience:</b> <%= "#{user_opinion.contact_rating} - #{describe_contact(user_opinion.contact_rating)}." %></li>
-        <li><b>Compliance:</b>  <%=
-          "#{user_opinion.compliance_rating} - #{describe_compliance(user_opinion.compliance_rating)}." %> </li>
-      </ul>
+    <div class="d-flex ms-auto gap-2">
+      <%= link_to edit_user_opinion_path(user_opinion), class: "btn btn-outline-primary ms-auto" do %>
+        <i class="bi bi-pencil"></i>
+      <% end if user_opinion.opinion_by == current_user %>
+      <%= button_to user_opinion_path(user_opinion), class: "btn btn-outline-primary ms-auto", data: { 'turbo-confirm': "1984 detected. Are you sure you want to delete this opinion?" }, method: :delete do %>
+        <i class="bi bi-trash"></i>
+      <% end if current_user.admin? %>
     </div>
+  </div>
+  <div class="text-muted">
+    <ul class="list-unstyled mt-1 mb-0">
+      <li><b>Contact
+        experience:</b> <%= "#{user_opinion.contact_rating} - #{describe_contact(user_opinion.contact_rating)}." %></li>
+      <li>
+        <b>Compliance:</b>  <%= "#{user_opinion.compliance_rating} - #{describe_compliance(user_opinion.compliance_rating)}." %>
+      </li>
+    </ul>
   </div>
 </div>
