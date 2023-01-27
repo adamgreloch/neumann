@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_25_090125) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_27_135216) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,6 +79,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_25_090125) do
     t.string "publisher"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "n_rating", precision: 3, scale: 1
+    t.integer "game_copies_count", default: 0
   end
 
   create_table "meeting_participants", force: :cascade do |t|

@@ -10,7 +10,7 @@
         </span>
       <span class="badge bg-success">Weight:
         <%= @game.bgg_weight %>/5</span>
-      <span class="badge bg-dark">N-rating: <%= @game.n_rating %>/10 (<%= @game.n_rank %>)</span>
+      <span class="badge bg-dark">N-rating: <%= @game.get_n_rating %>/10 (<%= @game.n_rank %>)</span>
 
       <div class="d-md-flex my-3 d-grid gap-1">
         <%= render 'games/game_mgr_buttons', game: @game %>
@@ -32,6 +32,10 @@
                 /<%= @game.game_copies.count %></span>
             </button>
           </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-tab-pane"
+                    type="button" role="tab" aria-controls="review-tab-pane" aria-selected="false">Reviews</button>
+          </li>
         </ul>
         <div class="card-body tab-content mt-2" id="myTabContent">
           <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
@@ -43,11 +47,10 @@
           <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
             <%= render 'games/game_copies_list', game: @game %>
           </div>
+          <div class="tab-pane fade" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab" tabindex="0">
+            <%= render 'games/game_opinions', about: @game %>
+          </div>
         </div>
-      </div>
-
-      <div class="pt-1">
-        <%= render 'games/game_opinions', about: @game %>
       </div>
     </div>
   </div>

@@ -4,17 +4,17 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :timeoutable
   before_create :set_deposit
 
-  has_many :rental_requests, foreign_key: 'submitter_id', counter_cache: true
-  has_many :submitted_rentals, class_name: 'Rental', foreign_key: 'submitter_id', counter_cache: true
-  has_many :accepted_rentals, class_name: 'Rental', foreign_key: 'accepted_by_id', counter_cache: true
+  has_many :rental_requests, foreign_key: 'submitter_id'
+  has_many :submitted_rentals, class_name: 'Rental', foreign_key: 'submitter_id'
+  has_many :accepted_rentals, class_name: 'Rental', foreign_key: 'accepted_by_id'
 
   has_many :opinions_about, class_name: 'UserOpinion', foreign_key: 'opinion_about_id'
   has_many :opinions_by, class_name: 'UserOpinion', foreign_key: 'opinion_by_id'
 
-  has_many :game_copies, foreign_key: 'owner_id', counter_cache: true
+  has_many :game_copies, foreign_key: 'owner_id', dependent: :destroy
 
-  has_many :meetings_participated, class_name: 'MeetingParticipant', foreign_key: 'participant_id', counter_cache: true
-  has_many :meetings_organized, class_name: 'Meeting', foreign_key: 'organizer_id', counter_cache: true
+  has_many :meetings_participated, class_name: 'MeetingParticipant', foreign_key: 'participant_id'
+  has_many :meetings_organized, class_name: 'Meeting', foreign_key: 'organizer_id'
 
   has_one :open_request, -> { where status: 'open' }, class_name: 'RentalRequest', foreign_key: 'submitter_id', dependent: :destroy
 

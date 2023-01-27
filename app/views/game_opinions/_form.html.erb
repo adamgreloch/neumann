@@ -4,16 +4,26 @@
   <%= f.hidden_field :opinion_by_id, value: current_user.id %>
   <%= f.hidden_field :opinion_about_id, value: game.id %>
 
-  <%= f.number_field :rating, label: "Game rating (0-10)",
-                    required: true, step: 0.1, max: 10, class: "slide", id: "rating_slider" %>
+  <div class="row">
+    <div class="col-md">
+      <%= f.number_field :rating, label: "Game rating (0-10)", required: true, step: 0.1, max: 10, class: "slide", floating: true %>
+      <%= f.number_field :playing_time, required: true, min: 0, floating: true %>
+    </div>
+    <div class="col-md">
+      <%= f.number_field :weight, label: "Weight (0-5)", required: true, step: 0.1, max: 5, floating: true %>
+      <div class="row">
+        <div class="col-md">
+          <%= f.number_field :min_players, required: true, min: 0, floating: true %>
+        </div>
+        <div class="col-md">
+          <%= f.number_field :max_players, required: true, min: 0, max: 20, floating: true %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <%= f.number_field :weight, label: "Weight (0-5)",
-                     required: true, step: 0.1, max: 5 %>
-  <%= f.number_field :playing_time, required: true, min: 0%>
-  <%= f.number_field :min_players, required: true, min: 0 %>
-  <%= f.number_field :max_players, required: true, min: 0, max: 20 %>
-
-  <%= f.text_area :comment, required: true %>
+  <%= f.text_area :comment, required: true, rows: 8,
+                  placeholder: "Describe what you liked the most, tell something about mechanics etc." %>
 
   <%= f.submit "Submit" %>
 <% end %>

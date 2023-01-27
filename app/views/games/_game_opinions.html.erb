@@ -1,8 +1,7 @@
 <% if about.opinions.exists? %>
-  <div class="mt-2">
-    <h5>Game reviews</h5>
+  <ul class="list-group px-0">
     <% about.opinions.each do |opinion| %>
       <%= render opinion %>
     <% end %>
-  </div>
+  </ul>
 <% end %>

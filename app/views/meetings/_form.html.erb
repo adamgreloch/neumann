@@ -3,11 +3,11 @@
 
   <%= f.hidden_field :organizer_id, value: current_user.id %>
 
-  <%= f.text_field :title, required: true %>
-  <%= f.time_field :time, required: true %>
-  <%= f.date_field :date, required: true %>
+  <%= f.text_field :title, required: true, floating: true  %>
+  <%= f.time_field :time, required: true, floating: true  %>
+  <%= f.date_field :date, required: true, floating: true  %>
 
-  <%= f.text_field :location, required: true %>
+  <%= f.text_field :location, required: true, floating: true  %>
 
   <%= f.text_area :description, help: "Neumann supports Markdown rendering!", rows: 10, class: "font-monospace" %>
 

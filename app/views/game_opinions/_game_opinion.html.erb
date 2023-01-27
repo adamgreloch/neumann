@@ -1,17 +1,14 @@
-<div class="card mt-3">
-  <div class="card-header">
-    <%= link_to l(game_opinion.updated_at), game_opinion %>
-  </div>
-  <div class="card-body d-flex align-items-center">
-    <div style="max-width: 70px">
+<div class="list-group-item">
+  <div class="d-flex align-items-center gap-3">
+    <div class="my-2" style="max-width: 70px">
       <%= identicon_for game_opinion.opinion_by %>
     </div>
-    <blockquote class="blockquote mb-0 ms-3">
-      <p>
+    <div>
+      <b> <%= link_to game_opinion.opinion_by.name, game_opinion.opinion_by %> </b>
+      <p class="mb-0">
         <%= game_opinion.comment %>
       </p>
-      <footer class="blockquote-footer"> <%= link_to game_opinion.opinion_by.name, game_opinion.opinion_by %> </footer>
-    </blockquote>
+    </div>
     <div class="d-flex ms-auto gap-2">
       <%= link_to edit_game_opinion_path(game_opinion),
                   class: "btn btn-outline-primary ms-auto" do %>
@@ -25,7 +22,7 @@
       <% end if current_user.admin? %>
     </div>
   </div>
-  <div class="card-footer text-muted">
+  <div class="text-muted">
     <ul class="list-unstyled mb-1 d-flex gap-4">
       <li><b>Rating:</b> <%= game_opinion.rating %></li>
       <li><b>Weight:</b>  <%= game_opinion.weight %> </li>

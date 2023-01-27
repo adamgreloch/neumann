@@ -1,10 +1,10 @@
 <%= bootstrap_form_with model: rental_request do |f| %>
   <%= f.alert_message "Please fix the errors below." %>
 
-  <%= f.date_field :rental_start, required: true %>
-  <%= f.date_field :rental_end, required: true %>
+  <%= f.date_field :rental_start, required: true, floating: true %>
+  <%= f.date_field :rental_end, required: true, floating: true %>
 
-  <%= f.text_area :description, label: "Additional notes" %>
+  <%= f.text_area :description, label: "Additional notes", rows: 8 %>
 
   <%= f.hidden_field :submitter_id, value: current_user.id %>
   <%= f.hidden_field :status, value: "open" %>
