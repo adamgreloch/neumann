@@ -4,7 +4,8 @@
   <%= render "form", game: @game_opinion.opinion_about %>
 
   <div class="mt-2">
-    <%= link_to "Delete", game_opinion_path(@game_opinion),
+    <%= button_to "Delete", game_opinion_path(@game_opinion),
+                  class: "btn btn-outline-danger",
                 data: { 'turbo-confirm': "Are you sure you want to delete this opinion?" },
                 method: :delete %>
   </div>

@@ -3,11 +3,11 @@ class RentalRequest < ApplicationRecord
            foreign_key: "rental_request_id", dependent: :destroy
   has_many :offered_per_requests, class_name: "OfferedPerRequest",
            foreign_key: "rental_request_id", dependent: :destroy
+  has_one :realization, class_name: "Rental", foreign_key: "realizes_id", dependent: :destroy
+  belongs_to :submitter, class_name: "User"
 
   validates :rental_start, comparison: { less_than_or_equal_to: :rental_end }
   validates :rental_start, comparison: { greater_than_or_equal_to: DateTime.current.beginning_of_day.to_date }
-
-  belongs_to :submitter, class_name: "User"
 
   scope :submitted, -> { where status: "submitted" }
   scope :archival, -> { where status: "realized" }
