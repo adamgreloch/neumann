@@ -1,5 +1,5 @@
 # neumann
-*(more technical README in future)*
+*(more technical README in the future)*
 
 Neumann is a functionality-packed boardgame rental system built in Ruby on Rails.
 Its main goal is to facilitate the management of rentals and flow of game copies around
