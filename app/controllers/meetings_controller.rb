@@ -27,10 +27,8 @@ class MeetingsController < ApplicationController
     respond_to do |format|
       if @meeting.add_participant(user)
         format.html { redirect_to meeting_url(@meeting), notice: 'Happy attending!' }
-        format.json { render :show, status: :created, location: @meeting }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @meeting.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -40,10 +38,8 @@ class MeetingsController < ApplicationController
     respond_to do |format|
       if @meeting.remove_participant(user)
         format.html { redirect_to meeting_url(@meeting), notice: 'You no longer want to attend this meeting.' }
-        format.json { render :show, status: :created, location: @meeting }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @meeting.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -55,10 +51,8 @@ class MeetingsController < ApplicationController
     respond_to do |format|
       if @meeting.save
         format.html { redirect_to meeting_url(@meeting), notice: 'Meeting was successfully created.' }
-        format.json { render :show, status: :created, location: @meeting }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @meeting.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -68,10 +62,8 @@ class MeetingsController < ApplicationController
     respond_to do |format|
       if @meeting.update(meeting_params)
         format.html { redirect_to meeting_url(@meeting), notice: 'Meeting was successfully updated.' }
-        format.json { render :show, status: :ok, location: @meeting }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @meeting.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -82,7 +74,6 @@ class MeetingsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to meetings_url, notice: 'Meeting was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

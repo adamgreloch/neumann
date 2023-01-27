@@ -70,10 +70,8 @@ class RentalRequestsController < ApplicationController
     respond_to do |format|
       if @rental_request.save
         format.html { redirect_to rental_request_url(@rental_request), notice: 'Rental request was successfully created.' }
-        format.json { render :show, status: :created, location: @rental_request }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @rental_request.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -83,10 +81,8 @@ class RentalRequestsController < ApplicationController
     respond_to do |format|
       if @rental_request.update(rental_request_params)
         format.html { redirect_to rental_request_url(@rental_request), notice: 'Rental request was successfully updated.' }
-        format.json { render :show, status: :ok, location: @rental_request }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @rental_request.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -97,7 +93,6 @@ class RentalRequestsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to rental_requests_url, notice: 'Rental request was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

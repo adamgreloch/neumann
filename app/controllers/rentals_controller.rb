@@ -55,7 +55,7 @@ class RentalsController < ApplicationController
 
   def set_problem
     respond_to do |format|
-      if @rental.update(status: 'problematic');
+      if @rental.update(status: 'problematic')
         format.html { redirect_to rental_url(@rental), notice: 'Rental marked as problematic. Good luck:/' }
       else
         format.html { redirect_to rental_url(@rental), notice: 'Error.' }

@@ -14,10 +14,8 @@ class OfferedPerRequestsController < ApplicationController
     respond_to do |format|
       if @rental_request.save
         format.html { redirect_back_or_to games_url, notice: "Offered game added to request ##{@rental_request.id}." }
-        format.json { render :show, status: :created, location: @offered_per_request }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @offered_per_request.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -28,7 +26,6 @@ class OfferedPerRequestsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_back_or_to games_url, notice: "Offered game removed from request ##{@rental_request.id}." }
-      format.json { head :no_content }
     end
   end
 

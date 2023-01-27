@@ -32,10 +32,8 @@ class GameOpinionsController < ApplicationController
     respond_to do |format|
       if @game_opinion.save
         format.html { redirect_to game_url(@opinion_about), notice: 'Game opinion was successfully submitted.' }
-        format.json { render :show, status: :created, location: @game_opinion }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @game_opinion.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -45,10 +43,8 @@ class GameOpinionsController < ApplicationController
     respond_to do |format|
       if @game_opinion.update(game_opinion_params)
         format.html { redirect_to game_url(@game_opinion.opinion_about), notice: 'Game opinion was successfully submitted.' }
-        format.json { render :show, status: :ok, location: @game_opinion }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @game_opinion.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,7 +55,6 @@ class GameOpinionsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to game_url(@game_opinion.opinion_about), notice: 'Game opinion was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
