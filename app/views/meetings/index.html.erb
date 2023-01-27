@@ -17,19 +17,5 @@
       <i class="bi bi-balloon"></i>
     </p>
   <% end %>
-  <ul class="list-group">
-    <% @meetings.each do |meeting| %>
-      <li class="list-group-item">
-        <div class="d-flex align-items-center">
-          <div class="d-md-flex gap-4 align-items-center">
-            <%= link_to meeting.title, meeting, class: "text-nowrap" %>
-            <%= render 'meeting_icons', meeting: meeting %>
-          </div>
-          <div class="ms-auto">
-            <%= render 'meeting_mgr_buttons', meeting: meeting %>
-          </div>
-        </div>
-      </li>
-    <% end %>
-  </ul>
+  <%= render 'list_meetings', meetings: @meetings %>
 </div>

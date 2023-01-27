@@ -1,0 +1,21 @@
+<ul class="list-group">
+  <% rental_requests.each do |rental_request| %>
+    <li class="list-group-item">
+      <div class="d-md-flex align-items-center gap-3">
+        <div class="d-md-flex align-items-center gap-3">
+          <%= link_to "Request \##{rental_request.id}", rental_request, class: "text-nowrap" %>
+          <small class="ms-1 text-muted">
+            <%= l rental_request.rental_start %> -
+            <%= l rental_request.rental_end %>
+          </small>
+        </div>
+        <div class="my-2 my-md-0">
+          <%= render 'shared/games_func', rental_request: rental_request %>
+        </div>
+        <div class="ms-auto">
+          <%= render 'request_mgr_buttons', rental_request: rental_request %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

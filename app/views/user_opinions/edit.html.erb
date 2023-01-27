@@ -7,10 +7,8 @@
 <div class="col-lg-6">
   <%= render "form", user: @opinion_about %>
 
-  <div class="mt-2">
-    <%= button_to "Delete", user_opinion_path(@user_opinion),
-                  class: "btn btn-outline-danger",
-                data: { 'turbo-confirm': "Are you sure you want to delete this opinion?" },
-                method: :delete %>
-  </div>
+  <%= button_to "Delete", user_opinion_path(@user_opinion),
+                class: "btn btn-outline-danger mt-2",
+              data: { 'turbo-confirm': "Are you sure you want to delete this opinion?" },
+              method: :delete %>
 </div>

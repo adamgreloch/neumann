@@ -11,15 +11,7 @@
       <i class="bi bi-balloon"></i>
     </p>
   <% end %>
-  <ul class="list-group">
-    <% @rental_requests.submitted.each do |rental_request| %>
-      <%= render 'list_request', rental_request: rental_request %>
-    <% end %>
-  </ul>
+  <%= render 'list_requests', rental_requests: @rental_requests.submitted %>
   <h5 class="mt-3">Archival rental requests</h5>
-  <ul class="list-group">
-    <% @rental_requests.archival.each do |rental_request| %>
-      <%= render 'list_request', rental_request: rental_request %>
-    <% end %>
-  </ul>
+  <%= render 'list_requests', rental_requests: @rental_requests.archival %>
 </div>
