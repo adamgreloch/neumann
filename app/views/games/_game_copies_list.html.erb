@@ -1,0 +1,20 @@
+<div class="list-group">
+  <% game.game_copies.each do |copy| %>
+    <div class="list-group-item list-group-item-action d-flex gap-3 align-items-center">
+      <div>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1"><%= link_to "#{copy.owner.name}'s copy", copy %>
+            <span class="text-secondary">(#<%= copy.id %>)</span></h5>
+        </div>
+        <p class="mb-1"><%= copy.description %></p>
+        <div class="d-flex gap-2">
+          <small>Condition: <%= copy.condition %>/8</small>
+          <small>Status: <%= render 'game_copies/status', game_copy: copy %></small>
+        </div>
+      </div>
+      <div class="ms-auto d-flex gap-2">
+        <%= button_to "Show copy", game_copy_path(copy), class: "btn btn-outline-primary", method: :get %>
+      </div>
+    </div>
+  <% end %>
+</div>

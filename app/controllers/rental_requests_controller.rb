@@ -11,7 +11,6 @@ class RentalRequestsController < ApplicationController
 
   # GET /rental_requests/1 or /rental_requests/1.json
   def show
-    @is_submitter = user_signed_in? && @rental_request.submitter_id == current_user.id
   end
 
   # GET /rental_requests/new
@@ -20,7 +19,8 @@ class RentalRequestsController < ApplicationController
   end
 
   # GET /rental_requests/1/edit
-  def edit; end
+  def edit
+  end
 
   def submit
     respond_to do |format|

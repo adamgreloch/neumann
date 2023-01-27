@@ -9,10 +9,25 @@ class Rental < ApplicationRecord
   before_create :set_submitter_id
   after_create :realize_request
 
+  after_update :give_points
+
+  SWAP_BONUS = 4
+  FINISH_BONUS = 5
+
   ACCEPTED = 'accepted'.freeze
   SWAPPED = 'swapped'.freeze
   TO_SWAP = 'to_swap'.freeze
   FINISHED = 'finished'.freeze
+
+  def describe_status
+    if to_swap?
+      'ready to swap'
+    elsif accept_pending?(submitter)
+      'waiting for submitter to accept the request'
+    else
+      status
+    end
+  end
 
   def to_swap?
     status == TO_SWAP
@@ -104,6 +119,17 @@ class Rental < ApplicationRecord
   end
 
   private
+  
+  def give_points
+    case status
+    when FINISHED
+      accepted_by.add_activity(FINISH_BONUS)
+      submitter.add_activity(FINISH_BONUS)
+    when SWAPPED
+      accepted_by.add_activity(SWAP_BONUS)
+      submitter.add_activity(SWAP_BONUS)
+    end
+  end
 
   def realize_request
     self.status = 'accepted'

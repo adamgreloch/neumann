@@ -1,0 +1,32 @@
+<% if user_signed_in? %>
+  <% if current_user.request_open? %>
+    <%= if @users_request.wants?(game)
+          render 'games/remove_wanted_form', game: game
+        else
+          unless @users_request.offers?(game)
+            render 'games/add_wanted_form', game: game
+          end
+        end %>
+    <%= if @users_request.offers?(game)
+          render 'games/remove_offered_form', game: game
+        else
+          unless @users_request.wants?(game)
+            render 'games/add_offered_form', game: game
+          end
+        end
+    %>
+  <% else %>
+    <%= render 'shared/request_button' %>
+  <% end %>
+  <%= render 'games/new_copy_form' unless current_user.deposit_to_pay? %>
+  <%= link_to new_game_opinion_path(opinion_about_id: game.id),
+              class: "btn btn-outline-primary", method: :put do %>
+    <i class="bi bi-clipboard-check me-1"></i> Review
+  <% end unless game.reviewed_by?(current_user) %>
+  <%= button_to game_path(game),
+                class: "btn btn-outline-primary ms-auto",
+                data: { 'turbo-confirm': "1984 detected. Are you sure you want to delete this game?" },
+                method: :delete do %>
+    <i class="bi bi-trash"></i>
+  <% end if current_user.admin? %>
+<% end %>

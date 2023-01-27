@@ -10,13 +10,11 @@ class RentalsController < ApplicationController
 
   # GET /rentals/1 or /rentals/1.json
   def show
-    @rental_request = @rental.realizes
   end
 
   # GET /rentals/new
   def new
     @rental = Rental.new
-    @rental_request = RentalRequest.find(params[:rental_request_id])
   end
 
   # GET /rentals/1/edit
@@ -36,7 +34,8 @@ class RentalsController < ApplicationController
   def set_swapped
     respond_to do |format|
       if @rental.swap_copies
-        format.html { redirect_to rental_url(@rental), notice: 'Rental marked as swapped.' }
+        format.html { redirect_to rental_url(@rental), notice: "Rental marked as swapped. You both gain
+        #{Rental::SWAP_BONUS} activity points." }
       else
         format.html { redirect_to rental_url(@rental), notice: 'Error.' }
       end
@@ -46,7 +45,8 @@ class RentalsController < ApplicationController
   def set_finished
     respond_to do |format|
       if @rental.swap_back_and_finish
-        format.html { redirect_to rental_url(@rental), notice: 'Rental marked as finished!' }
+        format.html { redirect_to rental_url(@rental), notice: "Rental finished! You both gain
+        #{Rental::FINISH_BONUS} activity points." }
       else
         format.html { redirect_to rental_url(@rental), notice: 'Error.' }
       end

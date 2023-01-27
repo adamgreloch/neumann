@@ -1,0 +1,14 @@
+<ul class="list-unstyled mb-1">
+  <li>
+    <b>Status:</b> <%= rental.describe_status %>
+  </li>
+  <li>
+    <b>Submitter:</b> <%= link_to rental.realizes.submitter.name, rental.realizes.submitter %>
+  </li>
+  <li>
+    <b>Rental start:</b> <%= rental.realizes.rental_start %> </li>
+  <li>
+    <b>Rental end:</b> <%= rental.realizes.rental_end %>
+    (days left: <%= [0, (rental.realizes.rental_end - DateTime.current.beginning_of_day).to_i].max %>)
+  </li>
+</ul>

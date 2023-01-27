@@ -1,0 +1,20 @@
+<ul class="list-unstyled mb-1">
+  <% if game.categories? %>
+    <li><b>Categories:</b>
+      <%= game.categories.split(';').to_sentence %>
+    </li>
+  <% end %>
+  <li><b>Mechanics:</b>
+    <%= game.mechanics.split(';').to_sentence %>
+  </li>
+  <li><b>Players:</b>
+    <% if game.min_players == game.max_players %>
+      <%= game.min_players %>
+    <% else %>
+      <%= game.min_players %>-<%= game.max_players %>
+    <% end %>
+  </li>
+  <li><b>Playing time:</b> <%= game.playing_time %> min</li>
+  <li><b>Designer:</b> <%= game.designer %></li>
+  <li><b>Publisher:</b> <%= game.publisher %>, <%= game.year_published %></li>
+</ul>

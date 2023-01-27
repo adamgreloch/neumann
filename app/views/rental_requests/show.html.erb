@@ -8,12 +8,11 @@
         (<%= @rental_request.status %>)
         </span>
       </h2>
-      <% if @is_submitter %>
+      <% if @rental_request.submitter?(current_user) %>
         <p class="text-secondary">You are viewing your own request.
           <% if @rental_request.submitted? %>
             It is submitted and other users can accept it.
-          <% else
-               if @rental_request.open? %>
+          <% else if @rental_request.open? %>
               In order to make it available to other users, make sure to submit it.
             <% end end %>
         </p>
@@ -26,33 +25,7 @@
         <%= render 'users/user_snippet', user: @rental_request.submitter %>
         <div class="ms-auto col-md-auto">
           <div class="d-flex gap-2 align-items-center">
-            <% if @is_submitter %>
-              <% if @rental_request.editable? %>
-                <% if @rental_request.submitted? %>
-                  <%= button_to reopen_rental_request_path(@rental_request),
-                                class: "btn btn-outline-primary", method: :put do %>
-                    <i class="bi bi-arrow-down-circle me-1"></i> Re-open
-                  <% end %>
-                <% else %>
-                  <% if @rental_request.empty? %>
-                    <span class="text-secondary">(Add something to make request submittable)</span>
-                  <% else %>
-                    <%= button_to submit_rental_request_path(@rental_request),
-                                  class: "btn btn-outline-primary", method: :put do %>
-                      <i class="bi bi-arrow-up-circle me-1"></i> Submit
-                    <% end %>
-                  <% end %>
-                <% end %>
-                <%= button_to edit_rental_request_path, method: :get, class: "btn btn-outline-primary" do %>
-                  <i class="bi bi-pencil me-1"></i> Edit details
-                <% end %>
-                <%= button_to @rental_request, method: :delete, class: "btn btn-outline-danger", form: { data: { 'turbo-confirm': 'Are you sure?' } } do %>
-                  <i class="bi bi-trash me-1"></i> Discard
-                <% end %>
-              <% end %>
-            <% else %>
-              <%= render 'request_mgr_buttons', rental_request: @rental_request %>
-            <% end %>
+            <%= render 'request_mgr_buttons', rental_request: @rental_request %>
           </div>
         </div>
       </div>

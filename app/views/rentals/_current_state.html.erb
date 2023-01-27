@@ -1,0 +1,39 @@
+<% accepted_by = rental.accepted_by %>
+<% submitter = rental.realizes.submitter %>
+
+<% if rental.swapped? %>
+  <div class="col-md mb-3">
+    <h4><%= link_to submitter.name, submitter %></h4>
+    <ul class="list-group">
+      <% rental.wanted_per_rentals.each do |query| %>
+        <%= render 'shared/list_game_copy', game_copy: query.game_copy %>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-md mb-3">
+    <h4><%= link_to accepted_by.name, accepted_by %></h4>
+    <ul class="list-group">
+      <% rental.offered_per_rentals.each do |query| %>
+        <%= render 'shared/list_game_copy', game_copy: query.game_copy %>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <div class="col-md mb-3">
+    <ul class="list-group">
+      <h4><%= link_to submitter.name, submitter %></h4>
+      <% rental.realizes.offered.each do |offered| %>
+        <%= render 'shared/list_game', game: offered %>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-md mb-3">
+    <h4><%= link_to accepted_by.name, accepted_by %></h4>
+    <ul class="list-group">
+      <% rental.realizes.wanted.each do |wanted| %>
+        <%= render 'shared/list_game', game: wanted %>
+      <% end %>
+    </ul>
+  </div>
+  </div>
+<% end %>

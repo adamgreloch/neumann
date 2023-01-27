@@ -19,6 +19,10 @@ class RentalRequest < ApplicationRecord
     wanted_per_requests.empty? && offered_per_requests.empty?
   end
 
+  def submitter?(user)
+    !user.nil? && submitter == user
+  end
+
   def submitted?
     status == 'submitted'
   end
@@ -33,10 +37,6 @@ class RentalRequest < ApplicationRecord
 
   def can_accept?(user)
     lacks(user).count.zero?
-  end
-
-  def submitter?(user)
-    submitter_id == user.id
   end
 
   def lacks(user)

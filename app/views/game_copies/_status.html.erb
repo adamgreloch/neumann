@@ -1,0 +1,5 @@
+<% if game_copy.rented_to.nil? %>
+  available to rent
+<% else %>
+  rented to <%= link_to game_copy.rented_to.name, game_copy.rented_to %>
+<% end %>
