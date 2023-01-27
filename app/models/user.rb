@@ -1,24 +1,38 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :timeoutable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :timeoutable
   before_create :set_deposit
 
-  has_many :rental_requests, foreign_key: 'submitter_id'
-  has_many :submitted_rentals, class_name: 'Rental', foreign_key: 'submitter_id'
-  has_many :accepted_rentals, class_name: 'Rental', foreign_key: 'accepted_by_id'
-
-  has_many :game_copies, foreign_key: 'owner_id'
-
-  has_one :open_request, -> { where status: 'open' },
-          class_name: 'RentalRequest', foreign_key: 'submitter_id', dependent: :destroy
+  has_many :rental_requests, foreign_key: 'submitter_id', counter_cache: true
+  has_many :submitted_rentals, class_name: 'Rental', foreign_key: 'submitter_id', counter_cache: true
+  has_many :accepted_rentals, class_name: 'Rental', foreign_key: 'accepted_by_id', counter_cache: true
 
   has_many :opinions_about, class_name: 'UserOpinion', foreign_key: 'opinion_about_id'
   has_many :opinions_by, class_name: 'UserOpinion', foreign_key: 'opinion_by_id'
 
-  ACCEPT_ACTIVITY_BONUS = 5
-  PER_GAME_ACTIVITY_BONUS = 1
+  has_many :game_copies, foreign_key: 'owner_id', counter_cache: true
+
+  has_many :meetings_participated, class_name: 'MeetingParticipant', foreign_key: 'participant_id', counter_cache: true
+  has_many :meetings_organized, class_name: 'Meeting', foreign_key: 'organizer_id', counter_cache: true
+
+  has_one :open_request, -> { where status: 'open' }, class_name: 'RentalRequest', foreign_key: 'submitter_id', dependent: :destroy
+
+  PER_GAME_ACTIVITY_BONUS = 2
+
+  def add_activity(points)
+    self.activity += points
+    save
+  end
+
+  def remove_activity(points)
+    if self.activity < points
+      errors.add :base, 'Tried to remove more points than possible.'
+    else
+      self.activity -= points
+      save
+    end
+  end
 
   def rentals_pending
     submitted_rentals.where(status: :accepted)
@@ -39,16 +53,14 @@ class User < ApplicationRecord
   def avg_compliance
     if opinions_about.count.zero?
       '?'
-    else
-      opinions_about.average(:compliance_rating)
+    else opinions_about.average(:compliance_rating)
     end
   end
 
   def avg_contact
     if opinions_about.count.zero?
       '?'
-    else
-      opinions_about.average(:contact_rating)
+    else opinions_about.average(:contact_rating)
     end
   end
 
@@ -85,14 +97,14 @@ class User < ApplicationRecord
   end
 
   def deposit_to_pay?
-    !is_admin? && deposit_amount > deposit_paid && deposit_deducted.zero?
+    !admin? && deposit_amount > deposit_paid && deposit_deducted.zero?
   end
 
-  def is_admin?
+  def admin?
     AdminEmail.where(email: email).exists?
   end
 
-  def has_request_open?
+  def request_open?
     !open_request.nil?
   end
 

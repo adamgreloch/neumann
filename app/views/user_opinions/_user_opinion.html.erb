@@ -23,7 +23,7 @@
                       data: { 'turbo-confirm': "1984 detected. Are you sure you want to delete this opinion?" },
                       method: :delete do %>
           <i class="bi bi-trash"></i>
-        <% end if current_user.is_admin? %>
+        <% end if current_user.admin? %>
       </div>
     </div>
     <div class="card-footer text-muted">

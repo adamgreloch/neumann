@@ -4,7 +4,7 @@
   </div>
   <div class="col-auto mb-3">
     <h4 class="mb-1"><%= link_to user.name, user %></h4>
-    <% if user.is_admin? %>
+    <% if user.admin? %>
       <span class="badge bg-black">admin</span>
     <% end %>
     <span class="badge bg-secondary">activity

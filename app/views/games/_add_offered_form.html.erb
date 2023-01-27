@@ -1,4 +1,4 @@
-<% if user_signed_in? && current_user.has_request_open? %>
+<% if user_signed_in? && current_user.request_open? %>
     <%= bootstrap_form_with model: @users_request.offered_per_requests.build, class: "d-flex" do |f| %>
       <%= hidden_field_tag :rental_request_id, @users_request.id %>
       <%= hidden_field_tag :game_id, @game.id %>

@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_open_request
-    @users_request = if user_signed_in? && current_user.has_request_open?
+    @users_request = if user_signed_in? && current_user.request_open?
                        current_user.rental_requests.find_by(status: 'open')
                      end
   end

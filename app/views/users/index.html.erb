@@ -7,7 +7,7 @@
         <div class="align-items-center d-flex">
           <%= render 'user_snippet', user: user %>
           <div class="ms-auto">
-            <% if user_signed_in? && current_user.is_admin? %>
+            <% if user_signed_in? && current_user.admin? %>
               <%= link_to "Manage deposit", edit_user_path(user), type: 'button', class: "btn btn-outline-primary" %>
             <% end %>
           </div>

@@ -50,7 +50,8 @@ class MeetingsController < ApplicationController
 
     respond_to do |format|
       if @meeting.save
-        format.html { redirect_to meeting_url(@meeting), notice: 'Meeting was successfully created.' }
+        format.html { redirect_to meeting_url(@meeting), notice: "Meeting was successfully created. You have gained
+                                #{Meeting::ORGANIZE_MEETING_BONUS} activity points." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end

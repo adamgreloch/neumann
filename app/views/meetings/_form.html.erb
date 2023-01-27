@@ -4,8 +4,7 @@
   <%= f.hidden_field :organizer_id, value: current_user.id %>
 
   <%= f.text_field :title, required: true %>
-  <%= f.time_field :time, required: true,
-                   value: "%H:%M" %>
+  <%= f.time_field :time, required: true %>
   <%= f.date_field :date, required: true %>
 
   <%= f.text_field :location, required: true %>

@@ -34,9 +34,9 @@ class Rental < ApplicationRecord
 
   def accept(user)
     if user == realizes.submitter
-      submitter_status = ACCEPTED
+      self.submitter_status = ACCEPTED
     elsif user == accepted_by
-      accepted_by_status = ACCEPTED
+      self.accepted_by_status = ACCEPTED
     end
     self.status = TO_SWAP if submitter_status == accepted_by_status && submitter_status == ACCEPTED
     save
