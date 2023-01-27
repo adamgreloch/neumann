@@ -96,4 +96,6 @@ gem 'ransack'
 
 gem 'redcarpet'
 
+gem 'rubocop'
+
 gem "google-cloud-storage", "~> 1.31", ">= 1.31.1", require: false

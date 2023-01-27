@@ -29,7 +29,7 @@ class GameCopyOpinionsController < ApplicationController
 
     respond_to do |format|
       if @game_copy_opinion.save
-        format.html { redirect_to game_copy_url(@game_copy_opinion.opinion_about), notice: "Game copy opinion was successfully submitted." }
+        format.html { redirect_to game_copy_url(@game_copy_opinion.opinion_about), notice: 'Game copy opinion was successfully submitted.' }
         format.json { render :show, status: :created, location: @game_copy_opinion }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +42,7 @@ class GameCopyOpinionsController < ApplicationController
   def update
     respond_to do |format|
       if @game_copy_opinion.update(game_copy_opinion_params)
-        format.html { redirect_to game_copy_url(@game_copy_opinion.opinion_about), notice: "Game copy opinion was successfully submitted." }
+        format.html { redirect_to game_copy_url(@game_copy_opinion.opinion_about), notice: 'Game copy opinion was successfully submitted.' }
         format.json { render :show, status: :ok, location: @game_copy_opinion }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,7 +56,7 @@ class GameCopyOpinionsController < ApplicationController
     @game_copy_opinion.destroy
 
     respond_to do |format|
-      format.html { redirect_to root_url, notice: "Game copy opinion was successfully destroyed." }
+      format.html { redirect_to root_url, notice: 'Game copy opinion was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

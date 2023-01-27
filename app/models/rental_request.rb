@@ -1,42 +1,42 @@
 class RentalRequest < ApplicationRecord
-  has_many :wanted_per_requests, class_name: "WantedPerRequest",
-           foreign_key: "rental_request_id", dependent: :destroy
-  has_many :offered_per_requests, class_name: "OfferedPerRequest",
-           foreign_key: "rental_request_id", dependent: :destroy
-  has_one :realization, class_name: "Rental", foreign_key: "realizes_id", dependent: :destroy
-  belongs_to :submitter, class_name: "User"
+  has_many :wanted_per_requests, class_name: 'WantedPerRequest',
+                                 foreign_key: 'rental_request_id', dependent: :destroy
+  has_many :offered_per_requests, class_name: 'OfferedPerRequest',
+                                  foreign_key: 'rental_request_id', dependent: :destroy
+  has_one :realization, class_name: 'Rental', foreign_key: 'realizes_id', dependent: :destroy
+  belongs_to :submitter, class_name: 'User'
 
   validates :rental_start, comparison: { less_than_or_equal_to: :rental_end }
   validates :rental_start, comparison: { greater_than_or_equal_to: DateTime.current.beginning_of_day.to_date }
 
-  scope :submitted, -> { where status: "submitted" }
-  scope :archival, -> { where status: "realized" }
+  scope :submitted, -> { where status: 'submitted' }
+  scope :archival, -> { where status: 'realized' }
 
   after_create :assign_to_submitter
   after_update :reload_submitter
 
-  def is_empty?
-    self.wanted_per_requests.empty? && self.offered_per_requests.empty?
+  def empty?
+    wanted_per_requests.empty? && offered_per_requests.empty?
   end
 
   def submitted?
-    self.status == "submitted"
+    status == 'submitted'
   end
 
   def open?
-    self.status == "open"
+    status == 'open'
   end
 
   def editable?
-    self.status != "realized"
+    status != 'realized'
   end
 
   def can_accept?(user)
-    lacks(user).count == 0
+    lacks(user).count.zero?
   end
 
-  def is_submitter?(user)
-    self.submitter_id == user.id
+  def submitter?(user)
+    submitter_id == user.id
   end
 
   def lacks(user)
@@ -50,11 +50,11 @@ class RentalRequest < ApplicationRecord
   end
 
   def wants?(game)
-    self.wanted_per_requests.exists?(game_id: game.id)
+    wanted_per_requests.exists?(game_id: game.id)
   end
 
   def offers?(game)
-    self.offered_per_requests.exists?(game_id: game.id)
+    offered_per_requests.exists?(game_id: game.id)
   end
 
   def wanted
@@ -68,14 +68,14 @@ class RentalRequest < ApplicationRecord
   private
 
   def set_status
-    self.status = "open"
+    self.status = 'open'
   end
 
   def assign_to_submitter
-    self.submitter.open_request = self
+    submitter.open_request = self
   end
 
   def reload_submitter
-    self.submitter.reload_open_request
+    submitter.reload_open_request
   end
 end

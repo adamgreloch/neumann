@@ -34,7 +34,7 @@
                     <i class="bi bi-arrow-down-circle me-1"></i> Re-open
                   <% end %>
                 <% else %>
-                  <% if @rental_request.is_empty? %>
+                  <% if @rental_request.empty? %>
                     <span class="text-secondary">(Add something to make request submittable)</span>
                   <% else %>
                     <%= button_to submit_rental_request_path(@rental_request),

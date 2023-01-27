@@ -2,50 +2,44 @@ class Rental < ApplicationRecord
   belongs_to :realizes, class_name: 'RentalRequest'
   belongs_to :accepted_by, class_name: 'User'
   has_many :game_copies, class_name: 'GameCopy'
-  has_many :wanted_per_rentals, class_name: 'WantedPerRental', foreign_key: "rental_id"
-  has_many :offered_per_rentals, class_name: 'OfferedPerRental', foreign_key: "rental_id"
+  has_many :wanted_per_rentals, class_name: 'WantedPerRental', foreign_key: 'rental_id'
+  has_many :offered_per_rentals, class_name: 'OfferedPerRental', foreign_key: 'rental_id'
   has_one :submitter, through: :realizes
 
   before_create :set_submitter_id
   after_create :realize_request
 
-  ACCEPTED = "accepted"
-  SWAPPED = "swapped"
-  TO_SWAP = "to_swap"
-  FINISHED = "finished"
+  ACCEPTED = 'accepted'.freeze
+  SWAPPED = 'swapped'.freeze
+  TO_SWAP = 'to_swap'.freeze
+  FINISHED = 'finished'.freeze
 
   def to_swap?
-    self.status == TO_SWAP
+    status == TO_SWAP
   end
 
   def submitter_accepted?
-    self.submitter_status == ACCEPTED
+    submitter_status == ACCEPTED
   end
 
   def accept_pending?(user)
     if user == realizes.submitter
       !submitter_accepted?
+    elsif user == accepted_by
+      accepted_by_status != ACCEPTED
     else
-      if user == accepted_by
-        self.accepted_by_status != ACCEPTED
-      else
-        false
-      end
+      false
     end
   end
 
   def accept(user)
     if user == realizes.submitter
-      self.submitter_status = ACCEPTED
-    else
-      if user == accepted_by
-        self.accepted_by_status = ACCEPTED
-      end
+      submitter_status = ACCEPTED
+    elsif user == accepted_by
+      accepted_by_status = ACCEPTED
     end
-    if self.submitter_status == self.accepted_by_status && self.submitter_status == ACCEPTED
-      self.status = TO_SWAP
-    end
-    self.save
+    self.status = TO_SWAP if submitter_status == accepted_by_status && submitter_status == ACCEPTED
+    save
   end
 
   def days
@@ -69,34 +63,34 @@ class Rental < ApplicationRecord
   end
 
   def swapped?
-    self.status == SWAPPED
+    status == SWAPPED
   end
 
   def to_finish?
-    self.status == SWAPPED
+    status == SWAPPED
   end
 
   def finished?
-    self.status == FINISHED
+    status == FINISHED
   end
 
   def swap_copies
-    self.status = "swapped"
-    self.realizes.wanted_per_requests.each do |wanted|
+    self.status = 'swapped'
+    realizes.wanted_per_requests.each do |wanted|
       copy = accepted_by.find_copy_of(wanted.game_id)
-      wanted_per_rentals.build(rental_id: self.id, game_copy_id: copy.id)
+      wanted_per_rentals.build(rental_id: id, game_copy_id: copy.id)
       accepted_by.rent_to(copy.id, realizes.submitter)
     end
-    self.realizes.offered_per_requests.each do |offered|
+    realizes.offered_per_requests.each do |offered|
       copy = submitter.find_copy_of(offered.game_id)
-      offered_per_rentals.build(rental_id: self.id, game_copy_id: copy.id)
+      offered_per_rentals.build(rental_id: id, game_copy_id: copy.id)
       submitter.rent_to(copy.id, accepted_by)
     end
-    self.save
+    save
   end
 
   def swap_back_and_finish
-    self.status = "finished"
+    self.status = 'finished'
 
     wanted_per_rentals.each do |wanted|
       accepted_by.retrieve_copy(wanted.game_copy_id)
@@ -106,14 +100,14 @@ class Rental < ApplicationRecord
       submitter.retrieve_copy(offered.game_copy_id)
     end
 
-    self.save
+    save
   end
 
   private
 
   def realize_request
-    self.status = "accepted"
-    self.realizes.update(status: "realized")
+    self.status = 'accepted'
+    realizes.update(status: 'realized')
   end
 
   def set_submitter_id

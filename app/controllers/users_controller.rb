@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show star edit update destroy ]
+  before_action :set_user, only: %i[show star edit update destroy]
   before_action :authenticate_user!
-  before_action :force_to_pay, only: %i[ star edit update destroy ]
+  before_action :force_to_pay, only: %i[star edit update destroy]
 
   def index
     @users = User.all
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
+        format.html { redirect_to user_url(@user), notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }

@@ -2,25 +2,25 @@ module GameCopiesHelper
   def describe_condition(condition)
     case condition
     when 0
-      "Barely exists"
+      'Barely exists'
     when 1
-      "Really bad"
+      'Really bad'
     when 2
-      "War-torn"
+      'War-torn'
     when 3
-      "Medium"
+      'Medium'
     when 4
-      "Nicely kept"
+      'Nicely kept'
     when 5
-      "Well preserved"
+      'Well preserved'
     when 6
-      "Nearly mint"
+      'Nearly mint'
     when 7
-      "Played approximately once"
+      'Played approximately once'
     when 8
-      "Untouched"
+      'Untouched'
     else
-      "Unknown"
+      'Unknown'
     end
   end
 end

@@ -25,20 +25,20 @@ class RentalsController < ApplicationController
 
   def accept
     respond_to do |format|
-      if @rental.accept(User.find(params[:user_id]));
-        format.html { redirect_to rental_url(@rental), notice: "Rental accepted." }
+      if @rental.accept(User.find(params[:user_id]))
+        format.html { redirect_to rental_url(@rental), notice: 'Rental accepted.' }
       else
-        format.html { redirect_to rental_url(@rental), notice: "Error." }
+        format.html { redirect_to rental_url(@rental), notice: 'Error.' }
       end
     end
   end
 
   def set_swapped
     respond_to do |format|
-      if @rental.swap_copies;
-        format.html { redirect_to rental_url(@rental), notice: "Rental marked as swapped." }
+      if @rental.swap_copies
+        format.html { redirect_to rental_url(@rental), notice: 'Rental marked as swapped.' }
       else
-        format.html { redirect_to rental_url(@rental), notice: "Error." }
+        format.html { redirect_to rental_url(@rental), notice: 'Error.' }
       end
     end
   end
@@ -46,19 +46,19 @@ class RentalsController < ApplicationController
   def set_finished
     respond_to do |format|
       if @rental.swap_back_and_finish
-        format.html { redirect_to rental_url(@rental), notice: "Rental marked as finished!" }
+        format.html { redirect_to rental_url(@rental), notice: 'Rental marked as finished!' }
       else
-        format.html { redirect_to rental_url(@rental), notice: "Error." }
+        format.html { redirect_to rental_url(@rental), notice: 'Error.' }
       end
     end
   end
 
   def set_problem
     respond_to do |format|
-      if @rental.update(status: "problematic");
-        format.html { redirect_to rental_url(@rental), notice: "Rental marked as problematic. Good luck:/" }
+      if @rental.update(status: 'problematic');
+        format.html { redirect_to rental_url(@rental), notice: 'Rental marked as problematic. Good luck:/' }
       else
-        format.html { redirect_to rental_url(@rental), notice: "Error." }
+        format.html { redirect_to rental_url(@rental), notice: 'Error.' }
       end
     end
   end
@@ -69,7 +69,7 @@ class RentalsController < ApplicationController
 
     respond_to do |format|
       if @rental.save
-        format.html { redirect_to rental_url(@rental), notice: "Rental was successfully created." }
+        format.html { redirect_to rental_url(@rental), notice: 'Rental was successfully created.' }
         format.json { render :show, status: :created, location: @rental }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -82,7 +82,7 @@ class RentalsController < ApplicationController
   def update
     respond_to do |format|
       if @rental.update(rental_params)
-        format.html { redirect_to rental_url(@rental), notice: "Rental was successfully updated." }
+        format.html { redirect_to rental_url(@rental), notice: 'Rental was successfully updated.' }
         format.json { render :show, status: :ok, location: @rental }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -96,7 +96,7 @@ class RentalsController < ApplicationController
     @rental.destroy
 
     respond_to do |format|
-      format.html { redirect_to rentals_url, notice: "Rental was successfully destroyed." }
+      format.html { redirect_to rentals_url, notice: 'Rental was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

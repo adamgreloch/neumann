@@ -5,9 +5,10 @@ class ApplicationController < ActionController::Base
   before_action :markdown
 
   def force_to_pay
-    if user_signed_in? && current_user.deposit_to_pay?
-      redirect_to root_url
-    end
+    return unless user_signed_in? && current_user.deposit_to_pay?
+
+    redirect_to root_url
+
   end
 
   protected
@@ -24,21 +25,20 @@ class ApplicationController < ActionController::Base
 
   def create_admin
     admin_email = "admin@neumann.xyz"
+
     unless User.exists?(0)
       User.create(id: 0, name: "neumann", email: admin_email, password: "123456",
                   password_confirmation: "123456")
     end
-    unless AdminEmail.where(email: admin_email).exists?
-      AdminEmail.create(email: admin_email)
-    end
+    return if AdminEmail.where(email: admin_email).exists?
+
+    AdminEmail.create(email: admin_email)
   end
 
   def set_open_request
-    if user_signed_in? && current_user.has_request_open?
-      @users_request = current_user.rental_requests.find_by(status: "open")
-    else
-      @users_request = nil
-    end
+    @users_request = if user_signed_in? && current_user.has_request_open?
+                       current_user.rental_requests.find_by(status: "open")
+                     end
   end
 
   def set_search

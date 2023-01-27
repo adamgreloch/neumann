@@ -5,17 +5,17 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :timeoutable
   before_create :set_deposit
 
-  has_many :rental_requests, foreign_key: "submitter_id"
-  has_many :submitted_rentals, class_name: "Rental", foreign_key: "submitter_id"
-  has_many :accepted_rentals, class_name: "Rental", foreign_key: "accepted_by_id"
+  has_many :rental_requests, foreign_key: 'submitter_id'
+  has_many :submitted_rentals, class_name: 'Rental', foreign_key: 'submitter_id'
+  has_many :accepted_rentals, class_name: 'Rental', foreign_key: 'accepted_by_id'
 
-  has_many :game_copies, foreign_key: "owner_id"
+  has_many :game_copies, foreign_key: 'owner_id'
 
-  has_one :open_request, -> { where status: "open" },
-          class_name: "RentalRequest", foreign_key: "submitter_id", dependent: :destroy
+  has_one :open_request, -> { where status: 'open' },
+          class_name: 'RentalRequest', foreign_key: 'submitter_id', dependent: :destroy
 
-  has_many :opinions_about, class_name: "UserOpinion", foreign_key: "opinion_about_id"
-  has_many :opinions_by, class_name: "UserOpinion", foreign_key: "opinion_by_id"
+  has_many :opinions_about, class_name: 'UserOpinion', foreign_key: 'opinion_about_id'
+  has_many :opinions_by, class_name: 'UserOpinion', foreign_key: 'opinion_by_id'
 
   ACCEPT_ACTIVITY_BONUS = 5
   PER_GAME_ACTIVITY_BONUS = 1
@@ -37,23 +37,23 @@ class User < ApplicationRecord
   end
 
   def avg_compliance
-    if self.opinions_about.count == 0
-      "?"
+    if opinions_about.count.zero?
+      '?'
     else
-      self.opinions_about.average(:compliance_rating)
+      opinions_about.average(:compliance_rating)
     end
   end
 
   def avg_contact
-    if self.opinions_about.count == 0
-      "?"
+    if opinions_about.count.zero?
+      '?'
     else
-      self.opinions_about.average(:contact_rating)
+      opinions_about.average(:contact_rating)
     end
   end
 
   def available_copies
-    self.game_copies.where(rented_to_id: nil)
+    game_copies.where(rented_to_id: nil)
   end
 
   def find_copy_of(game_id)
@@ -63,41 +63,41 @@ class User < ApplicationRecord
   def rent_to(copy_id, user)
     game_copies.find(copy_id).update(rented_to_id: user.id)
     self.activity += PER_GAME_ACTIVITY_BONUS
-    self.save
+    save
   end
 
   def retrieve_copy(copy_id)
     game_copies.find(copy_id).update(rented_to_id: nil)
     self.activity += PER_GAME_ACTIVITY_BONUS
-    self.save
+    save
   end
 
   def all_rentals
-    self.submitted_rentals + self.accepted_rentals
+    submitted_rentals + accepted_rentals
   end
 
   def all_active_rentals
-    self.submitted_rentals.or(self.accepted_rentals).where.not(status: "finished")
+    submitted_rentals.or(accepted_rentals).where.not(status: 'finished')
   end
 
   def all_archival_rentals
-    self.submitted_rentals.or(self.accepted_rentals).where(status: "finished")
+    submitted_rentals.or(accepted_rentals).where(status: 'finished')
   end
 
   def deposit_to_pay?
-    !is_admin? && self.deposit_amount > self.deposit_paid && self.deposit_deducted == 0
+    !is_admin? && deposit_amount > deposit_paid && deposit_deducted.zero?
   end
 
   def is_admin?
-    AdminEmail.where(email: self.email).exists?
+    AdminEmail.where(email: email).exists?
   end
 
   def has_request_open?
-    !self.open_request.nil?
+    !open_request.nil?
   end
 
   def deposit_deducted?
-    self.deposit_deducted > 0
+    deposit_deducted.positive?
   end
 
   private

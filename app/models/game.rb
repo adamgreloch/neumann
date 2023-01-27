@@ -1,21 +1,21 @@
 class Game < ApplicationRecord
-  has_many :game_copies, class_name: "GameCopy", foreign_key: "realizes_id", dependent: :destroy
-  has_many :opinions, class_name: "GameOpinion", foreign_key: "opinion_about_id"
+  has_many :game_copies, class_name: 'GameCopy', foreign_key: 'realizes_id', dependent: :destroy
+  has_many :opinions, class_name: 'GameOpinion', foreign_key: 'opinion_about_id'
 
   def available_copies
-    self.game_copies.where(rented_to_id: nil)
+    game_copies.where(rented_to_id: nil)
   end
 
   def n_rating
-    self.opinions.average(:rating)
+    opinions.average(:rating)
   end
 
   def n_rank
-    self.opinions.where("rating <= ?", n_rating).count
+    opinions.where('rating <= ?', n_rating).count
   end
 
   def reviewed_by?(user)
-    self.opinions.where(opinion_by: user).exists?
+    opinions.where(opinion_by: user).exists?
   end
 
 end

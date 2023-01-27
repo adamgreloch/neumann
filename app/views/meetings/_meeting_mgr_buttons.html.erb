@@ -12,7 +12,7 @@
       Delete
     <% end %>
   <% else
-       if meeting.attendable? %>
+       if meeting.current? %>
       <% if meeting.attends?(current_user) %>
         <%= button_to unattend_meeting_path(id: meeting.id, user_id: current_user.id),
                       type: 'button',

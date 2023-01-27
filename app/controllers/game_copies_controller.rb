@@ -28,10 +28,10 @@ class GameCopiesController < ApplicationController
 
     respond_to do |format|
       if @game_copy.save
-        format.html { redirect_to game_copy_url(@game_copy), notice: "Game copy was successfully created." }
+        format.html { redirect_to game_copy_url(@game_copy), notice: 'Game copy was successfully created.' }
         format.json { render :show, status: :created, location: @game_copy }
       else
-        format.html { redirect_to root_path, notice: "Failed to create game copy." }
+        format.html { redirect_to root_path, notice: 'Failed to create game copy.' }
         format.json { render json: @game_copy.errors, status: :unprocessable_entity }
       end
     end
@@ -41,10 +41,10 @@ class GameCopiesController < ApplicationController
   def update
     respond_to do |format|
       if @game_copy.update(game_copy_params)
-        format.html { redirect_to game_copy_url(@game_copy), notice: "Game copy was successfully updated." }
+        format.html { redirect_to game_copy_url(@game_copy), notice: 'Game copy was successfully updated.' }
         format.json { render :show, status: :ok, location: @game_copy }
       else
-        format.html { redirect_to root_path, notice: "Failed to update game copy." }
+        format.html { redirect_to root_path, notice: 'Failed to update game copy.' }
         format.json { render json: @game_copy.errors, status: :unprocessable_entity }
       end
     end
@@ -55,7 +55,7 @@ class GameCopiesController < ApplicationController
     @game_copy.destroy
 
     respond_to do |format|
-      format.html { redirect_back_or_to root_url, notice: "Game copy was successfully destroyed." }
+      format.html { redirect_back_or_to root_url, notice: 'Game copy was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
