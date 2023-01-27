@@ -1,5 +1,5 @@
 <h1>Your rentals</h1>
-<p>The following list contains all active rentals.</p>
+<p>The following list contains all your active rentals.</p>
 
 <div id="rental">
   <% if current_user.all_active_rentals.count == 0 %>
@@ -9,6 +9,6 @@
     </p>
   <% end %>
   <%= render 'list_rentals', rentals: current_user.all_active_rentals %>
-  <h5 class="mt-3">Archival rentals</h5>
+  <h5 class="my-3">Archival rentals</h5>
   <%= render 'list_rentals', rentals: current_user.all_archival_rentals %>
 </div>

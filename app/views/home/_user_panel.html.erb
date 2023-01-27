@@ -16,7 +16,7 @@
 <% end %>
 
 <% if user.rentals_to_swap.exists? %>
-  <div class="mt-2 shadow-sm alert alert-danger alert-dismissible fade show" role="alert">
+  <div class="mt-2 shadow-sm alert alert-warning alert-dismissible fade show" role="alert">
     <div class="d-flex mb-2">
       <i class="bi bi-arrow-left-right flex-shrink-0 me-2"></i>
       You have rentals to swap!
@@ -45,11 +45,7 @@
           <%= link_to "Rental ##{rental.id}", rental %>
           :<%= render 'shared/games_func_text', rental_request: rental.realizes %>
           (start: <%= rental.realizes.rental_start %>, days till end: <%= rental.days_left %>)
-          <div class="progress mt-2"
-               role="progressbar">
-            <div class="progress-bar" style="width: <%=rental.progress%>%"></div>
-            <%= "#{rental.rental_days_left}/#{rental.days}" %> rental days left
-          </div>
+          <%= render 'rentals/progress', rental: rental %>
         </li>
       <% end %>
     </ul>

@@ -6,32 +6,32 @@
     </li>
   <% else %>
     <% wanted.take(1).each do |entry| %>
-      <li class="list-group-item">
+      <li class="list-group-item bg-transparent">
         <%= link_to truncate(entry.game.title, length: 25), entry.game %>
       </li>
     <% end %>
     <% if wanted.count > 1 %>
-      <li class="list-group-item">
+      <li class="list-group-item bg-transparent">
         <i class="bi bi-plus"></i> <%= wanted.count - 1 %>
       </li>
     <% end %>
   <% end %>
-  <li class="list-group-item">
+  <li class="list-group-item bg-transparent">
     <i class="bi bi-arrow-right"></i>
   </li>
   <% offered = rental_request.offered_per_requests %>
   <% if offered.empty? %>
-    <li class="list-group-item">
+    <li class="list-group-item bg-transparent">
       <i class="bi bi-braces"></i>
     </li>
   <% else %>
     <% offered.take(1).each do |entry| %>
-      <li class="list-group-item">
+      <li class="list-group-item bg-transparent">
         <%= link_to truncate(entry.game.title, length: 25), entry.game %>
       </li>
     <% end %>
     <% if offered.count > 1 %>
-      <li class="list-group-item">
+      <li class="list-group-item bg-transparent">
         <i class="bi bi-plus"></i> <%= offered.count - 1 %>
       </li>
     <% end %>

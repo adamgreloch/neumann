@@ -1,39 +1,43 @@
 <% accepted_by = rental.accepted_by %>
 <% submitter = rental.realizes.submitter %>
 
-<% if rental.swapped? %>
-  <div class="col-md mb-3">
-    <h4><%= link_to submitter.name, submitter %></h4>
-    <ul class="list-group">
-      <% rental.wanted_per_rentals.each do |query| %>
-        <%= render 'shared/list_game_copy', game_copy: query.game_copy %>
+<h4 class="my-4 text-center">Current state</h4>
+<div class="col-md-6 mx-auto mb-4 mt-1">
+<%= render 'progress', rental: @rental %>
+</div>
+
+<div class="row">
+  <div class="col mb-3">
+    <div class="ms-auto mb-3 col-md-8 border-bottom border-1 pb-4">
+      <%= render 'users/user_snippet_rev', user: submitter %>
+    </div>
+    <ul class="list-group ms-auto">
+      <% if rental.swapped? %>
+        <% rental.wanted_per_rentals.each do |query| %>
+          <%= render 'shared/list_game_copy_rev', game_copy: query.game_copy %>
+        <% end %>
+      <% else %>
+        <% rental.realizes.offered.each do |offered| %>
+          <%= render 'shared/list_game_rev', game: offered %>
+        <% end %>
       <% end %>
     </ul>
   </div>
-  <div class="col-md mb-3">
-    <h4><%= link_to accepted_by.name, accepted_by %></h4>
+  <div class="col mb-3">
+    <div class="mb-3 col-md-8 border-bottom border-1 pb-4">
+      <%= render 'users/user_snippet', user: accepted_by %>
+    </div>
     <ul class="list-group">
-      <% rental.offered_per_rentals.each do |query| %>
-        <%= render 'shared/list_game_copy', game_copy: query.game_copy %>
+      <% if rental.swapped? %>
+        <% rental.offered_per_rentals.each do |query| %>
+          <%= render 'shared/list_game_copy', game_copy: query.game_copy %>
+        <% end %>
+      <% else %>
+        <% rental.realizes.wanted.each do |wanted| %>
+          <%= render 'shared/list_game', game: wanted %>
+        <% end %>
       <% end %>
     </ul>
   </div>
-<% else %>
-  <div class="col-md mb-3">
-    <ul class="list-group">
-      <h4><%= link_to submitter.name, submitter %></h4>
-      <% rental.realizes.offered.each do |offered| %>
-        <%= render 'shared/list_game', game: offered %>
-      <% end %>
-    </ul>
-  </div>
-  <div class="col-md mb-3">
-    <h4><%= link_to accepted_by.name, accepted_by %></h4>
-    <ul class="list-group">
-      <% rental.realizes.wanted.each do |wanted| %>
-        <%= render 'shared/list_game', game: wanted %>
-      <% end %>
-    </ul>
-  </div>
-  </div>
-<% end %>
+</div>
+</div>

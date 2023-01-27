@@ -1,9 +1,14 @@
+<div class="d-flex gap-2 align-items-center">
+  <% hide = @rental_request.nil? %>
 <% if rental_request.submitter?(current_user) %>
   <% if rental_request.editable? %>
     <% if rental_request.submitted? %>
       <%= button_to reopen_rental_request_path(rental_request),
                     class: "btn btn-outline-primary", method: :put do %>
-        <i class="bi bi-arrow-down-circle me-1"></i> Re-open
+        <i class="bi bi-arrow-down-circle"></i>
+        <% unless hide %>
+          <span class="ms-1">Re-open</span>
+        <% end %>
       <% end %>
     <% else %>
       <% if rental_request.empty? %>
@@ -11,15 +16,24 @@
       <% else %>
         <%= button_to submit_rental_request_path(rental_request),
                       class: "btn btn-outline-primary", method: :put do %>
-          <i class="bi bi-arrow-up-circle me-1"></i> Submit
+          <i class="bi bi-arrow-up-circle"></i>
+          <% unless hide %>
+            <span class="ms-1">Submit</span>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
-    <%= button_to edit_rental_request_path, method: :get, class: "btn btn-outline-primary" do %>
-      <i class="bi bi-pencil me-1"></i> Edit details
+    <%= button_to edit_rental_request_path(rental_request), method: :get, class: "btn btn-outline-primary" do %>
+      <i class="bi bi-pencil"></i>
+      <% unless hide %>
+        <span class="ms-1">Edit details</span>
+      <% end %>
     <% end %>
     <%= button_to rental_request, method: :delete, class: "btn btn-outline-danger", form: { data: { 'turbo-confirm': 'Are you sure?' } } do %>
-      <i class="bi bi-trash me-1"></i> Discard
+      <i class="bi bi-trash"></i>
+      <% unless hide %>
+        <span class="ms-1">Discard</span>
+      <% end %>
     <% end %>
   <% end %>
 <% else %>
@@ -41,3 +55,4 @@
     <i class="bi bi-pencil-square"></i>
   <% end if current_user.admin? %>
 <% end %>
+</div>

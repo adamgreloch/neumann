@@ -23,7 +23,10 @@
               <%= link_to "Users", users_path, class: "nav-link" %>
             </li>
             <li>
-              <%= link_to "Your rentals", rentals_path, class: "nav-link" %>
+              <%= link_to rentals_path, class: "nav-link position-relative" do %>
+                Your rentals
+                <%= render 'layouts/rentals_action_badge' %>
+              <% end %>
             </li>
           <% end %>
         </ul>

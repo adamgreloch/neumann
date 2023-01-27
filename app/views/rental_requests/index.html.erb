@@ -1,5 +1,6 @@
 <h1>Rental requests</h1>
-<p>The following list contains all submitted rental requests. Here, X
+<p class="col-md-6">
+  The following list contains all submitted rental requests. Here, X
   <i class="bi bi-arrow-right"></i> Y means that the request submitter
   is interested in giving all games from set X in return for all games from set Y for a specified time period.
 </p>
@@ -12,6 +13,6 @@
     </p>
   <% end %>
   <%= render 'list_requests', rental_requests: @rental_requests.submitted %>
-  <h5 class="mt-3">Archival rental requests</h5>
+  <h5 class="my-3">Archival rental requests</h5>
   <%= render 'list_requests', rental_requests: @rental_requests.archival %>
 </div>

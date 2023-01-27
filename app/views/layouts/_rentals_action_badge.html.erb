@@ -1,0 +1,15 @@
+<% if current_user.rentals_pending.exists? %>
+<span class="badge pill bg-success">
+                <%= current_user.rentals_pending.count %>
+              </span>
+<% end %>
+<% if current_user.rentals_to_swap.exists? %>
+<span class="badge pill bg-warning">
+                  <%= current_user.rentals_to_swap.count %>
+                </span>
+<% end %>
+<% if current_user.rentals_active.exists? %>
+<span class="badge pill bg-light text-primary border">
+                <%= current_user.rentals_active.count %>
+              </span>
+<% end %>

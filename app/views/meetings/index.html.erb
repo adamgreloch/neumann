@@ -1,12 +1,17 @@
 <div class="d-md-flex gap-2 align-items-center mb-2">
   <div>
     <h1>Meetings</h1>
-    <p>Catch up with your friends to play some boardgames.</p>
+    <p class="col-md-6">
+      Catch up with your friends to play some boardgames!
+      Below is a list of currently planned meetings around your community.
+      Click on meeting's title to view its description and see who is going.
+      You can also plan your own meeting, anywhere you want.
+    </p>
   </div>
   <%= link_to new_meeting_path,
               type: 'button',
-              class: "ms-auto btn btn-outline-primary" do %>
-    <i class="bi bi-plus me-1"></i> Plan new meeting
+              class: "ms-auto btn btn-outline-primary text-nowrap" do %>
+    <i class="bi bi-plus me-1"></i> Plan new
   <% end %>
 </div>
 

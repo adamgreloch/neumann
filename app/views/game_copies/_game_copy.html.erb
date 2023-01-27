@@ -17,50 +17,9 @@
   </div>
   <div class="card">
     <div class="card-body d-md-flex">
-      <ul class="list-unstyled mb-1">
-        <li class="h5"><b>Status:</b>
-          <%= render 'status', game_copy: @game_copy %>
-        </li>
-        <li><b>Condition:</b> <%= "#{@game_copy.condition} - #{describe_condition(@game_copy.condition)}" %>
-          <span class="text-secondary">
-          <% count =  @game_copy.opinions.count %>
-          <% if count == 0 %>
-            (unverified)
-          <% else %>
-            (users see it as ~<%= @game_copy.avg_condition %>, n=<%= count %>)
-          <% end %>
-          </span>
-        </li>
-        <li><b>Owner:</b> <%= link_to @game_copy.owner.name, @game_copy.owner %></li>
-        <li><b>In Neumann since:</b> <%= @game_copy.created_at.to_date %></li>
-        <li><b>ISBN:</b> <%= @game_copy.barcode %></li>
-      </ul>
+      <%= render 'game_copy_stats', game_copy: @game_copy %>
       <div class="ms-auto">
-        <% if user_signed_in?  %>
-        <% if @game_copy.owner.id == current_user.id && !@game_copy.rented? %>
-        <%= button_to game_copy_path(@game_copy), class: "btn btn-outline-danger", method: :delete,
-                      data: { 'turbo-confirm': "Are you sure you want to delete your copy of #{@game_copy.realizes.title}?" } do %>
-          <i class="bi bi-exclamation-octagon me-1"></i> Retract
-        <% end %>
-        <% else %>
-          <% if @game_copy.reviewed_by?(current_user) %>
-              <%= link_to edit_game_copy_opinion_path(@game_copy.review_by(current_user)),
-                          class: "btn btn-outline-primary", method: :put do %>
-                <i class="bi bi-clipboard-check me-1"></i> Edit review
-              <% end %>
-              <% else %>
-            <%= link_to new_game_copy_opinion_path(opinion_about_id: @game_copy.id),
-                      class: "btn btn-outline-primary", method: :put do %>
-            <i class="bi bi-clipboard-check me-1"></i> Review
-              <% end %>
-          <% end %>
-        <% end %>
-        <%= link_to edit_game_copy_path(@game_copy),
-                    type: 'button',
-                    class: "btn btn-outline-primary" do %>
-          <i class="bi bi-pencil-square"></i>
-        <% end if current_user.admin? %>
-        <% end %>
+        <%= render 'game_copy_mgr_buttons', game_copy: @game_copy %>
       </div>
     </div>
   </div>

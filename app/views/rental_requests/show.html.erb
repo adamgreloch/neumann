@@ -22,57 +22,29 @@
   <div class="card">
     <div class="card-body">
       <div class="row mt-2 align-items-center">
-        <%= render 'users/user_snippet', user: @rental_request.submitter %>
+        <div class="col-md-8">
+          <%= render 'users/user_snippet', user: @rental_request.submitter %>
+        </div>
         <div class="ms-auto col-md-auto">
           <div class="d-flex gap-2 align-items-center">
             <%= render 'request_mgr_buttons', rental_request: @rental_request %>
           </div>
         </div>
       </div>
-      <div class="row mt-3">
-        <h4>Description</h4>
-        <p>
-          <%= @rental_request.description %>
-        </p>
-      </div>
-      <div class="row mt-3">
-        <div class="col-md mb-3">
-          <h4>Wants</h4>
-          <ul class="list-group">
-            <% @rental_request.wanted_per_requests.each do |query| %>
-              <li class="list-group-item">
-                <div class="d-flex align-items-center">
-                  <div>
-                    <%= image_tag(query.game.thumbnail_url, class: "img-thumbnail flex-shrink-0", height: 20, width: 70) %>
-                    <b class="ms-md-2"><%= link_to query.game.title, query.game %></b>
-                  </div>
-                  <div class="ms-auto">
-                    <%= render 'trash_wanted_form', rental_request: @rental_request, game: query.game unless @rental_request.submitted? %>
-                  </div>
-                </div>
-              </li>
-            <% end %>
-          </ul>
+      <% if @rental_request.description != "" %>
+        <div class="card mt-4">
+          <div class="card-header">
+            <i class="bi bi-file-text me-1"></i>
+            Request description
+          </div>
+          <div class="card-body">
+            <p class="mb-0">
+              <%= @rental_request.description %>
+            </p>
+          </div>
         </div>
-        <div class="col-md">
-          <h4>Offers in return</h4>
-          <ul class="list-group">
-            <% @rental_request.offered_per_requests.each do |query| %>
-              <li class="list-group-item">
-                <div class="d-flex align-items-center">
-                  <div>
-                    <%= image_tag(query.game.thumbnail_url, class: "img-thumbnail flex-shrink-0", height: 20, width: 70) %>
-                    <b class="ms-md-2"><%= link_to query.game.title, query.game %></b>
-                  </div>
-                  <div class="ms-auto">
-                    <%= render 'trash_offered_form', rental_request: @rental_request, game: query.game unless @rental_request.submitted? %>
-                  </div>
-                </div>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
+      <% end %>
+      <%= render 'wanted_offered_lists', rental_request: @rental_request %>
     </div>
   </div>
 </div>

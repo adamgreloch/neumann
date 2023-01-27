@@ -15,6 +15,7 @@ class RentalsController < ApplicationController
   # GET /rentals/new
   def new
     @rental = Rental.new
+    @rental_request = RentalRequest.find(params[:rental_request_id])
   end
 
   # GET /rentals/1/edit

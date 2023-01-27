@@ -29,6 +29,16 @@ class Rental < ApplicationRecord
     end
   end
 
+  def status_color
+    if to_swap?
+      'border-warning'
+    elsif accept_pending?(submitter)
+      'border-success'
+    else
+      ''
+    end
+  end
+
   def to_swap?
     status == TO_SWAP
   end

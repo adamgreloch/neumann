@@ -1,0 +1,18 @@
+<ul class="list-unstyled mb-1">
+  <li class="h5"><b>Status:</b>
+    <%= render 'status', game_copy: game_copy %>
+  </li>
+  <li><b>Condition:</b> <%= "#{game_copy.condition} - #{describe_condition(game_copy.condition)}" %>
+    <span class="text-secondary">
+          <% count =  game_copy.opinions.count %>
+      <% if count == 0 %>
+            (unverified)
+          <% else %>
+            (users see it as ~<%= game_copy.avg_condition %>, n=<%= count %>)
+          <% end %>
+          </span>
+  </li>
+  <li><b>Owner:</b> <%= link_to game_copy.owner.name, game_copy.owner %></li>
+  <li><b>In Neumann since:</b> <%= game_copy.created_at.to_date %></li>
+  <li><b>ISBN:</b> <%= game_copy.barcode %></li>
+</ul>
